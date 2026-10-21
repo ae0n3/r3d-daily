@@ -182,6 +182,18 @@ def emit(d):
     print('wrote %s (%d bytes)' % (os.path.relpath(OUT, ROOT), len(js.encode('utf-8'))))
 
 
+
+def emit_audio_manifest():
+    """Audio inventory -> daily/audio-manifest.js (id -> audio/<id>.mp3)."""
+    import json as _j
+    audio_dir = os.path.join(ROOT, 'audio')
+    ids = sorted(f[:-4] for f in os.listdir(audio_dir) if f.endswith('.mp3'))
+    payload = {i: 'audio/' + i + '.mp3' for i in ids}
+    js = _j.dumps(payload, ensure_ascii=False)
+    out = os.path.join(ROOT, 'audio-manifest.js')
+    with open(out, 'w', encoding='utf-8') as _f:
+        _f.write('// Generated: python tools/build.py' + chr(10) + 'window.R3D_AUDIO=' + js + ';' + chr(10))
+    print('wrote %s (%d keys)' % (os.path.relpath(out, ROOT), len(ids)))
 def main():
     if '--check' in sys.argv:
         pass
@@ -194,6 +206,7 @@ def main():
     n = report(d, errs, warns)
     if n == 0 and '--check' not in sys.argv:
         emit(d)
+        emit_audio_manifest()
     return 1 if n else 0
 
 
