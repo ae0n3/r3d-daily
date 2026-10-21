@@ -252,7 +252,17 @@
       stopAudio(); localStorage.removeItem('r3d-daily-start');
       window.location.href='index.html';
     });
-    $('#audioBtn').addEventListener('click',()=>{ playId(cur&&cur.id); });
+    $('#audioBtn').addEventListener('click',()=>{
+      const el = document.getElementById('r3dAudio');
+      const id = cur&&cur.id;
+      if (el.paused && id && AUDIO[id]) {
+        el.src = AUDIO[id]; el.play().catch(()=>{});
+        $('#audioBtn').classList.add('playing');
+      } else {
+        el.paused && el.pause() && (el.currentTime = 0);
+        $('#audioBtn').classList.remove('playing');
+      }
+    });
     $('#grade-dunno').addEventListener('click',()=>grade('dunno'));
     $('#grade-hard').addEventListener('click',()=>grade('hard'));
     $('#grade-know').addEventListener('click',()=>grade('know'));
