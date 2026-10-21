@@ -258,7 +258,8 @@
       const id = cur&&cur.id;
       if (!audioOn && id && AUDIO[id]) {
         el.src = AUDIO[id];
-        el.play().then(()=>{ audioOn = true; $('#audioBtn').classList.add('playing'); }).catch(()=>{});
+        el.play().catch(()=>{});
+        audioOn = true; $('#audioBtn').classList.add('playing');
       } else {
         el.pause(); el.currentTime = 0; audioOn = false; $('#audioBtn').classList.remove('playing');
       }
