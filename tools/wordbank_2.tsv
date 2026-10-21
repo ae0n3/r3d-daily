@@ -1,0 +1,225 @@
+226	下班	ينتهي من العمل / يخرج من الدوام	general	neutral
+227	下课	تنتهي الحصّة	general	neutral
+228	想	يريد / يفكّر / يشتاق	general	neutral
+229	先生	سيّد / أستاذ	polite	neutral
+230	现在	الآن	general	neutral
+231	小	صغير	general	neutral
+232	小朋友	طفل / أطفال	general	street
+233	小时	ساعة	numbers	neutral
+234	小学	مدرسة ابتدائية	general	neutral
+235	小学生	تلميذ ابتدائي	general	neutral
+236	下午	بعد الظهر	numbers	neutral
+237	下雨	تمطر	general	neutral
+238	写	يكتب	general	neutral
+239	些	بعض / قليلة	general	neutral
+240	谢谢	شكراً	polite	neutral
+241	喜欢	يحبّ / يعجبه	general	neutral
+242	新	جديد	general	neutral
+243	星期	أسبوع	numbers	neutral
+244	星期日	الأحد	numbers	neutral
+245	星期天	الأحد	numbers	neutral
+246	休息	يستريح / إجازة	general	neutral
+247	学	يتعلّم / يدرس	general	neutral
+248	雪	ثلج	general	neutral
+249	学生	طالب	general	neutral
+250	学习	يتعلّم / يدرس	general	neutral
+251	学校	مدرسة	general	neutral
+252	要	يريد / يحتاج / سوف	general	neutral
+253	也	أيضاً	general	neutral
+254	一	واحد	numbers	neutral
+255	一半	نصف	numbers	neutral
+256	一点儿	قليلاً	general	street
+257	衣服	ملابس	shopping	neutral
+258	医生	طبيب	emergency	neutral
+259	一下	قليلاً / مرّة واحدة	general	neutral
+260	一些	بعض	general	neutral
+261	医院	مستشفى	emergency	neutral
+262	椅子	كرسي	general	neutral
+263	有	يوجد / لديه	general	neutral
+264	有的	بعض	general	neutral
+265	有点儿	قليلاً / نوعاً ما	general	street
+266	有些	بعض	general	neutral
+267	雨	مطر	general	neutral
+268	元	يوان (عملة)	shopping	neutral
+269	月	شهر / قمر	numbers	neutral
+270	再	مرّة أخرى	general	neutral
+271	在	في / عند	general	neutral
+272	再见	وداعاً	greetings	neutral
+273	早	باكر / صباح	numbers	neutral
+274	早饭	فطور	food	neutral
+275	早上	صباحاً	numbers	neutral
+276	怎么	كيف / لماذا	questions	neutral
+277	怎么样	كيف الحال / كيف هو	questions	neutral
+278	找	يبحث عن / يدوّر	general	neutral
+279	这	هذا	general	neutral
+280	这边	هنا / هذا الجانب	general	neutral
+281	这个	هذا	general	neutral
+282	这里	هنا	general	neutral
+283	真	حقيقي / فعلاً	general	neutral
+284	正在	في طور / الآن (مستمرّ)	general	neutral
+285	这儿	هنا	general	street
+286	这些	هذه	general	neutral
+287	只	أداة عدّ (للطيور والحيوانات) / فقط	general	neutral
+288	知道	يعرف	general	neutral
+289	中国	الصين	general	neutral
+290	中文	اللغة الصينية (المكتوبة)	general	neutral
+291	中午	ظهيرة / منتصف النهار	numbers	neutral
+292	中学	مدرسة إعدادية / ثانوية	general	neutral
+293	中学生	طالب إعدادية / ثانوية	general	neutral
+294	住	يسكن / يقيم	general	neutral
+295	桌子	طاولة / مكتب	general	neutral
+296	字	حرف / كلمة	general	neutral
+297	坐	يجلس / يركب (مواصلات)	transport	neutral
+298	做	يفعل / يصنع	general	neutral
+299	做饭	يطبخ	food	neutral
+300	昨天	أمس	numbers	neutral
+301	啊	أداة تعجّب	general	neutral
+302	爱好	هواية / يحبّ	general	neutral
+303	白色	أبيض	general	neutral
+304	班	صفّ / دوام	general	neutral
+305	帮	يساعد	general	neutral
+306	帮忙	يساعد / خدم	general	street
+307	包	يغلف / يحتوي / حزمة	general	neutral
+308	本子	دفتر / كرّاس	general	neutral
+309	比	يقارن / مقارنة	general	neutral
+310	笔	قلم	general	neutral
+311	别	لا / غير	general	neutral
+312	不错	جيّد / لا بأس	general	street
+313	不好意思	خجل / اعذرني	polite	neutral
+314	长	طويل	general	neutral
+315	车站	محطّة	transport	neutral
+316	出	يخرج / يحدث	general	neutral
+317	床	سرير	general	neutral
+318	出国	يسافر للخارج	transport	neutral
+319	出来	يخرج / يظهر	general	neutral
+320	出门	يخرج من البيت	general	neutral
+321	出去	يخرج	general	neutral
+322	词	كلمة	general	neutral
+323	次	مرّة (أداة عدّ)	numbers	neutral
+324	从	من / من	general	neutral
+325	从小	منذ الصغر	general	neutral
+326	错	خطأ / غلط	general	neutral
+327	打	يضرب / يرنّ (هاتف) / يلعب (رياضة)	general	neutral
+328	打车	يستقلّ سيارة أجرة	transport	street
+329	打开	يفتح / يشغّل	general	neutral
+330	但	لكن	general	neutral
+331	但是	ولكن	general	neutral
+332	得	أداة ربط (بعد الفعل)	general	neutral
+333	地	أداة وصف (قبل الفعل)	general	neutral
+334	等	ينتظر / إلى آخره	general	neutral
+335	点	أداة عدّ صغيرة / نقطة	numbers	neutral
+336	地铁	مترو	transport	neutral
+337	动	يتحرّك	general	neutral
+338	懂	يفهم	general	neutral
+339	饭馆	مطعم	food	street
+340	飞	يطير	transport	neutral
+341	高	عالٍ / طويل (القامة)	general	neutral
+342	告诉	يخبر	general	neutral
+343	高中	ثانوية عامة	general	neutral
+344	跟	مع / يتبع	general	neutral
+345	个子	طول القامة / بنية	general	neutral
+346	公交车	حافلة / باص	transport	neutral
+347	过	أداة تجربة سابقة	general	neutral
+348	过	يمرّ / يتجاوز	general	neutral
+349	过来	تعال هنا / ينجح	general	street
+350	过年	يحتفل بالسنة الجديدة (الربيع)	general	neutral
+351	过去	في الماضي / سابق	general	neutral
+352	还是	أو / ما زال	general	neutral
+353	黑色	أسود	general	neutral
+354	红茶	شاي أسود	food	neutral
+355	红色	أحمر	general	neutral
+356	后面	خلف	general	neutral
+357	画	يرسم / رسمة	general	neutral
+358	花	زهرة / ينفق	general	neutral
+359	花	نمط / مزخرف	general	neutral
+360	坏	سيّئ / معطّل	general	neutral
+361	回来	يرجع	general	neutral
+362	回去	يرجع (ذهاباً)	general	neutral
+363	间	بين / غرفة (أداة عدّ)	general	neutral
+364	教	يعلّم	general	neutral
+365	教室	صفّ / قاعة درس	general	neutral
+366	机场	مطار	transport	neutral
+367	记得	يتذكّر	general	neutral
+368	介绍	يقدّم / مقدّمة	general	neutral
+369	进	يدخل	general	neutral
+370	近	قريب	general	neutral
+371	经常	غالباً / كثيراً	general	neutral
+372	进来	تعال إلى الداخل	general	street
+373	进去	ادخل	general	neutral
+374	机票	تذكرة طائرة	transport	neutral
+375	就	إذن / فوراً / فقط	general	neutral
+376	酒店	فندق / بار	hotel	neutral
+377	咖啡	قهوة	food	neutral
+378	开始	يبدأ / بداية	general	neutral
+379	开学	تبدأ الدراسة	general	neutral
+380	考	يختبر / يفحص	general	neutral
+381	考试	امتحان	general	neutral
+382	可能	ممكن / ربما	general	neutral
+383	快	سريع / قريباً	general	neutral
+384	快乐	سعيد / مبهج	general	neutral
+385	快要	على وشك	general	neutral
+386	裤子	بنطلون / سروال	shopping	neutral
+387	篮球	كرة سلّة	general	neutral
+388	累	متعب	general	neutral
+389	离	يبتعد / عن	general	neutral
+390	里面	داخل	general	neutral
+391	楼	عمارة / طابق	hotel	neutral
+392	路	طريق	transport	neutral
+393	绿茶	شاي أخضر	food	neutral
+394	绿色	أخضر	general	neutral
+395	路上	على الطريق	transport	neutral
+396	旅游	سياحة / يسافر	transport	neutral
+397	慢	بطيء	general	neutral
+398	每	كلّ	general	neutral
+399	没意思	مملّ / غير ممتع	general	street
+400	门	باب	general	neutral
+401	门口	عند الباب	general	neutral
+402	门票	تذكرة دخول	shopping	neutral
+403	面	وجه / جانب / سطح	general	neutral
+404	名	اسم / أداة عدّ (للأشخاص)	general	neutral
+405	拿	يأخذ / يحمل	general	neutral
+406	奶茶	شاي بالحليب	food	street
+407	奶奶	جدّة (أمّ الأب)	general	neutral
+408	那么	هكذا / إلى هذا الحد	general	neutral
+409	男孩儿	صبيّ	general	street
+410	那样	من هذا النوع / هكذا	general	neutral
+411	鸟	طائر	general	neutral
+412	女孩儿	صبيّة / بنت	general	street
+413	旁边	بجانب / بجوار	general	neutral
+414	跑	يركض	general	neutral
+415	跑步	يركض / يمارس الجري	general	neutral
+416	票	تذكرة	transport	neutral
+417	前面	أمام	general	neutral
+418	起来	ينهض / يصعد / يبدأ	general	neutral
+419	晴	صافٍ (طقس)	general	neutral
+420	球	كرة	general	neutral
+421	妻子	زوجة	general	neutral
+422	让	يدع / يسمح / يجعل	general	neutral
+423	肉	لحم	food	neutral
+424	商场	مركز تسوّق / مول	shopping	neutral
+425	上来	تعال إلى الأعلى	general	street
+426	上面	فوق / أعلاه	general	neutral
+427	上去	اصعد	general	neutral
+428	上网	يتصفّح الإنترنت	phone	neutral
+429	生日	عيد ميلاد	general	neutral
+430	身体	جسم / صحّة	general	neutral
+431	时	ساعة / وقت	numbers	neutral
+432	事情	أمر / قضيّة	general	neutral
+433	手	يد	general	neutral
+434	手表	ساعة يد	shopping	neutral
+435	书包	حقيبة مدرسية	general	neutral
+436	舒服	مريح / مرتاح	general	neutral
+437	送	يوصّل / يهدي	general	neutral
+438	虽然	على الرّغم من	general	neutral
+439	所以	لذلك	general	neutral
+440	疼	يؤلم / ألم	emergency	neutral
+441	题	سؤال / موضوع	questions	neutral
+442	踢	يركل / يلعب (كرة)	general	neutral
+443	条	غصن / شريط / أداة عدّ	general	neutral
+444	跳舞	يرقص	general	neutral
+445	头	رأس / شعر	general	neutral
+446	外国	دولة أجنبية	general	neutral
+447	外面	خارج	general	neutral
+448	完	ينتهي / يكتمل	general	neutral
+449	万	عشرة آلاف	numbers	neutral
+450	忘	ينسى	general	neutral

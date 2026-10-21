@@ -1,0 +1,73 @@
+/* ============================================================
+   R3D Daily Review — scoped styles (base: common.css)
+   Dark theme like the site; flip = display toggle (iOS-safe).
+   ============================================================ */
+:root{
+  --btn:#1e293b; --btn2:#26354c; --btnline:#334155;
+}
+.dhome, .dreview{ max-width:560px; }
+
+/* ---- top bar (review) ---- */
+.dtopbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.dtopbar .dback{font-weight:700;color:var(--accent);}
+.dtitle{font-weight:700;font-size:16px;}
+.dtimer{font-size:13px;color:var(--gold);font-weight:700;}
+
+/* ---- stats ---- */
+.dstat{display:flex;gap:8px;margin-bottom:12px;}
+.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:center;}
+.stat b{display:block;font-size:18px;color:var(--accent);}
+.stat span{font-size:11px;color:var(--dim);}
+
+/* ---- segmented / level / batch ---- */
+.dseg{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.dseglab{font-size:11px;color:var(--dim);margin-right:6px;white-space:nowrap;}
+.dlev, .dcBtn{
+  flex:1 1 auto; min-width:44px; padding:8px 6px;
+  border-radius:8px; border:1px solid var(--line); background:var(--card2);
+  color:var(--text); font-size:12.5px; font-family:var(--ar); cursor:pointer;
+  transition:.15s;
+}
+.dlev.on, .dcBtn.on{ background:var(--accent); border-color:var(--accent); color:#06280f; font-weight:700; }
+
+/* ---- category chips ---- */
+.dchcon{margin-top:4px;}
+.dch{display:flex;flex-wrap:wrap;gap:6px;}
+.dchip{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--text);font-size:12px;cursor:pointer;}
+.dchip.on{ background:var(--accent); border-color:var(--accent); color:#06280f; font-weight:700; }
+
+/* ---- cards ---- */
+.dcard{max-width:460px;margin:0 auto;min-height:200px;position:relative;}
+.dfront,.dback{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:right;transition:opacity .15s;}
+.dfront{ min-width:100%; }
+.dzh{font-size:27px;font-weight:700;font-family:var(--cn);line-height:1.25;}
+.dpy{font-size:13px;color:var(--muted);margin-top:6px;}
+.dar{font-size:15px;color:var(--text);margin-top:10px;line-height:1.65;}
+.dnote{font-size:12.5px;color:var(--dim);margin-top:12px;line-height:1.6;}
+.dpair{font-size:11.5px;color:var(--dim);margin-top:12px;border-top:1px dashed var(--line);padding-top:8px;}
+.dpair b{color:var(--text);}
+
+.dbadge{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;margin-bottom:8px;}
+.badge-street{background:#7c2d12;color:#fca5a5;}
+.badge-academic{background:#3b2f0b;color:#d9c48c;}
+.badge-neutral{background:#1e293b;color:#94a3b8;}
+
+/* ---- controls ---- */
+.dctrl{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 6px;}
+.dbtn{flex:1 1 30%;padding:13px;border:none;border-radius:10px;background:var(--card2);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--ar);}
+.dbtn:active{transform:scale(.98);}
+.dknow{background:#052e16;border-color:#14632a;color:#34d399;font-weight:800;}
+.dunno{background:#3c1414;border-color:#7f1d1d;color:#fb7185;font-weight:800;}
+.dfoot{margin-top:10px;}
+.dfoot .dbtn{width:auto;}
+
+/* ---- home buttons ---- */
+.dstart{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(180deg,#38bdf8,#0284a8);color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--ar);}
+.dstart:hover{filter:brightness(1.05);}
+.dnote{font-size:11px;color:var(--dim);line-height:1.6;margin-top:8px;}
+.dnote b{color:var(--text);}
+.dnote button{white-space:nowrap;padding:2px 6px;background:var(--card2);border:1px solid var(--line);border-radius:6px;color:var(--text);cursor:pointer;font-size:11px;}
+
+/* ---- empty state ---- */
+.empty{padding:24px;text-align:center;color:var(--dim);}
+.empty .big{font-size:34px;}

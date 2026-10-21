@@ -1,0 +1,80 @@
+1101	一共	كلّاً / جميعاً	general	neutral
+1102	一块儿	معاً / معاً (erhua)	general	street
+1103	终于	أخيراً / في النهاية	general	neutral
+1104	周末	عطلة نهاية الأسبوع / نهاية الأسبوع	general	neutral
+1105	主要	رئيسي / بصفة خاصة	general	neutral
+1106	注意	ينتبه / انتبه / اهتمام	general	neutral
+1107	住院	يمشي في المستشفى / يُدخل المستشفى	emergency	neutral
+1108	子	تصريف اسمي (للحيوانات والآلات)	general	neutral
+1109	字典	قاموس للصينيات / قاموس صيني	general	neutral
+1110	自行车	دراجة هوائية / دراجة نارية	transport	neutral
+1111	总	إجمالي / بشكل عام	general	neutral
+1112	总是	دائماً / في كلّ الأوقات	general	neutral
+1113	嘴	فم	general	neutral
+1114	最好	أفضل / يُفضّل / من الأفضل	general	neutral
+1115	最后	أخيراً / في النهاية / الصادر الأخير	general	neutral
+1116	最近	مؤخراً / في الأيام الأخيرة	general	neutral
+1117	做客	يزور شخصاً آخر / يأتي كضيف	general	street
+1118	作业	واجب منزلي / واجب دراسي	general	neutral
+1119	爱情	حبّ / حبّ عاطفي	general	neutral
+1120	爱心	تكرم / تعاطف مع الآخرين	general	neutral
+1121	按	يضغط على / حسب / يُراعِ	general	neutral
+1122	安检	تفتيش أمني / فحص أمني	transport	neutral
+1123	安排	يرتّب / يخطّط / يُعين	general	neutral
+1124	按时	في الوقت المناسب / على الموعد	general	neutral
+1125	按照	بحسب / وفقًا لِ	general	neutral
+1126	白酒	باي جيو / مشروب كحولي فاتح قوي	food	neutral
+1127	棒	طوبة / عصا / ممتاز / طيّب	general	neutral
+1128	办公	يعمل في المكتب / المهام المكتبية	general	neutral
+1129	办理	يعالج / ينجز في شأن / يُلوّح	general	neutral
+1130	办事	يتعامل مع شئون / يقوم بمهام	general	neutral
+1131	抱	يحتضن / يحمل في أحضان / يوجد على ظهره	general	neutral
+1132	报名	يسجّل / يتقدّم للانضمام	transport	street
+1133	保护	يحمي / يدافع عن	emergency	neutral
+1134	报考	يسجّل لاختبار / امتحان / دراسة	general	neutral
+1135	抱歉	أعتذر / آسف جداً / شكّرت بذلك	polite	neutral
+1136	保证	يؤكّد / يضمن أنّ	general	neutral
+1137	倍	ضعف / مرة × (عدّ)	numbers	neutral
+1138	背	يحمل على ظهره / يملك سراً / يغٔى	general	neutral
+1139	背包	حقيبة ظهر / حقيبة ربط ظهر	shopping	neutral
+1140	北部	النصف الشمالي للدولة / جزء شمالي	general	neutral
+1141	笨	أحمق / بطيء في الفهم	general	street
+1142	本科	دراسة جامعية / درجة برها / دبلوم	general	neutral
+1143	本来	في الأصل / في البداية / كما هو متوقع	general	neutral
+1144	毕业	يتخرّج من دراسة / ينهي الدراسة	general	neutral
+1145	便于	يُسهّل / يُجعل من السهل	general	neutral
+1146	表	سطح / بطاقة / قالب / نموذج	general	neutral
+1147	表格	نموذج / جدول / ورقة رسمية	general	neutral
+1148	表示	يعبّر / يوضّح / يظهر / يُبرّز	general	neutral
+1149	表现	يظهر / يعبّر بوضوح	general	neutral
+1150	表扬	يثني / يمدح / يذكر بشكر	polite	neutral
+1151	标准	أمر رسمي / معيار / درجة تقييم	general	neutral
+1152	并	وأيضاً / علاوة على ذلك / معاً	general	neutral
+1153	饼干	كوكيز / معجنات محفوظة / قطع خشب	food	neutral
+1154	并且	وأيضاً / علاوة على ذلك / بجانب ذلك	general	neutral
+1155	笔试	امتحان كتابي / ورقي / ورق كرتوني	general	neutral
+1156	毕业生	خريج / خريجة دراسي / خريجة دراسية	general	neutral
+1157	鼻子	أنف (أداة جسدية)	general	neutral
+1158	播放	يعمّل / يُذيع صوتاً أو صورة / يُوقّر	phone	neutral
+1158	博士	دكتوراه / باحث / دكتور عاليّ	general	neutral
+1160	步	خطوة / خطوة واحدة في الركض	general	neutral
+1161	部	وزارة / قسم / جهة حكومية / حكومة	general	neutral
+1162	不得不	يجب / لا خيار غير / لا مفر منه	general	neutral
+1163	不必	لا حاجة / لا داعي / ما دام	general	neutral
+1164	不便	غير مناسب / غير مريح / عسير	general	street
+1165	不断	مستمرّ / بلا انقطاع / دائماً	general	neutral
+1166	部分	جزء / شُبْه جزئي / بلد جزئياً	general	neutral
+1167	不够	غير كافٍ / لا يكفي / أقلّ من المتوقع	general	street
+1168	不管	بغض النظر / دوّن / لا يهمّ	general	neutral
+1169	不光	ليس فقط / لا يساوي / كذلك	general	neutral
+1170	不过	لكن / ومع ذلك / ولكن / بحلول	general	neutral
+1171	不仅	ليس فقط / مزاعم / كذلك	general	neutral
+1172	不论	بغض النظر ما / بغض النظر عن / ما يهمّ	general	neutral
+1173	不满	غير راضٍ / ليس راضياً / بهام	general	street
+1174	部门	قسم / إدارة / غرفة مشروع / مساحة	general	neutral
+1175	不如	ليس بقدر / ليس متساوياً مع / أقلّ من	general	neutral
+1176	擦	يدعّك / يتّسّك / يمسح سريعاً	general	neutral
+1177	猜	يخمّن / يسأل عن معنى / يتوقّع	questions	neutral
+1178	材料	مواد خام / مواد لصنع / قمامة	general	neutral
+1179	参观	يزور مكاناً / حديقة / متحفاً / معرضاً	transport	street
+1180	参赛	يتنافس في مباراة / مسابقة / لقب / سباق	general	street

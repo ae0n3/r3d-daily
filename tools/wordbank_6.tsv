@@ -1,0 +1,80 @@
+952	行	يمشي / يوافق / حسناً	general	street
+953	行李	أمتعة	transport	neutral
+954	兴趣	اهتمام	general	neutral
+954	心里	بلا قلب / ذهنه	general	neutral
+956	新年	العام الجديد	general	neutral
+957	新闻	أخبار	general	neutral
+958	新鲜	طازج	general	neutral
+959	休假	إجازة / عطلة	general	street
+960	洗衣机	غسالة ملابس	general	neutral
+961	洗澡	يحمّم / يستحم	general	street
+962	选	يختار	general	neutral
+963	选择	اختيار	general	neutral
+962	学期	فصل دراسي	general	neutral
+965	需要	يحتاج	general	neutral
+966	牙	سن	general	neutral
+967	羊	ضأن / كبدة	food	neutral
+968	养	يربي / يربّي	general	neutral
+969	要求	طلب / يطلب	questions	neutral
+970	牙刷	مشط أسنان	emergency	neutral
+971	页	صفحة	general	neutral
+972	一般	عادي / عام	general	neutral
+973	一边	من جانبه / في الوقت ذاته	general	neutral
+974	一定	بالتأكيد	general	neutral
+975	以后	بعد / لاحقاً	general	neutral
+976	一块	معاً (erhua)	general	street
+977	应该	ينبغي / يجب	general	neutral
+978	影响	يؤثر / تأثير	general	neutral
+979	银行	بنك	general	neutral
+980	银行卡	بطاقة بنكية	phone	neutral
+981	饮料	مشروب	food	neutral
+982	音乐	موسيقى	general	neutral
+983	以前	قبل / سابقاً	general	neutral
+984	以上	ما فوق	general	neutral
+985	以外	باستثناء / غير	general	neutral
+986	以为	يظنّ (خطأ)	general	neutral
+987	以下	ما أسفله	general	neutral
+988	一样	بنفس الشكل	general	neutral
+989	一直	إبداً / مباشرة	general	neutral
+990	用	يستعمل	general	neutral
+991	又	مرة أخرى / أيضاً	general	neutral
+992	有关	مرتبط بـ	general	neutral
+993	邮件	بريد / رسالة	phone	neutral
+994	游客	سائح	general	street
+995	有名	مشهور	general	neutral
+996	游戏	لعبة / لعب	phone	street
+997	邮箱	صندوق بريد / بريد إلكتروني	phone	neutral
+998	有用	مفيد	general	neutral
+999	员	عضو (موظّف)	general	neutral
+1000	园	حديقة / مسرح	general	neutral
+1001	愿意	راغب / يرغب	general	neutral
+1002	遇到	يلتقي / يصادف	general	neutral
+1003	越	كلما زاد	general	neutral
+1004	月亮	قمر	general	neutral
+1005	遇见	يلتقي	general	neutral
+1006	羽毛球	كرة بدمن	general	street
+1007	运动会	بطولة رياضية	general	neutral
+1008	运动员	رياضي	general	neutral
+1009	语言	لغة	general	neutral
+1010	雨衣	مظلّة مطية	shopping	neutral
+1011	脏	متسخ / غير نظيف	general	street
+1012	咱们	نحن (مشاملين)	general	neutral
+1013	怎么办	ماذا أفعل؟	questions	street
+1014	怎样	كيف؟	questions	neutral
+1015	张	مقلاة / أداة عدّ (مسطح)	general	neutral
+1016	照	يضيء / بحسب	general	neutral
+1017	照顾	يعتني / يهتمّ	health	street
+1018	着急	يقلق / يضيق	health	street
+1019	照片	صورة	phone	neutral
+1020	照相	يلتقط صورة	phone	neutral
+1021	纸	ورق	general	neutral
+1022	直到	حتى	general	neutral
+1023	只能	لا يستطيع غير	general	neutral
+1024	只是	فقط / إنما	general	neutral
+1025	只要	إذا فقط / ما دام	general	neutral
+1026	只有	فقط	general	neutral
+1027	种	نوع / بذرة	general	neutral
+1028	中	داخل / الصين	general	neutral
+1029	中间	وسط	general	neutral
+1030	重要	هام	general	neutral
+1031	咱	نحن (ضمناً)	general	street

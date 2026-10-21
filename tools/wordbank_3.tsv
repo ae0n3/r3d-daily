@@ -1,0 +1,225 @@
+451	矮	قصير (القامة)	general	neutral
+452	爱人	زوج / زوجة	general	neutral
+453	安静	هادئ	general	neutral
+454	安全	آمن / سلامة	emergency	neutral
+455	阿姨	خالة / أمّ صديقة	general	street
+456	把	يمسك / أداة عدّ (للأشياء ذات المقبض)	general	neutral
+457	办	ينفّذ / يعالج	general	neutral
+458	搬	ينقل / ينتقل	general	neutral
+459	办法	طريقة / حلّ	general	neutral
+460	办公室	مكتب	general	neutral
+461	帮助	مساعدة / يساعد	general	neutral
+462	班级	صفّ / شعبة	general	neutral
+463	搬家	ينقل البيت / ينتقل	general	neutral
+464	半天	نصف يوم / وقت طويل	general	neutral
+465	饱	شبعان / ممتلئ	food	neutral
+466	报纸	صحيفة / جرائد	general	neutral
+467	被	أداة مبنيّ للمجهول	general	neutral
+468	北	شمال	general	neutral
+469	北方	الشمال	general	neutral
+470	遍	مرّة / في كلّ مكان	numbers	neutral
+471	变	يتغيّر / يصبح	general	neutral
+472	变成	يصبح / يتحوّل إلى	general	neutral
+473	变化	تغيّر / تغيير	general	neutral
+474	表演	أداء / يمثل	general	neutral
+475	别的	آخر / غير	general	neutral
+476	别人	آخرون / غيرك	general	neutral
+477	笔记	ملاحظات / دفتر ملاحظات	general	neutral
+478	比较	مقارنة / نسبيّاً	general	neutral
+479	笔记本	دفتر ملاحظات / لابتوب	general	neutral
+480	冰	ثلج / مثلّج	food	neutral
+481	冰激凌	آيس كريم	food	street
+482	病人	مريض	emergency	neutral
+483	宾馆	نُزل / فندق صغير	hotel	neutral
+484	冰箱	ثلّاجة / برّاد	general	neutral
+485	比如	على سبيل المثال	general	neutral
+486	比赛	مباراة / مسابقة	general	neutral
+487	必须	يجب / لابدّ	general	neutral
+488	不但	ليس فقط	general	neutral
+489	不见	لا يرى / يختفي	general	neutral
+490	不久	بعد قليل / قريباً	general	neutral
+491	不同	مختلف	general	neutral
+492	不行	لا يصلح / مستحيل	general	street
+493	不用	لا داعي / لا تحتاج	general	neutral
+494	才	موهبة / فقط / الآن	general	neutral
+495	菜单	قائمة طعام	food	neutral
+496	参加	يشارك / يحضر	general	neutral
+497	草	عشب / قشّ	general	neutral
+498	草地	مرج / عشب	general	neutral
+499	层	طبقة / طابق	general	neutral
+500	查	يفحص / يبحث	general	neutral
+501	差	ينقص / رديء	general	neutral
+502	差不多	تقريباً / شبه متساوٍ	general	street
+503	尝	يتذوّق	food	neutral
+504	常	دائماً / غالباً	general	neutral
+505	常常	غالباً / كثيراً	general	neutral
+506	常见	شائع	general	neutral
+507	常用	شائع الاستخدام	general	neutral
+508	成绩	نتيجة / إنجاز / درجات	general	neutral
+509	城市	مدينة	general	neutral
+510	衬衫	قميص	shopping	neutral
+511	迟到	يتأخّر	general	neutral
+512	船	سفينة / قارب	transport	neutral
+513	出发	ينطلق / يغادر	transport	neutral
+514	除了	بالإضافة إلى / ما عدا	general	neutral
+515	春天	ربيع	general	neutral
+516	出生	يولد	general	neutral
+517	出院	يغادر المستشفى	emergency	neutral
+518	初中	إعداديّة	general	neutral
+519	词典	قاموس	general	neutral
+520	聪明	ذكيّ	general	neutral
+521	大概	تقريباً / على الأغلب	general	neutral
+522	带	حزام / منطقة / يحمل / يجلب	general	neutral
+523	蛋糕	كعكة / كيك	food	neutral
+524	当然	بالطبع	general	neutral
+525	担心	يقلق	general	neutral
+526	到处	في كلّ مكان	general	neutral
+527	大人	بالغ / شخص محترم	general	neutral
+528	打扫	ينظّف / يكنّس	general	neutral
+529	打算	يخطّط / ينوي	general	neutral
+530	大小	حجم / كبير وصغير	general	neutral
+531	大熊猫	باندا عملاقة	general	neutral
+532	大衣	معطف	shopping	neutral
+533	得	يحصل / يفوز	general	neutral
+534	得到	يحصل على / ينال	general	neutral
+535	得分	يسجّل نقطة	general	neutral
+536	的话	إذا / في حالة	general	neutral
+537	得	يجب / لابدّ	general	neutral
+538	灯	مصباح / نور	general	neutral
+539	地	أرض	general	neutral
+540	电	كهرباء / برق	general	neutral
+541	电梯	مصعد	hotel	neutral
+542	电子书	كتاب إلكتروني	phone	neutral
+543	地点	مكان / موقع	general	neutral
+544	地方	مكان / منطقة	general	neutral
+545	地图	خريطة	transport	neutral
+546	丢	يفقد / يرمي	general	neutral
+547	东	شرق	general	neutral
+548	东北	شمال شرق	general	neutral
+549	懂得	يفهم / يدرك	general	neutral
+550	东方	الشرق / المشرق	general	neutral
+551	东南	جنوب شرق	general	neutral
+552	冬天	شتاء	general	neutral
+553	动物	حيوان	general	neutral
+554	动物园	حديقة حيوان	general	neutral
+555	段	فقرة / مقطع	general	neutral
+556	短	قصير	general	neutral
+557	短裤	سروال قصير / شورت	shopping	neutral
+558	锻炼	يمارس الرياضة / يتدرّب	general	neutral
+559	对话	حوار / محادثة	general	neutral
+560	饿	جائع	food	neutral
+561	耳朵	أذن	general	neutral
+562	耳机	سمّاعات	phone	neutral
+563	而且	وأيضاً / علاوة على ذلك	general	neutral
+564	发	يرسل / يصدر	general	neutral
+565	放	يضع / يطلق / يحرّر	general	neutral
+566	放心	يرتاح / يطمئن	general	neutral
+567	方便	مريح / مناسب	general	neutral
+568	方便面	نودلز سريعة	food	street
+569	方法	طريقة / أسلوب	general	neutral
+570	放假	إجازة / عطلة	general	neutral
+571	方向	اتجاه	general	neutral
+572	放学	ينتهي الدوام المدرسي	general	neutral
+573	房子	بيت / منزل	hotel	neutral
+574	发烧	حمّى / ترتفع حرارته	emergency	neutral
+575	发生	يحدث / يقع	general	neutral
+576	发现	يكتشف / يجد	general	neutral
+577	发展	يتطوّر / تطوير	general	neutral
+578	封	يمنح لقباً / يختم	general	neutral
+579	风	رياح / خبر / أسلوب	general	neutral
+580	分开	ينفصل / يقسّم	general	neutral
+581	附近	قريب / بجوار	general	neutral
+582	夫妻	زوجان / زوج وزوجة	general	neutral
+583	服务	خدمة / يخدم	general	neutral
+584	复习	يراجع / يستذكر	general	neutral
+585	该	يجب / ينبغي	general	neutral
+586	干	يعمل / يفعل / يجفّ	general	neutral
+587	感兴趣	مهتمّ بـ	general	neutral
+588	感到	يشعر بـ	general	neutral
+589	刚	الآن (منذ لحظات)	general	neutral
+590	刚才	قبل قليل	general	neutral
+591	刚刚	للتوّ / قبل لحظات	general	neutral
+592	干净	نظيف	general	neutral
+593	感冒	زكام / برد	emergency	neutral
+594	高铁	قطار فائق السرعة	transport	neutral
+595	更	أكثر / أقلّ	general	neutral
+596	根据	بحسب / بناءً على	general	neutral
+597	公斤	كيلوغرام	numbers	neutral
+598	公园	حديقة عامّة	general	neutral
+599	工作日	يوم عمل	general	neutral
+600	刮	يهبّ (الريح) / يكشط	general	neutral
+601	关	يغلق / يتعلّق	general	neutral
+602	关机	يوقف التشغيل	phone	neutral
+603	关系	علاقة / صلة	general	neutral
+604	关心	يهتمّ بـ	general	neutral
+605	关于	عن / بخصوص	general	neutral
+606	关注	يتابع / يركّز على	general	neutral
+607	国家	دولة / وطن	general	neutral
+608	过节	يحتفل بالعيد	general	neutral
+609	过去	في الماضي / سابق	general	neutral
+610	故事	قصّة / حكاية	general	neutral
+611	海	بحر / محيط	general	neutral
+612	害怕	يخاف	general	neutral
+613	好多	كثير / أفضل بكثير	general	street
+614	好久	وقت طويل	general	street
+615	号码	رقم	numbers	neutral
+616	好像	يبدو / كأنّ	general	neutral
+617	河	نهر	general	neutral
+618	黑板	سبورة	general	neutral
+619	合适	مناسب / ملائم	general	neutral
+620	红绿灯	إشارة مرور	transport	neutral
+621	后来	بعد ذلك / لاحقاً	general	neutral
+622	后年	بعد السنة القادمة	numbers	neutral
+623	后天	بعد غد	numbers	neutral
+624	画家	رسّام	general	neutral
+625	还	يردّ / يعيد	general	neutral
+626	换	يغيّر / يستبدل	general	neutral
+627	黄色	أصفر	general	neutral
+628	环境	بيئة / محيط	general	neutral
+629	欢迎	يرحّب / أهلاً وسهلاً	greetings	neutral
+630	花园	حديقة ورود	general	neutral
+631	会	اجتماع / لقاء / مؤتمر	general	neutral
+632	回答	يجيب	questions	neutral
+633	会议	اجتماع / مؤتمر	general	neutral
+634	或	أو	general	neutral
+635	或者	أو / ربّما	general	neutral
+636	جواز	جواز سفر	general	neutral
+637	极	أقصى / قطب / جداً	general	neutral
+638	急	عاجل / سريع / قلق	general	neutral
+639	季	فصل / موسم	general	neutral
+640	记	يسجّل / يلاحظ / يحفظ	general	neutral
+641	鸡	دجاجة / ديك	food	neutral
+642	加	يضيف / كندا / زائد	general	neutral
+643	检查	يفحص / يفتّش	emergency	neutral
+644	坚持	يصرّ / يثابر	general	neutral
+645	简单	بسيط	general	neutral
+646	讲	يتحدّث / يشرح / يلقي محاضرة	general	neutral
+647	健康	صحّة / سليم	emergency	neutral
+648	见面	يلتقي / يقابل	general	neutral
+649	检票	يفحص التذكرة	transport	neutral
+650	脚	قدم / رجل	general	neutral
+651	角	قرن / زاوية / جيانغ (عملة)	general	neutral
+652	假期	إجازة / عطلة	general	neutral
+653	节	فصل / جزء / عيد	general	neutral
+654	借	يستعير / يقترض	general	neutral
+655	接	يربط / يستقبل / يذهب لاستلام	general	neutral
+656	街	شارع	transport	neutral
+657	结婚	يتزوّج	general	neutral
+658	解决	يحلّ / يعالج	general	neutral
+659	姐妹	أخوات / أختان	general	neutral
+660	节目	برنامج / فقرة	general	neutral
+661	节日	عيد / مناسبة	general	neutral
+662	结束	ينتهي / يختتم	general	neutral
+663	几乎	تقريباً / بالكاد	general	neutral
+664	机会	فرصة	general	neutral
+665	季节	فصل / موسم	general	neutral
+666	斤	جين (500 غرام)	numbers	neutral
+667	经过	يمرّ / عبر	general	neutral
+668	经理	مدير	general	neutral
+669	旧	قديم / مستعمل	general	neutral
+670	久	طويل (الزمن)	general	neutral
+671	酒	نبيذ / كحول	food	neutral
+672	句	جملة / عبارة	general	neutral
+673	决定	يقرّر / يعزم	general	neutral
+674	句子	جملة	general	neutral
+675	卡	يوقف / يحجز / بطيء	general	neutral

@@ -1,0 +1,51 @@
+901	往	يتجه / يأتي من اتجاه	transport	street
+902	网上	عبر الإنترنيت	phone	neutral
+903	位	مقياس مهذّب للأشخاص / موقع	general	neutral
+904	为什么	لماذا	questions	neutral
+905	洗	ينظّف / يغسل	general	street
+906	下来	ينزل / يكتمل	general	neutral
+907	下面	تحت / بعد	questions	neutral
+908	笑	يضحك / يبتسم	general	street
+909	小孩儿	طفل	general	neutral
+910	小时候	في طفولته	general	neutral
+911	下去	ينزل / يواصل	general	neutral
+912	姓	لقب العائلة / اسم العائلة	general	neutral
+913	姓名	الاسم الكامل	general	neutral
+914	洗手间	حمّام / ممرّ	hotel	neutral
+915	希望	يأمل / يتمنّى	general	neutral
+916	眼睛	عين	general	neutral
+917	颜色	لون	general	neutral
+918	药	دواء	emergency	neutral
+919	药店	صيدلية	emergency	neutral
+920	爷爷	جدّ (والد الأب)	general	neutral
+921	一会儿	لحظة / وقت قصير	general	neutral
+922	已经	بالفعل	general	neutral
+923	阴	مغطى / خافت	general	neutral
+924	因为	لأنّ	general	neutral
+925	一起	معاً	general	street
+926	意思	معنى / فكرة	general	neutral
+927	游	ينساب / يسبح / يزور	general	street
+928	右	يمين	general	neutral
+929	右边	الجانب الأيمن	general	neutral
+930	有时	أحياناً / أحياناً	general	neutral
+931	有意思	ممتع / مفيد	general	street
+932	游泳	يسبح	general	street
+933	鱼	سمكة	food	neutral
+934	远	بعيد	general	neutral
+935	运动	رياضة / تمرين	general	neutral
+936	站	يقف / محطة	general	neutral
+937	丈夫	زوج	general	neutral
+938	着	(وصف فعل مازلت)	general	neutral
+939	这么	بهذا القدر	general	street
+940	正	صحيح / مستقيم	general	neutral
+941	这样	هكذا	general	street
+942	周	أسبوع	general	neutral
+943	准备	يجهّز / يستعد	general	neutral
+944	自己	نفسه / بنفسه	general	neutral
+945	走	يمشي / يذهب	general	street
+946	走路	يمشي (راجعاً)	transport	neutral
+947	最	أكثر	general	neutral
+948	左	يسار	general	neutral
+949	左边	الجانب الأيسر	general	neutral
+950	足球	كرة قدم	general	street
+951	护照	جواز سفر	phone	neutral

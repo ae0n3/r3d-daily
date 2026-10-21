@@ -1,0 +1,175 @@
+676	开花	يتفتّح / يزهر	general	neutral
+677	开会	يعقد اجتماعاً / يحضر اجتماعاً	general	neutral
+678	开机	يشغّل (جهازاً) / يبدأ التشغيل	phone	neutral
+679	开心	سعيد / يمرح	general	street
+680	看来	يبدو / من الواضح أنّ	general	neutral
+681	刻	ربع ساعة / أداة عدّ (للوقت)	numbers	neutral
+682	渴	عطشان	food	neutral
+683	可	يمكن / مسموح / يقبل	general	neutral
+684	可爱	لطيف / محبوب	general	street
+685	课本	كتاب مدرسي	general	neutral
+686	客人	ضيف / زبون	hotel	neutral
+687	可是	ولكن	general	neutral
+688	课文	نصّ / درس	general	neutral
+689	空调	مكيّف	hotel	neutral
+690	哭	يبكي	general	neutral
+691	筷子	عيدان طعام (تشوبستيكس)	food	neutral
+692	矿泉水	ماء معدني	food	neutral
+693	来自	قادم من / من	general	neutral
+694	蓝	أزرق	general	neutral
+695	老	كبير في السنّ / قديم / صلب	general	neutral
+696	老人	رجل مسنّ / مسنّ	general	neutral
+697	练	يتدرّب / يتمرّن	general	neutral
+698	脸	وجه	general	neutral
+699	辆	أداة عدّ (للمركبات)	transport	neutral
+700	凉快	منعش / بارد لطيف	general	street
+701	练习	تدريب / تمرين	general	neutral
+702	聊	يتحادث / ثرثر	general	street
+703	了解	يفهم / يعلم	general	neutral
+704	聊天儿	ثرثرة / محادثة خفيفة	general	street
+705	离开	يغادر	general	neutral
+706	邻居	جار	general	neutral
+707	历史	تاريخ	general	neutral
+708	留学	يدرس في الخارج	general	neutral
+709	留学生	طالب يدرس في الخارج	general	neutral
+710	礼物	هدية	general	neutral
+711	楼梯	درج / سلّم	hotel	neutral
+712	路边	جانب الطريق	transport	neutral
+713	路口	تقاطع / مفرق	transport	neutral
+714	马	حصان	general	neutral
+715	马路	شارع	transport	neutral
+716	满意	راضٍ / قانع	general	neutral
+717	毛	شعر / فرو / ريش	general	neutral
+718	马上	فوراً / مباشرة	general	street
+719	米	أرز / متر	food	neutral
+720	面前	أمام / في حضرة	general	neutral
+721	明白	واضح / يفهم	general	neutral
+722	名单	قائمة أسماء	general	neutral
+723	名人	شخصيّة مشهورة	general	neutral
+724	难	صعب	general	neutral
+725	南	جنوب	general	neutral
+726	南方	الجنوب	general	neutral
+727	难过	حزين / يمرّ بوقت صعب	general	neutral
+728	难看	قبيح / غير لائق	general	street
+729	男人	رجل	general	neutral
+730	男生	طالب / ذكر	general	neutral
+731	难题	مسألة صعبة	general	neutral
+732	难听	غير مريح للسمع / بذيء	general	street
+733	年级	صفّ دراسي	general	neutral
+734	年轻	شابّ / صغير السنّ	general	neutral
+735	牛	بقرة / ثور	food	neutral
+736	努力	يجتهد / يبذل جهداً	general	neutral
+737	女人	امرأة	general	neutral
+738	女生	طالبة / أنثى	general	neutral
+739	爬	يتسلّق / يزحف	general	neutral
+740	怕	يخاف / يخشى	general	neutral
+741	拍照	يلتقط صورة	phone	neutral
+742	胖	سمين	general	neutral
+743	盘子	صحن / طبق	food	neutral
+744	啤酒	بيرة	food	neutral
+745	平时	عادةً / في الأوقات العادية	general	neutral
+746	瓶子	زجاجة	food	neutral
+747	骑	يركب (دراجة / حصان)	transport	neutral
+748	起	ينهض / يرفع / يبدأ	general	neutral
+749	铅笔	قلم رصاص	general	neutral
+750	前年	السنة التي قبل الماضية	numbers	neutral
+751	前天	أوّل أمس	numbers	neutral
+752	汽车	سيارة	transport	neutral
+753	起飞	يقلع (طائرة)	transport	neutral
+754	奇怪	غريب	general	street
+755	请假	يطلب إجازة	general	neutral
+756	清楚	واضح / بلا غموض	general	neutral
+757	请客	يدعو على العشاء / يستضيف	polite	neutral
+758	其实	في الحقيقة / فعلاً	general	neutral
+759	其他	غير / آخر	general	neutral
+760	球场	ملعب	general	neutral
+761	秋天	خريف	general	neutral
+762	裙子	تنّورة / فستان	shopping	neutral
+763	然后	ثمّ / بعد ذلك	general	neutral
+764	认得	يتعرّف على / يتذكّر	general	neutral
+765	认为	يرى / يعتبر	general	neutral
+766	认真	جادّ / دقيقّ	general	neutral
+767	热情	حماس / متحمّس	general	neutral
+768	容易	سهل	general	neutral
+769	如果	إذا	general	neutral
+770	伞	مظلّة	shopping	neutral
+771	扫	يكنّس / يمسح	general	neutral
+772	沙发	أريكة / كنبة	general	neutral
+773	山	جبل	general	neutral
+774	上衣	ملابس علوية / جاكيت	shopping	neutral
+775	勺子	ملعقة	food	neutral
+776	身边	بجانب / متاح	general	neutral
+777	声	صوت / نغمة	general	neutral
+778	身高	طول القامة	general	neutral
+779	生活	حياة / يعيش	general	neutral
+780	生气	غاضب	general	neutral
+781	声音	صوت	general	neutral
+782	试	يجرّب / يختبر	general	neutral
+783	室	غرفة / وحدة	general	neutral
+784	市	سوق / مدينة	general	neutral
+785	世界	عالم	general	neutral
+786	瘦	نحيف	general	neutral
+787	受	يتلقّى / يقبل / يتعرّض	general	neutral
+788	收	يستلم / يقبوض / يجمع	general	neutral
+789	受到	يتلقّى / يتعرّض لـ	general	neutral
+790	收到	يستلم	general	neutral
+791	树	شجرة	general	neutral
+792	刷	فرشاة / يدهن / يمسح	general	neutral
+793	双	زوج / أداة عدّ (للأزواج)	general	neutral
+794	水平	مستوى / معيار	general	neutral
+795	叔叔	عمّ / خال (باحترام)	general	neutral
+796	数学	رياضيات	general	neutral
+797	四季	فصول السنة الأربعة	general	neutral
+798	司机	سائق	transport	neutral
+799	太阳	شمس	general	neutral
+800	糖	سكّر / حلوى	food	neutral
+801	特别	خاصّ / مميّز	general	neutral
+802	甜	حلو	food	neutral
+803	跳	يقفز / يرقص	general	neutral
+804	提高	يرفع / يحسّن	general	neutral
+805	挺	مستقيم / تماماً / جيّد	general	neutral
+806	听说	سمع أنّ / يُقال	general	neutral
+807	体育	تربية بدنية / رياضة	general	neutral
+808	体育馆	صالة رياضيّة / ملعب	general	neutral
+809	同事	زميل عمل	general	neutral
+810	同意	يوافق	general	neutral
+811	头发	شعر (الرأس)	general	neutral
+812	腿	ساق	general	neutral
+813	突然	فجأة	general	neutral
+814	图书馆	مكتبة (عامّة)	general	neutral
+815	外地	مناطق أخرى / خارج المدينة	general	neutral
+816	外卖	توصيل طعام / طلب خارجي	food	street
+817	外语	لغة أجنبية	general	neutral
+818	碗	وعاء / صحن	food	neutral
+819	完成	ينجز / يكمل	general	neutral
+820	晚点	متأخّر / تأخير	transport	neutral
+821	忘记	ينسى	general	neutral
+822	网球	تنس	general	neutral
+823	网站	موقع إلكتروني	phone	neutral
+824	晚会	حفل مسائي	general	neutral
+825	为	لأجل / بسبب / إلى	general	neutral
+826	为了	من أجل / بهدف	general	neutral
+827	卫生间	حمّام / دورة مياه	hotel	neutral
+828	文化	ثقافة	general	neutral
+829	屋子	غرفة / بيت	general	neutral
+830	西	غرب	general	neutral
+831	喜爱	يحبّ / يعشق	general	neutral
+832	先	أوّلاً / قبل	general	neutral
+833	像	يشبه / مثل / صورة	general	neutral
+834	向	اتجاه / نحو / يوجّه	general	neutral
+835	相机	كاميرا	phone	neutral
+836	香蕉	موز	food	neutral
+837	相信	يثق / يصدّق	general	neutral
+838	箱子	حقيبة / صندوق	general	neutral
+839	小区	مجمع سكني / حيّ	general	neutral
+840	小心	حذر / انتبه	general	street
+841	校园	حرم جامعي / مدرسي	general	neutral
+842	校长	مدير مدرسة / رئيس جامعة	general	neutral
+843	夏天	صيف	general	neutral
+844	西北	شمال غرب	general	neutral
+845	鞋	حذاء	shopping	neutral
+846	西方	الغرب	general	neutral
+847	西瓜	بطّيخ	food	neutral
+848	习惯	عادة / معتاد على	general	neutral
+849	信	رسالة / بريد / يثق	general	neutral
+850	西南	جنوب غرب	general	neutral

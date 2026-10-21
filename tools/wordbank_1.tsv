@@ -1,0 +1,225 @@
+1	爱	يحبّ	general	neutral
+2	吧	أداة اقتراح مهذّب	general	neutral
+3	八	ثمانية	numbers	neutral
+4	爸爸	أب / والد	general	street
+5	百	مئة	numbers	neutral
+6	白天	نهار	numbers	neutral
+7	半	نصف	numbers	neutral
+8	包子	باوزي (خبز محشو على البخار)	food	street
+9	杯子	كوب	food	neutral
+10	本	دفتر / كتاب (أداة عدّ)	general	neutral
+11	边	جانب / حافة	general	neutral
+12	病	مرض	emergency	neutral
+13	不	لا	general	neutral
+14	不客气	عفواً / لا شكر على واجب	polite	neutral
+15	不要	لا تفعل / ممنوع	general	street
+16	菜	طبق / خضار	food	neutral
+17	茶	شاي	food	neutral
+18	唱	يغنّي	general	neutral
+19	超市	سوبرماركت	shopping	neutral
+20	车	سيارة / عربة	transport	neutral
+21	吃	يأكل	food	neutral
+22	穿	يلبس	general	neutral
+23	出租车	سيارة أجرة	transport	street
+24	大	كبير	general	neutral
+25	打电话	يتّصل بالهاتف	phone	neutral
+26	大家	الجميع	general	neutral
+27	到	يصل / إلى	general	neutral
+28	大学	جامعة	general	neutral
+29	大学生	طالب جامعي	general	neutral
+30	的	أداة إضافة (ملكية)	general	neutral
+31	第	أداة ترتيب (الأول)	numbers	neutral
+32	店	محلّ	shopping	neutral
+33	点	نقطة / الساعة	numbers	neutral
+34	电话	هاتف	phone	neutral
+35	电脑	حاسوب	phone	neutral
+36	电视	تلفزيون	phone	neutral
+37	电影	فيلم	phone	neutral
+38	电影院	سينما	phone	neutral
+39	弟弟	أخٌ أصغر	general	neutral
+40	东西	شيء / أشياء	general	neutral
+41	读	يقرأ	general	neutral
+42	都	كلّ / جميع	general	neutral
+43	对	صحيح / مقابل	general	neutral
+44	对不起	آسف / اعذرني	polite	neutral
+45	多	كثير	general	neutral
+46	多少	كم	questions	neutral
+47	读书	يقرأ / يدرس	general	neutral
+48	二	اثنان	numbers	neutral
+49	儿子	ابن	general	neutral
+50	饭	أرز / وجبة	food	neutral
+51	饭店	مطعم / فندق	food	neutral
+52	房间	غرفة	hotel	neutral
+53	非常	جداً	general	neutral
+54	飞机	طائرة	transport	neutral
+55	分	يقسّم / دقيقة / جزء	numbers	neutral
+56	分钟	دقيقة	numbers	neutral
+57	高兴	سعيد / فرحان	general	neutral
+58	个	أداة عدّ عامّة	general	neutral
+59	歌	أغنية	general	neutral
+60	哥哥	أخٌ أكبر	general	neutral
+61	给	يعطي	general	neutral
+62	公司	شركة	general	neutral
+63	工作	عمل / وظيفة	general	neutral
+64	狗	كلب	general	neutral
+65	贵	غالٍ	shopping	neutral
+66	国	دولة	general	neutral
+67	还	ما زال / أيضاً	general	neutral
+68	孩子	طفل	general	neutral
+69	汉语	اللغة الصينية	general	neutral
+70	汉字	حرف صيني	general	neutral
+71	号	رقم / تاريخ	numbers	neutral
+72	好	جيّد / حسناً	general	neutral
+73	好吃	لذيذ	food	street
+74	好看	جميل (في المنظر)	general	neutral
+75	好听	جميل (في الصوت)	general	neutral
+76	好玩儿	ممتع	general	street
+77	和	و / مع	general	neutral
+78	喝	يشرب	food	neutral
+79	很	جداً	general	neutral
+80	后	خلف / بعد	general	neutral
+81	回	يعود / مرّة	general	neutral
+82	会	يستطيع / سوف	general	neutral
+83	火车	قطار	transport	neutral
+84	几	كم / عدّة	questions	neutral
+85	家	بيت / عائلة	general	neutral
+86	件	قطعة (أداة عدّ)	general	neutral
+87	见	يرى / يقابل	general	neutral
+88	叫	ينادي / يُدعى	general	neutral
+89	饺子	زلابية / دمبلينغ	food	street
+90	家人	أفراد العائلة	general	neutral
+91	鸡蛋	بيض	food	neutral
+92	姐姐	أخت أكبر	general	neutral
+93	今年	هذه السنة	numbers	neutral
+94	今天	اليوم	numbers	neutral
+95	九	تسعة	numbers	neutral
+96	觉得	يشعر / يرى	general	neutral
+97	开	يفتح / يشغّل	general	neutral
+98	开车	يقود السيارة	transport	neutral
+99	看	ينظر / يشاهد	general	neutral
+100	看病	يراجع الطبيب / يمرّض	emergency	neutral
+101	看见	يرى / يشاهد	general	neutral
+102	课	حصّة / درس	general	neutral
+103	可以	يمكن / مسموح	general	neutral
+104	口	فم	general	neutral
+105	块	قطعة / يوان (عملة)	shopping	neutral
+106	来	يأتي	general	neutral
+107	老师	معلّم	general	neutral
+108	了	أداة فعل ماضٍ	general	neutral
+109	冷	بارد	general	neutral
+110	里	داخل	general	neutral
+111	两	اثنان (مع العدّ)	numbers	neutral
+112	零	صفر	numbers	neutral
+113	六	ستّة	numbers	neutral
+114	吗	أداة استفهام	questions	neutral
+115	卖	يبيع	shopping	neutral
+116	买	يشتري	shopping	neutral
+117	妈妈	أمّ	general	street
+118	忙	مشغول	general	neutral
+119	猫	قطة	general	neutral
+120	没关系	لا يهمّ / لا بأس	polite	neutral
+121	妹妹	أخت أصغر	general	neutral
+122	没事	لا بأس / لا شيء	polite	street
+123	没有	لا يوجد / ليس لديه	general	neutral
+124	们	أداة جمع	general	neutral
+125	面包	خبز	food	neutral
+126	面条儿	نودلز / معكرونة	food	street
+127	米饭	أرز	food	neutral
+128	明年	السنة القادمة	numbers	neutral
+129	明天	غداً	numbers	neutral
+130	名字	اسم	general	neutral
+131	那	ذلك	general	neutral
+132	哪	أيّ	questions	neutral
+133	哪儿	أين	questions	street
+134	那边	هناك / ذلك الجانب	general	neutral
+135	那个	ذلك / ذلك الشيء	general	neutral
+136	哪个	أيّ	questions	neutral
+137	那里	هناك	general	neutral
+138	哪里	أين	questions	neutral
+139	男	ذكر / رجل	general	neutral
+140	男朋友	صديق / حبيب	general	street
+141	那儿	هناك	general	street
+142	那些	تلك	general	neutral
+143	哪些	أيّة	questions	neutral
+144	呢	أداة استفهام	questions	neutral
+145	能	يستطيع	general	neutral
+146	你	أنت	general	neutral
+147	年	سنة	numbers	neutral
+148	你好	مرحباً	greetings	street
+149	你们	أنتم	general	neutral
+150	您	أنت (باحترام)	polite	neutral
+151	牛奶	حليب	food	neutral
+152	女	أنثى / امرأة	general	neutral
+153	女儿	ابنة	general	neutral
+154	女朋友	صديقة / حبيبة	general	street
+155	女士	سيّدة / آنسة	polite	neutral
+156	朋友	صديق	general	neutral
+157	便宜	رخيص	shopping	neutral
+158	漂亮	جميل	general	neutral
+159	苹果	تفّاحة	food	neutral
+160	七	سبعة	numbers	neutral
+161	起床	يستيقظ	general	neutral
+162	钱	مال	shopping	neutral
+163	前	أمام / قبل	general	neutral
+164	千	ألف	numbers	neutral
+165	请	من فضلك / يرجى	polite	neutral
+166	请问	هل يمكنني أن أسأل	polite	neutral
+167	去	يذهب	general	neutral
+168	去年	السنة الماضية	numbers	neutral
+169	热	حارّ	general	neutral
+170	人	شخص / ناس	general	neutral
+171	认识	يعرف / يتعرّف على	general	neutral
+172	日	شمس / يوم	numbers	neutral
+173	三	ثلاثة	numbers	neutral
+174	上	فوق / أعلى	general	neutral
+175	上班	يذهب للعمل / الدوام	general	neutral
+176	商店	متجر	shopping	neutral
+177	上课	يحضر الحصّة	general	neutral
+178	上午	صباح	numbers	neutral
+179	上学	يذهب للمدرسة	general	neutral
+180	少	قليل	general	neutral
+181	谁	من	questions	neutral
+182	生病	يمرض	emergency	neutral
+183	什么	ماذا	questions	neutral
+184	十	عشرة	numbers	neutral
+185	是	يكون / نعم	general	neutral
+186	事	أمر / شأن	general	neutral
+187	时候	وقت / حين	general	neutral
+188	时间	وقت	general	neutral
+189	手机	هاتف محمول	phone	neutral
+190	书	كتاب	general	neutral
+191	书店	مكتبة (محلّ كتب)	shopping	neutral
+192	睡	ينام	general	neutral
+193	水	ماء	food	neutral
+194	水果	فاكهة	food	neutral
+195	睡觉	ينام	general	neutral
+196	说	يقول	general	neutral
+197	说话	يتحدّث	general	neutral
+198	四	أربعة	numbers	neutral
+199	岁	سنة (عمر)	numbers	neutral
+200	它	هو (لغير العاقل)	general	neutral
+201	他	هو	general	neutral
+202	她	هي	general	neutral
+203	太	جداً / مفرط	general	neutral
+204	他们	هم	general	neutral
+205	她们	هنّ	general	neutral
+206	它们	هم (غير عاقل)	general	neutral
+207	天	يوم / سماء	numbers	neutral
+208	天气	طقس	general	neutral
+209	听	يسمع / يستمع	general	neutral
+210	听见	يسمع	general	neutral
+211	同学	زميل دراسة	general	neutral
+212	外	خارج / خارجي	general	neutral
+213	外边	خارج	general	neutral
+214	玩	يلعب / يتمشّى	general	street
+215	晚	مساء / متأخّر	numbers	neutral
+216	晚饭	عشاء	food	neutral
+217	晚上	مساءً	numbers	neutral
+218	喂	آلو / مرحباً	phone	street
+219	问	يسأل	questions	neutral
+220	问题	سؤال / مشكلة	questions	neutral
+221	我	أنا	general	neutral
+222	我们	نحن	general	neutral
+223	五	خمسة	numbers	neutral
+224	午饭	غداء	food	neutral
+225	下	تحت / أسفل	general	neutral

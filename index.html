@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="مراجعة كلمات وجمل صينية للحياة اليومية — غير أكاديمية، واجهة عربية">
+<title>مراجعة اليوم — R3D</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="./common.css">
+<link rel="stylesheet" href="./daily.css">
+</head>
+<body>
+<header>
+  <h1>📒 مراجعة اليوم</h1>
+  <p class="sub">كلمات وجمل حياة — <b>لا أكاديمية</b>، وخطوات واضحة بين الشارعي والرسمي</p>
+</header>
+
+<section class="dhome">
+  <div class="dstat" id="dstat">
+    <div class="stat"><b id="statAll">0</b><span>إجمالي البطاقات</span></div>
+    <div class="stat"><b id="statToday">0</b><span>في اليومانية</span></div>
+    <div class="stat"><b id="statMst">0</b><span>معروفة</span></div>
+  </div>
+
+  <div class="dseg">
+    <span class="dseglab">الوضع</span>
+    <button class="dcBtn" id="modeToday">📅 اليومانية</button>
+    <button class="dcBtn on" id="modeAll">🆕 جديدة</button>
+  </div>
+
+  <div class="dseg">
+    <span class="dseglab">المستوى</span>
+    <button class="dlev on" data-lv="easy">سهل</button>
+    <button class="dlev" data-lv="medium">متوسط</button>
+    <button class="dlev" data-lv="hard">صعب</button>
+  </div>
+
+  <div class="dseg" id="dbs">
+    <span class="dseglab">الوقت القصير</span>
+    <button class="dlev" data-bs="30">30 ث</button>
+    <button class="dlev" data-bs="60">1 دقيقة</button>
+    <button class="dlev" data-bs="120">2 دقيقة</button>
+  </div>
+
+  <div class="dchcon">
+    <span class="dseglab">الفئات</span>
+    <div class="dch" id="catCh"></div>
+  </div>
+
+  <p class="dsub">شارعي = يومي في الشارع والمتجر، رسمي = للعمل والمدرسة، محايد = كل مكان</p>
+
+  <button class="dstart" id="startBtn">▶ ابدأ المراجعة</button>
+  <p class="dnote">المصدر الوحيد: <b>library/content-data.json</b> (أعد التشغيل بـ <b>tools/build.py</b>)</p>
+  <p class="dnote"><button id="resetBtn">✕ بدء جديد — مواصفات اليومانية والعلامات</button></p>
+</section>
+
+<script src="./common.js?v=22"></script>
+<script src="daily-data.js?v=3"></script>
+<script src="daily.js?v=1"></script>
+</body>
+</html>

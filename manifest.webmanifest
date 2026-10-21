@@ -1,0 +1,12 @@
+{
+  "name": "R3D — مراجعة الحياة اليومية",
+  "short_name": "R3D",
+  "description": "كلمات وجمل صينية للحياة اليومية — غير أكاديمية، عربية الواجهة",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
