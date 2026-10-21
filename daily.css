@@ -47,3 +47,5 @@ a{color:inherit;text-decoration:none}
 @media(max-width:480px){.rev-page{padding:22px 12px 20px}.content-card{padding:22px}#cardFront{font-size:34px}#cardAr{font-size:21px}.grade-row{gap:10px}.grade-btn{height:50px;font-size:15px}}
 
 #audioBtn.playing { background: rgba(56, 217, 248, 0.28) !important; border-color: #38d9f8 !important; }
+
+#audioBtn.playing { background: rgba(56, 217, 248, 0.28) !important; border-color: #38d9f8 !important; }

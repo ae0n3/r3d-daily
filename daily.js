@@ -4,6 +4,7 @@
   const $$ = s => Array.from(document.querySelectorAll(s));
   const STORAGE = 'r3d-daily-state-v1';
   const AUDIO = window.R3D_AUDIO || {};
+  let audioOn = false;
   const CATS = (window.R3D_DAILY && window.R3D_DAILY.cats) || [];
 
   const CAT_COLOR = {
@@ -255,12 +256,11 @@
     $('#audioBtn').addEventListener('click',()=>{
       const el = document.getElementById('r3dAudio');
       const id = cur&&cur.id;
-      if (el.paused && id && AUDIO[id]) {
-        el.src = AUDIO[id]; el.play().catch(()=>{});
-        $('#audioBtn').classList.add('playing');
+      if (!audioOn && id && AUDIO[id]) {
+        el.src = AUDIO[id];
+        el.play().then(()=>{ audioOn = true; $('#audioBtn').classList.add('playing'); }).catch(()=>{});
       } else {
-        el.paused && el.pause() && (el.currentTime = 0);
-        $('#audioBtn').classList.remove('playing');
+        el.pause(); el.currentTime = 0; audioOn = false; $('#audioBtn').classList.remove('playing');
       }
     });
     $('#grade-dunno').addEventListener('click',()=>grade('dunno'));
