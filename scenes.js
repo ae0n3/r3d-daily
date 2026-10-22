@@ -98,7 +98,7 @@
     s += '<rect width="350" height="236" fill="url(#g-sky)"/>';
     s += '<circle cx="175" cy="150" r="86" fill="url(#g-sun)"/>';
     s += '<circle cx="175" cy="150" r="30" fill="#FFD98A" opacity="0.95"/>';
-    s += skyline(350, 176, 3, c);
+    s += skyline(350, 236, 176, c, 3);
     s += '<rect x="0" y="176" width="350" height="60" fill="#0B1026"/>';
     s += '<rect x="0" y="176" width="350" height="3" fill="' + c + '" opacity="0.5"/>';
     // two people, one reaching out to shake hands
@@ -144,11 +144,11 @@
       '<stop offset="1" stop-color="#0A0F1F"/></radialGradient></defs>';
     s += '<rect width="350" height="236" fill="url(#n-bg)"/>';
     s += stars(24, 350, 236, c);
-    // floating numerals at 30% opacity
+    // floating numerals at 30% opacity: [glyph, x, y, fontSize]
     const nums = [['一', 44, 44, 26], ['二', 292, 52, 22], ['三', 40, 190, 24], ['四', 300, 186, 26]];
     for (const n of nums) {
-      s += '<text x="' + n[0] + '" y="' + n[1] + '" font-family="' + CN + '" font-size="' + n[2] +
-           '" font-weight="700" fill="' + c + '" opacity="0.3" text-anchor="middle">' + n[3] + '</text>';
+      s += '<text x="' + n[1] + '" y="' + n[2] + '" font-family="' + CN + '" font-size="' + n[3] +
+           '" font-weight="700" fill="' + c + '" opacity="0.3" text-anchor="middle">' + n[0] + '</text>';
     }
     // clock
     const cx = 175, cy = 118, R = 66;
@@ -522,13 +522,13 @@
       }
     }
     s += '</g>';
-    // floating Chinese words cloud
+    // floating Chinese words cloud: [glyph, x, y, fontSize, color]
     const words = [['人', 40, 48, 30, '#66D9E8'], ['水', 92, 92, 26, '#38D9A9'], ['大', 34, 150, 28, '#FFB020'],
                    ['小', 88, 196, 24, '#F783AC'], ['好', 148, 150, 22, '#B197FC'], ['日', 152, 40, 20, '#FF7A59'],
                    ['月', 52, 108, 18, '#748FFC']];
     for (const w of words) {
-      s += '<text x="' + w[0] + '" y="' + w[1] + '" font-family="' + CN + '" font-size="' + w[2] +
-           '" font-weight="700" fill="' + w[4] + '" opacity="0.85" text-anchor="middle">' + w[3] + '</text>';
+      s += '<text x="' + w[1] + '" y="' + w[2] + '" font-family="' + CN + '" font-size="' + w[3] +
+           '" font-weight="700" fill="' + w[4] + '" opacity="0.85" text-anchor="middle">' + w[0] + '</text>';
     }
     return s;
   }
