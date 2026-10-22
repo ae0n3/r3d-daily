@@ -4,42 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a0f1f">
-<title>🐴 مراجعة اليوم</title>
+<title>مراجعة اليوم</title>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./daily.css?v=3">
+<link rel="stylesheet" href="./daily.css?v=5">
 </head>
-<body class="rev-page" data-cat="all">
-  <header class="rev-head">
-    <a href="index.html" class="back-btn" id="backBtn" aria-label="رجوع">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 7 7 5 5"/><polyline points="9 19 7 17 5 19"/></svg>
-    </a>
-    <h1 class="rev-title" id="revTitle">التحيات والتعارف</h1>
-    <div class="timer" id="timer">0:30</div>
-  </header>
-  <nav class="progress" id="progressWrap">
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="progress-meta"><span id="progressLabel">0 / 0</span><span id="progressLeft"></span></div>
-  </nav>
-  <section class="scene-card" id="sceneCard" aria-hidden="true"><svg id="sceneSvg" viewBox="0 0 350 236"></svg></section>
-  <div class="tags" id="tagsRow"></div>
-  <div class="content-card" id="contentCard">
-    <div id="cardFront">——</div>
-    <div id="pinyin" class="pinyin pinyin-ltr"></div>
-    <div class="divider"></div>
-    <div id="cardAr">——</div>
-  </div>
-  <button class="audio-btn" id="audioBtn" aria-label="استماع">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3l-6 9h4v6l6-9h-4z"/></svg>
-  </button>
-  <div class="grade-row">
-    <button class="grade-btn" id="grade-dunno" data-grade="dunno">لم أعرفها</button>
-    <button class="grade-btn" id="grade-hard" data-grade="hard">صعبة</button>
-    <button class="grade-btn" id="grade-know" data-grade="know">عرفتها</button>
-  </div>
-  <audio id="r3dAudio" preload="auto"></audio>
-  <script src="daily-data.js?v=3"></script>
-  <script src="audio-manifest.js?v=1"></script>
-  <script src="daily.js?v=3"></script>
+<body>
+<div id="app"></div>
+
+<script src="daily-data.js?v=5"></script>
+<script src="audio-manifest.js?v=1"></script>
+<script src="config.js?v=1"></script>
+<script src="scenes.js?v=1"></script>
+<script src="daily.js?v=5"></script>
+<script>
+  // Legacy entry point: review.html?cat=greetings  ->  #/study/greetings
+  (function () {
+    var q = location.search.slice(1).split('&');
+    var cat = 'all';
+    for (var i = 0; i < q.length; i++) {
+      var p = q[i], j = p.indexOf('=');
+      if (j > 0 && p.slice(0, j) === 'cat') cat = decodeURIComponent(p.slice(j + 1));
+    }
+    if (!location.hash) location.replace('#/study/' + cat);
+  })();
+</script>
 </body>
 </html>
