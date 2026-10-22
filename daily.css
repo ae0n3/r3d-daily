@@ -43,6 +43,12 @@
   --radius-btn:20px;
   --radius-badge:15px;
 
+  /* Chinese headline size on the flashcard. The back face carries the
+     translation and the note too, so it gets a slightly smaller size.
+     Both are re-declared per breakpoint further down. */
+  --card-zh:40px;
+  --card-zh-back:32px;
+
   --cn:'Noto Sans SC','PingFang SC','Source Han Sans SC','Microsoft YaHei',sans-serif;
   --ar:'Readex Pro',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;
 
@@ -93,7 +99,9 @@ a{color:inherit;text-decoration:none}
 .hero h1{margin:0;font-size:52px;line-height:1.1;font-weight:700;letter-spacing:-.5px}
 .hero-sub{font-size:18px;color:var(--text-2);font-weight:300;max-width:60ch}
 .hero-sub b{color:var(--text);font-weight:600}
-.hero-skyline{position:absolute;left:0;bottom:0;width:560px;height:220px;opacity:.9;pointer-events:none}
+/* the skyline is decorative: it is wider than a phone, so it is pinned to the
+   inline-start edge and clipped by the hero's overflow:hidden */
+.hero-skyline{position:absolute;inset-inline-start:0;bottom:0;width:560px;max-width:100%;height:220px;opacity:.9;pointer-events:none}
 .hero-scope{position:relative;font-size:14px;color:var(--text-3);margin-top:-8px}
 
 /* ============ stat cards ============ */
@@ -114,9 +122,11 @@ a{color:inherit;text-decoration:none}
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-card);padding:28px;display:flex;flex-direction:column;gap:22px}
 .ctl-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .ctl-label{width:120px;font-size:15px;color:var(--text-3);font-weight:500}
-.ctl-opts{flex:1 1 360px;display:flex;gap:12px}
+/* the option buttons wrap onto a second row rather than being squished
+   when the row gets narrow (4 level buttons on a phone) */
+.ctl-opts{flex:1 1 360px;min-width:0;display:flex;gap:12px;flex-wrap:wrap}
 .seg{
-  flex:1 1 0%;min-height:64px;border-radius:var(--radius-btn);border:1px solid var(--border-strong);
+  flex:1 1 120px;min-width:0;min-height:64px;border-radius:var(--radius-btn);border:1px solid var(--border-strong);
   background:var(--panel-2);color:var(--text);font-size:19px;font-weight:600;
   display:flex;align-items:center;justify-content:center;gap:10px;
   transition:background var(--dur),border-color var(--dur),color var(--dur),transform var(--dur);
@@ -128,7 +138,6 @@ a{color:inherit;text-decoration:none}
   border-color:transparent;color:var(--ink);font-weight:700;
   box-shadow:0 8px 22px rgba(43,176,238,.28);
 }
-.seg-sm{font-size:18px}
 
 /* ============ register legend ============ */
 .tones{display:flex;gap:14px;flex-wrap:wrap}
@@ -139,8 +148,11 @@ a{color:inherit;text-decoration:none}
 }
 .tone:hover{transform:translateY(-2px)}
 .tone-icon{width:46px;height:46px;border-radius:16px;flex:none;display:flex;align-items:center;justify-content:center}
-.tone-name{font-size:18px;font-weight:700}
-.tone-desc{font-size:14px;color:var(--text-2);margin-top:2px}
+/* the label block stacks name over description — without an explicit
+   column flex the two spans stay inline and their line boxes collide */
+.tone-text{display:flex;flex-direction:column;gap:8px;min-width:0;flex:1}
+.tone-name{font-size:18px;font-weight:700;line-height:1.3}
+.tone-desc{font-size:14px;color:var(--text-2);line-height:1.5}
 .tone[data-tone="street"]{background:rgba(255,122,89,.094);border-color:rgba(255,122,89,.333)}
 .tone[data-tone="street"] .tone-icon{background:var(--street)}
 .tone[data-tone="street"] .tone-name{color:#FF9B80}
@@ -169,16 +181,17 @@ a{color:inherit;text-decoration:none}
 .cat-dots{display:flex;gap:6px;margin-inline-start:auto}
 .cat-dot{width:14px;height:14px;border-radius:50%}
 .cat-card{
-  position:relative;overflow:hidden;min-height:140px;border-radius:24px;padding:20px;
+  position:relative;overflow:hidden;min-height:150px;border-radius:24px;padding:20px;
   display:flex;flex-direction:column;justify-content:center;gap:12px;text-align:right;
   border:1px solid;transition:transform var(--dur),box-shadow var(--dur);
 }
 .cat-card:hover{transform:translateY(-3px)}
 .cat-card:focus-visible{outline:2px solid var(--cta-a);outline-offset:3px}
-.cat-glow{position:absolute;left:-30px;top:-30px;width:120px;height:120px;border-radius:50%}
-.cat-icon{position:relative;width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center}
-.cat-name{position:relative;font-size:18px;font-weight:600}
-.cat-count{position:relative;font-size:13px;color:var(--text-3)}
+/* the glow is decorative only — it must never sit on top of the text */
+.cat-glow{position:absolute;left:-30px;top:-30px;width:120px;height:120px;border-radius:50%;pointer-events:none;z-index:0}
+.cat-icon{position:relative;z-index:1;width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center}
+.cat-name{position:relative;z-index:1;font-size:18px;font-weight:600;line-height:1.35;min-height:30px}
+.cat-count{position:relative;z-index:1;font-size:13px;color:var(--text-3);line-height:1.4;min-height:20px}
 
 /* ============ start button ============ */
 .start-btn{
@@ -243,13 +256,19 @@ a{color:inherit;text-decoration:none}
 }
 .icon-btn:hover{background:rgba(255,255,255,.14);color:var(--text)}
 .study-title{font-size:19px;font-weight:700;flex:1;text-align:center}
-.timer-pill{
-  height:36px;padding:0 14px;border-radius:18px;flex:none;
-  background:rgba(255,255,255,.08);border:1px solid var(--border);
-  color:var(--due);font-size:15px;font-weight:700;
-  font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:7px;
+/* pronunciation speed (0.75x / 1x / 1.25x) */
+.speed-ctrl{
+  flex:none;display:flex;gap:4px;padding:3px;border-radius:12px;
+  background:rgba(255,255,255,.06);border:1px solid var(--border);
 }
-.timer-pill.low{color:var(--miss);border-color:rgba(255,77,109,.5)}
+.speed-seg{
+  min-width:44px;height:30px;padding:0 8px;border:0;border-radius:9px;background:transparent;
+  color:var(--text-2);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background var(--dur),color var(--dur);
+}
+.speed-seg:hover{color:var(--text);background:rgba(255,255,255,.07)}
+.speed-seg[aria-pressed="true"]{background:linear-gradient(135deg,var(--cta-a),var(--cta-b));color:var(--ink)}
 
 /* progress */
 .study-progress{display:flex;flex-direction:column;gap:8px}
@@ -290,7 +309,8 @@ a{color:inherit;text-decoration:none}
   text-align:center;
 }
 .flip-back{transform:rotateY(180deg);background:linear-gradient(160deg,var(--panel) 0%,#182348 100%);border-color:var(--cat)}
-.card-zh{font-family:var(--cn);direction:ltr;unicode-bidi:isolate;font-size:40px;font-weight:700;line-height:1.35;word-break:break-word}
+.card-zh{font-family:var(--cn);direction:ltr;unicode-bidi:isolate;font-size:var(--card-zh);font-weight:700;line-height:1.35;word-break:break-word}
+.flip-back .card-zh{font-size:var(--card-zh-back)}
 .card-py{font-size:18px;font-weight:500;color:var(--cat);direction:ltr;unicode-bidi:isolate}
 .card-div{width:56px;height:3px;border-radius:2px;background:var(--cat);opacity:.75}
 .card-ar{font-size:24px;font-weight:600;line-height:1.6}
@@ -309,6 +329,20 @@ a{color:inherit;text-decoration:none}
 .sound-btn:active{transform:scale(.95)}
 .sound-btn.speaking{animation:pulse .9s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+
+/* card navigation buttons */
+.nav-row{display:flex;justify-content:space-between;gap:12px}
+.nav-btn{
+  height:56px;padding:0 20px;border-radius:18px;flex:0 1 auto;
+  border:1px solid var(--border-strong);background:var(--panel);color:var(--text);
+  font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform var(--dur),background var(--dur),border-color var(--dur),opacity var(--dur);
+}
+.nav-btn:hover{transform:translateY(-2px);border-color:var(--cat);color:var(--cat)}
+.nav-btn:active{transform:scale(.97)}
+.nav-btn.at-edge{opacity:.35;cursor:default}
+.nav-btn.at-edge:hover{transform:none;border-color:var(--border-strong);color:var(--text)}
 
 /* rating buttons */
 .rating-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -376,16 +410,40 @@ a{color:inherit;text-decoration:none}
 .empty-title{font-size:20px;font-weight:700}
 .empty-sub{font-size:15px;color:var(--text-2);line-height:1.7}
 
-/* ============ key hints (desktop only) ============ */
+/* ============ key hints ============ */
 .keys{display:none;font-size:12px;color:var(--text-3);gap:14px;flex-wrap:wrap;justify-content:center}
 .keys kbd{
   display:inline-block;padding:2px 7px;border-radius:6px;font-size:11px;
   background:var(--panel-2);border:1px solid var(--border-strong);color:var(--text-2);font-family:inherit;
 }
-@media(min-width:900px){.keys{display:flex}}
+/* tablets and up have room for the shortcut legend */
+@media(min-width:768px){.keys{display:flex}}
 
-/* ============ responsive ============ */
-@media(max-width:600px){
+/* ============ responsive ============
+   Three explicit device classes:
+     phones   : max-width 599px
+     tablets  : 600px - 899px
+     desktop  : 900px and up (see the study grid further up)
+   ========================================================================= */
+@media(min-width:600px) and (max-width:899px){
+  /* tablet defaults: two stat columns, roomier controls, larger card text */
+  .shell{padding:32px 22px 64px}
+  .stat{flex:1 1 45%;max-width:400px}
+  .stat-num{font-size:36px}
+  .seg{font-size:17px;min-height:60px}
+  .ctl-label{width:104px}
+  .ctl-opts{flex-wrap:wrap}
+  .tone-desc{font-size:15px}
+  :root{--card-zh:30px;--card-zh-back:26px}
+  .card-py{font-size:19px}
+  .card-ar{font-size:22px}
+  .study-inner{max-width:560px}
+  .study-title{font-size:21px}
+  .nav-btn{height:56px;font-size:16px;padding:0 26px}
+  .rate{min-height:58px;font-size:17px}
+}
+
+@media(max-width:599px){
   .shell{padding:26px 16px 56px;gap:22px}
   .hero{padding:26px 22px;border-radius:26px;gap:24px}
   .hero h1{font-size:38px}
@@ -396,25 +454,39 @@ a{color:inherit;text-decoration:none}
   .stat-num{font-size:34px}
   .panel{padding:20px 16px;gap:18px}
   .ctl-label{width:100%;font-size:14px}
-  .ctl-opts{flex:1 1 100%}
-  .seg{min-height:56px;font-size:16px;border-radius:16px}
-  .seg-sm{font-size:15px}
+  .ctl-opts{flex:1 1 100%;flex-wrap:wrap}
+  .seg{flex:1 1 calc(50% - 6px);min-height:56px;font-size:16px;border-radius:16px}
   .tone{flex:1 1 100%;padding:14px 16px}
+  .tone-name{font-size:17px}
+  .tone-desc{font-size:13px}
   .cat-grid{grid-template-columns:1fr}
+  .cat-card{min-height:132px;padding:18px;gap:10px}
+  .cat-name{font-size:17px}
+  .cat-count{font-size:12px}
   .cat-all{grid-column:auto;padding:16px 18px;border-radius:20px}
   .cat-all-name{font-size:19px}
   .start-btn{height:68px;font-size:21px;border-radius:20px}
-  .card-zh{font-size:32px}
+  :root{--card-zh:32px;--card-zh-back:27px}
   .card-py{font-size:16px}
   .card-ar{font-size:20px}
   .flip-face{padding:22px 18px}
   .rating-row{gap:8px}
   .rate{min-height:52px;font-size:14px;border-radius:16px}
   .study-page{padding:16px 12px 28px}
+  .study-title{font-size:17px}
+  /* the speed control must not squeeze the title off a narrow phone */
+  .speed-ctrl{padding:2px;gap:2px;border-radius:10px}
+  .speed-seg{min-width:36px;height:28px;font-size:12px;padding:0 5px}
+  .nav-btn{height:50px;font-size:14px;padding:0 14px;border-radius:16px}
+  .nav-btn span{font-size:14px}
 }
 @media(max-width:380px){
   .hero h1{font-size:32px}
   .cat-dots{display:none}
+  /* on the narrowest phones the nav labels are dropped, icons remain */
+  .nav-btn span{display:none}
+  .nav-btn{padding:0 18px}
+  .speed-seg{min-width:32px;font-size:11px;padding:0 3px}
 }
 
 /* ============ reduced motion ============ */

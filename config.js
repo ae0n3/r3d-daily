@@ -52,6 +52,16 @@
   /* Leitner boxes — 5 boxes, day interval per box. */
   const BOX_INTERVAL = [0, 1, 3, 7, 14, 30];
 
+  /* Pronunciation speed presets. The value is used both for the recorded MP3
+     (HTMLMediaElement.playbackRate) and for the TTS fallback (utterance.rate).
+     Keep `value` and `label` in sync — `value` is what gets persisted. */
+  const AUDIO_SPEEDS = [
+    { value: 0.75, label: '0.75×' },
+    { value: 1,    label: '1×' },
+    { value: 1.25, label: '1.25×' }
+  ];
+  const DEFAULT_AUDIO_SPEED = 1;
+
   const STORAGE = {
     progress: 'review-progress-v1',   /* spec key */
     legacy:   'r3d-daily-prog-v1',    /* pre-1.0 key — migrated, never deleted on load */
@@ -61,6 +71,7 @@
 
   global.R3D_CONFIG = {
     CAT_COLOR, CAT_AR, TONE_COLOR, TONE_LABEL, TONE_DESC, TONE_ORDER,
-    LEVEL_LABEL, LEVEL_ORDER, BOX_INTERVAL, STORAGE
+    LEVEL_LABEL, LEVEL_ORDER, BOX_INTERVAL, STORAGE,
+    AUDIO_SPEEDS, DEFAULT_AUDIO_SPEED
   };
 })(window);

@@ -37,8 +37,17 @@
 
   /* ---------------- state ---------------- */
   const DEFAULT_SETTINGS = {
-    cat: 'all', mode: 'new', level: 'all', batch: 30, tones: []
+    cat: 'all', mode: 'new', level: 'all', tones: [],
+    audioSpeed: CFG.DEFAULT_AUDIO_SPEED || 1
   };
+
+  /* Pronunciation speed presets live in config.js so the offered values and
+     the persisted setting can never drift apart. */
+  const SPEED_OPTIONS = CFG.AUDIO_SPEEDS || [
+    { value: 0.75, label: '0.75×' },
+    { value: 1, label: '1×' },
+    { value: 1.25, label: '1.25×' }
+  ];
   let settings = Object.assign({}, DEFAULT_SETTINGS);
   let progress = {};
 
@@ -48,6 +57,12 @@
       if (s && typeof s === 'object') settings = Object.assign({}, DEFAULT_SETTINGS, s);
     } catch (e) { /* corrupt settings — fall back to defaults */ }
     if (!Array.isArray(settings.tones)) settings.tones = [];
+    // audioSpeed must be one of the offered presets — anything else is stale
+    // or hand-edited, so fall back to normal speed.
+    var sp = Number(settings.audioSpeed);
+    if (!SPEED_OPTIONS.some(function (o) { return o.value === sp; })) {
+      settings.audioSpeed = CFG.DEFAULT_AUDIO_SPEED || 1;
+    }
   }
   function saveSettings() {
     try { localStorage.setItem(CFG.STORAGE.settings, JSON.stringify(settings)); } catch (e) {}
@@ -121,6 +136,7 @@
     play: '<path d="M8 5v14l11-7z"/>',
     sound: '<path d="M12 15V3l-6 9h4v6l6-9h-4z"/>',
     back: '<path d="M9 6l-4 6 4 6"/><path d="M5 12h14"/>',
+    next: '<path d="M15 6l4 6-4 6"/><path d="M19 12H5"/>',
     close: '<path d="M6 6l12 12M18 6L6 18"/>',
     reset: '<path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>',
     check: '<path d="M20 6L9 17l-5-5"/>',
@@ -180,7 +196,7 @@
         'aria-label="تصفية حسب ' + CFG.TONE_LABEL[tone] + '">' +
         '<span class="tone-icon" style="color:#0A0F1F">' + svgIcon(
           tone === 'street' ? 'bag' : tone === 'academic' ? 'building' : 'globe', 26, '#0A0F1F') + '</span>' +
-        '<span><span class="tone-name">' + CFG.TONE_LABEL[tone] + '</span>' +
+        '<span class="tone-text"><span class="tone-name">' + CFG.TONE_LABEL[tone] + '</span>' +
         '<span class="tone-desc">' + CFG.TONE_DESC[tone] + '</span></span></button>';
     };
 
@@ -244,7 +260,7 @@
           </div>
           <div class="stat stat-due">
             ${ringIcon(due / (scope.length || 1), '#FFB020')}
-            <div><div class="stat-num" data-stat="today">${due}</div><div class="stat-label">في اليومانية</div></div>
+            <div><div class="stat-num" data-stat="today">${due}</div><div class="stat-label">في اليومية</div></div>
           </div>
           <div class="stat stat-total">
             ${ringIcon(1, '#38BDF8')}
@@ -263,24 +279,13 @@
       (settings.level === val) + '">' +
       (val === 'all' ? svgIcon('reset', 24, 'currentColor') : levelBars(val)) + label + '</button>';
 
-    const timeBtn = (val, label, fill) => {
-      const C = 2 * Math.PI * 10;
-      return '<button class="seg seg-sm" type="button" data-batch="' + val + '" aria-pressed="' +
-        (settings.batch === val) + '">' +
-        '<svg aria-hidden="true" width="26" height="26" viewBox="0 0 26 26">' +
-        '<circle cx="13" cy="13" r="10" fill="none" stroke="#34417A" stroke-width="3"/>' +
-        '<circle cx="13" cy="13" r="10" fill="none" stroke="#38BDF8" stroke-width="3" ' +
-        'stroke-linecap="round" stroke-dasharray="' + (C * fill).toFixed(1) + ' ' + C.toFixed(1) + '" ' +
-        'transform="rotate(-90 13 13)"/></svg>' + label + '</button>';
-    };
-
     const controls = `
       <section class="panel">
         <div class="ctl-row">
           <div class="ctl-label">الوضع</div>
           <div class="ctl-opts">
             ${modeBtn('new', 'جديدة', 'star')}
-            ${modeBtn('today', 'اليومانية', 'calendar')}
+            ${modeBtn('today', 'اليومية', 'calendar')}
           </div>
         </div>
         <div class="ctl-row">
@@ -290,14 +295,6 @@
             ${levelBtn('easy', 'سهل')}
             ${levelBtn('medium', 'متوسط')}
             ${levelBtn('hard', 'صعب')}
-          </div>
-        </div>
-        <div class="ctl-row">
-          <div class="ctl-label">الوقت القصير</div>
-          <div class="ctl-opts">
-            ${timeBtn(30, '30 ث', 0.25)}
-            ${timeBtn(60, '1 دقيقة', 0.5)}
-            ${timeBtn(120, '2 دقيقة', 1)}
           </div>
         </div>
       </section>`;
@@ -329,7 +326,7 @@
       <footer class="foot">
         <div class="foot-note">المصدر الوحيد: <b>library/content-data.json</b> (أعد التشغيل بـ <b>tools/build.py</b>)</div>
         <button class="ghost-btn" type="button" id="resetBtn">
-          ${svgIcon('reset', 16, '#C8D3F2', 2.2)} بدء جديد — مواصفات اليومانية والعلامات
+          ${svgIcon('reset', 16, '#C8D3F2', 2.2)} بدء جديد — مواصفات اليومية والعلامات
         </button>
       </footer>`;
 
@@ -351,9 +348,6 @@
     }));
     $$('[data-level]').forEach(b => b.addEventListener('click', () => {
       settings.level = b.dataset.level; saveSettings(); renderHome();
-    }));
-    $$('[data-batch]').forEach(b => b.addEventListener('click', () => {
-      settings.batch = Number(b.dataset.batch); saveSettings(); renderHome();
     }));
     $$('.tone').forEach(b => b.addEventListener('click', () => {
       const t = b.dataset.tone;
@@ -379,7 +373,7 @@
       openDialog({
         title: 'بدء جديد؟',
         body: 'سيُمسح تقدّمك المحفوظ (العلامة والصندوق وموعد المراجعة لكل بطاقة) ' +
-              'وتُعاد إعدادات اليومانية والعلامات إلى الافتراضي. لا يمكن التراجع.',
+              'وتُعاد إعدادات اليومية والعلامات إلى الافتراضي. لا يمكن التراجع.',
         confirmLabel: 'امسح التقدّم',
         danger: true,
         onConfirm: () => {
@@ -397,7 +391,6 @@
   /* ---------------- STUDY view ---------------- */
   const session = {
     queue: [], idx: 0, cur: null, flipped: false,
-    timeLeft: 0, timerId: null, running: false,
     counts: { know: 0, hard: 0, miss: 0 },
     rated: []
   };
@@ -416,8 +409,11 @@
           '<button class="icon-btn" type="button" id="backBtn" aria-label="رجوع إلى الفئات">' +
             svgIcon('back', 22, 'currentColor') + '</button>' +
           '<h1 class="study-title">' + esc(title) + '</h1>' +
-          '<div class="timer-pill" id="timerPill" aria-live="off">' +
-            svgIcon('clock', 15, 'currentColor') + '<span id="timer">0:00</span></div>' +
+          '<div class="speed-ctrl" id="speedCtrl" role="group" aria-label="سرعة النطق">' +
+            SPEED_OPTIONS.map(s =>
+              '<button class="speed-seg" type="button" data-speed="' + s.value + '" aria-pressed="' +
+              (Number(settings.audioSpeed || 1) === s.value) + '">' + s.label + '</button>').join('') +
+          '</div>' +
         '</div>' +
         '<div class="study-progress">' +
           '<div class="pbar"><div class="pbar-fill" id="pbarFill" style="width:0%"></div></div>' +
@@ -443,9 +439,17 @@
       sceneFn(color) + '</svg>';
 
     $('#backBtn').addEventListener('click', () => {
-      stopTimer();
       location.hash = '#/';
     });
+
+    $$('[data-speed]').forEach(b => b.addEventListener('click', () => {
+      settings.audioSpeed = Number(b.dataset.speed);
+      saveSettings();
+      $$('[data-speed]').forEach(x =>
+        x.setAttribute('aria-pressed', String(Number(x.dataset.speed) === settings.audioSpeed)));
+      // replay the current word so the new speed is audible straight away
+      if (session.cur) speak(session.cur.front, session.cur.id);
+    }));
 
     buildQueue(cat);
     session.idx = 0; session.flipped = false;
@@ -457,7 +461,6 @@
       return;
     }
     renderCard();
-    startTimer();
   }
 
   function buildQueue(cat) {
@@ -483,12 +486,11 @@
   }
 
   function renderEmpty() {
-    $('#timerPill').style.display = 'none';
     $('#studyBody').innerHTML =
       '<div class="empty">' +
         '<div class="empty-title">لا توجد بطاقات هنا الآن</div>' +
         '<div class="empty-sub">كل بطاقات هذه الفئة مراجَعة، أو الإعدادات الحالية تُخرجها من النطاق. ' +
-        'جرّب «اليومانية» أو غيّر المستوى.</div>' +
+        'جرّب «اليومية» أو غيّر المستوى.</div>' +
         '<button class="btn-ghost" type="button" id="emptyBack" style="min-height:48px;border-radius:16px;padding:0 18px;font-weight:600;cursor:pointer">رجوع للفئات</button>' +
       '</div>';
     $('#emptyBack').addEventListener('click', () => { location.hash = '#/'; });
@@ -514,7 +516,7 @@
       '</div>';
     const back =
       '<div class="flip-face flip-back">' +
-        '<div class="card-zh" style="font-size:30px">' + esc(c.front) + '</div>' +
+        '<div class="card-zh">' + esc(c.front) + '</div>' +
         (c.py ? '<div class="card-py">' + esc(c.py) + '</div>' : '') +
         '<div class="card-div"></div>' +
         '<div class="card-ar">' + esc(c.ar) + '</div>' +
@@ -531,6 +533,12 @@
       '</div>' +
       '<div class="flip-wrap"><div class="flip-card" id="flipCard" role="button" tabindex="0" ' +
         'aria-label="بطاقة المراجعة — اضغط للقلب">' + front + back + '</div></div>' +
+      '<div class="nav-row">' +
+        '<button class="nav-btn" type="button" data-nav="prev" aria-label="الكلمة السابقة">' +
+          svgIcon('back', 22, 'currentColor') + '<span>السابقة</span></button>' +
+        '<button class="nav-btn" type="button" data-nav="next" aria-label="الكلمة التالية">' +
+          '<span>التالية</span>' + svgIcon('next', 22, 'currentColor') + '</button>' +
+      '</div>' +
       '<div class="rating-row">' +
         '<button class="rate rate-miss" type="button" data-rate="miss">لم أعرفها</button>' +
         '<button class="rate rate-hard" type="button" data-rate="hard">صعبة</button>' +
@@ -556,7 +564,22 @@
 
     $$('[data-rate]').forEach(b => b.addEventListener('click', () => rate(b.dataset.rate)));
 
+    $$('[data-nav]').forEach(b => b.addEventListener('click', () => {
+      gotoCard(session.idx + (b.dataset.nav === 'next' ? 1 : -1));
+    }));
+
     updateProgressUI();
+  }
+
+  /* Move to a card in the current queue without grading it. Clamps at both
+     ends so the buttons (and the arrow keys) can never run off the queue. */
+  function gotoCard(target) {
+    if (!session.queue.length) return;
+    const idx = Math.max(0, Math.min(session.queue.length - 1, target));
+    if (idx === session.idx) { updateNavUI(); return; }
+    session.idx = idx;
+    session.flipped = false;
+    renderCard();
   }
 
   function updateProgressUI() {
@@ -566,42 +589,25 @@
     $('#pbarFill').style.width = (total ? (n / total * 100) : 0) + '%';
     const left = Math.max(0, total - n);
     $('#progressLeft').textContent =
-      (settings.mode === 'new' ? 'جديدة' : 'اليومانية') + ': ' + left + ' متبقاة';
+      (settings.mode === 'new' ? 'جديدة' : 'اليومية') + ': ' + left + ' متبقاة';
+    updateNavUI();
   }
 
-  /* ---------------- timer ---------------- */
-  function startTimer() {
-    stopTimer();
-    session.timeLeft = settings.batch;
-    session.running = true;
-    const t0 = Date.now();
-    const tick = () => {
-      if (!session.running) return;
-      const elapsed = Math.floor((Date.now() - t0) / 1000);
-      session.timeLeft = Math.max(0, settings.batch - elapsed);
-      paintTimer();
-      if (session.timeLeft <= 0) {
-        stopTimer();
-        showSummary();
-        return;
-      }
-      session.timerId = setTimeout(tick, 250);
-    };
-    paintTimer();
-    session.timerId = setTimeout(tick, 250);
-  }
-  function stopTimer() {
-    session.running = false;
-    if (session.timerId) { clearTimeout(session.timerId); session.timerId = null; }
-  }
-  function paintTimer() {
-    const el = $('#timer');
-    if (!el) return;
-    const m = Math.floor(session.timeLeft / 60);
-    const s = String(session.timeLeft % 60).padStart(2, '0');
-    el.textContent = m + ':' + s;
-    const pill = $('#timerPill');
-    if (pill) pill.classList.toggle('low', session.timeLeft <= 10);
+  /* Grey out the nav buttons when there is nowhere to go. */
+  function updateNavUI() {
+    const prev = $('[data-nav="prev"]');
+    const next = $('[data-nav="next"]');
+    const total = session.queue.length;
+    if (prev) {
+      const off = session.idx <= 0;
+      prev.classList.toggle('at-edge', off);
+      prev.disabled = off;
+    }
+    if (next) {
+      const off = session.idx >= total - 1;
+      next.classList.toggle('at-edge', off);
+      next.disabled = off;
+    }
   }
 
   /* ---------------- rating / Leitner ---------------- */
@@ -641,7 +647,6 @@
   }
 
   function showSummary() {
-    stopTimer();
     const total = session.rated.length || 1;
     const pct = Math.round(session.counts.know / total * 100);
     const C = 2 * Math.PI * 44;
@@ -695,7 +700,7 @@
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'zh-CN';
-      u.rate = 0.9;
+      u.rate = Number(settings.audioSpeed) || 1;
       const v = pickChineseVoice();
       if (v) u.voice = v;
       if (btn) btn.classList.add('speaking');
@@ -721,6 +726,7 @@
     if (!AUDIO[id]) return false;
     try {
       const a = new Audio(AUDIO[id]);
+      a.playbackRate = Number(settings.audioSpeed) || 1;
       a.play().catch(() => {});
       return true;
     } catch (e) { return false; }
@@ -779,12 +785,7 @@
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.preventDefault();
       const dir = e.key === 'ArrowLeft' ? 1 : -1;   // RTL: left arrow = next
-      const target = session.idx - 1 + dir;
-      if (target >= 0 && target < session.queue.length) {
-        session.idx = target;
-        session.flipped = false;
-        renderCard();
-      }
+      gotoCard(session.idx + dir);
     }
   });
 
@@ -792,7 +793,6 @@
   function route() {
     const hash = location.hash || '#/';
     const m = hash.match(/^#\/study\/([A-Za-z0-9_-]+)/);
-    stopTimer();
     if (m) {
       document.body.classList.add('study-active');
       renderStudy(m[1]);

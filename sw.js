@@ -1,5 +1,5 @@
 /* R3D Daily Review — service worker (offline shell) */
-var CACHE = 'r3d-daily-v3';
+var CACHE = 'r3d-daily-v4';
 var ASSETS = [
   './index.html', './review.html',
   './daily.js', './daily.css', './daily-data.js', './config.js', './scenes.js',
