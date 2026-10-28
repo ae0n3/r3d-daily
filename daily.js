@@ -38,7 +38,8 @@
   /* ---------------- state ---------------- */
   const DEFAULT_SETTINGS = {
     cat: 'all', mode: 'new', level: 'all', tones: [],
-    audioSpeed: CFG.DEFAULT_AUDIO_SPEED || 1
+    audioSpeed: CFG.DEFAULT_AUDIO_SPEED || 1,
+    theme: 'dark' // 'dark' or 'light'
   };
 
   /* Pronunciation speed presets live in config.js so the offered values and
@@ -50,6 +51,35 @@
   ];
   let settings = Object.assign({}, DEFAULT_SETTINGS);
   let progress = {};
+
+  /* ---------------- theme handling ---------------- */
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    settings.theme = theme;
+    saveSettings();
+    updateThemeIcon();
+  }
+
+  function initTheme() {
+    const saved = settings.theme || 'dark';
+    applyTheme(saved);
+  }
+
+  function toggleTheme() {
+    const newTheme = settings.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+  }
+
+  function updateThemeIcon() {
+    const btn = $('#themeToggle');
+    if (btn) {
+      btn.innerHTML = settings.theme === 'dark'
+        ? '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      btn.setAttribute('aria-label', settings.theme === 'dark' ? 'تبديل للوضع الفاتح' : 'تبديل للوضع الداكن');
+      btn.setAttribute('title', settings.theme === 'dark' ? 'تبديل للوضع الفاتح' : 'تبديل للوضع الداكن');
+    }
+  }
 
   function loadSettings() {
     try {
@@ -141,7 +171,9 @@
     reset: '<path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>',
     check: '<path d="M20 6L9 17l-5-5"/>',
     grid2: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
-    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>'
+    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+    moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+    sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'
   };
   function svgIcon(name, size, color, width) {
     return '<svg aria-hidden="true" width="' + (size || 24) + '" height="' + (size || 24) +
@@ -252,6 +284,11 @@
             <h1>مراجعة اليوم</h1>
             <div class="hero-sub">كلمات وجمل حياة — <b>لا أكاديمية</b>، وخطوات واضحة بين الشارعي والرسمي</div>
           </div>
+          <div class="theme-toggle" style="align-self:flex-end;flex-shrink:0;">
+            <button class="tone" type="button" id="themeToggle" aria-pressed="${settings.theme === 'dark'}" aria-label="${settings.theme === 'dark' ? 'تبديل للوضع الفاتح' : 'تبديل للوضع الداكن'}" title="${settings.theme === 'dark' ? 'تبديل للوضع الفاتح' : 'تبديل للوضع الداكن'}" style="padding:4px 8px;font-size:14px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text);">
+              🌓
+            </button>
+          </div>
         </div>
         <div class="stats">
           <div class="stat stat-known">
@@ -289,6 +326,13 @@
           </div>
         </div>
         <div class="ctl-row">
+          <div class="ctl-label">المظهر</div>
+          <div class="ctl-opts">
+            ${modeBtn('dark', 'داكن', 'moon')}
+            ${modeBtn('light', 'فاتح', 'sun')}
+          </div>
+        </div>
+        <div class="ctl-row">
           <div class="ctl-label">المستوى</div>
           <div class="ctl-opts">
             ${levelBtn('all', 'الكل')}
@@ -320,7 +364,13 @@
 
     const start = `<button class="start-btn" type="button" id="startBtn">
       <svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="#04263B"><path d="M8 5v14l11-7z"/></svg>
-      ابدأ المراجعة</button>`;
+      ابدأ المراجعة</button>
+      <button class="ghost-btn" type="button" id="statsBtn" style="margin-top:12px">
+        ${svgIcon('grid2', 16, '#C8D3F2', 2.2)} إحصائيات
+      </button>
+      <button class="ghost-btn" type="button" id="searchBtn" style="margin-top:12px">
+        ${svgIcon('globe', 16, '#C8D3F2', 2.2)} بحث
+      </button>`;
 
     const footer = `
       <footer class="foot">
@@ -344,7 +394,11 @@
 
   function bindHome() {
     $$('[data-mode]').forEach(b => b.addEventListener('click', () => {
-      settings.mode = b.dataset.mode; saveSettings(); renderHome();
+      if (b.dataset.mode === 'dark' || b.dataset.mode === 'light') {
+        applyTheme(b.dataset.mode);
+      } else {
+        settings.mode = b.dataset.mode; saveSettings(); renderHome();
+      }
     }));
     $$('[data-level]').forEach(b => b.addEventListener('click', () => {
       settings.level = b.dataset.level; saveSettings(); renderHome();
@@ -355,6 +409,12 @@
       if (i === -1) settings.tones.push(t); else settings.tones.splice(i, 1);
       saveSettings(); renderHome();
     }));
+    const themeToggleBtn = document.getElementById('themeToggle');
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        toggleTheme();
+      });
+    }
     $$('.cat-card, .cat-all').forEach(b => b.addEventListener('click', () => {
       settings.cat = b.dataset.cat; saveSettings();
       location.hash = '#/study/' + b.dataset.cat;
@@ -368,7 +428,7 @@
       }
       location.hash = '#/study/' + settings.cat;
     });
-    const resetBtn = $('#resetBtn');
+    const resetBtn = document.getElementById('resetBtn');
     if (resetBtn) resetBtn.addEventListener('click', () => {
       openDialog({
         title: 'بدء جديد؟',
@@ -386,6 +446,12 @@
         }
       });
     });
+
+    const statsBtn = document.getElementById('statsBtn');
+    if (statsBtn) statsBtn.addEventListener('click', openStatsModal);
+
+    const searchBtn = document.getElementById('searchBtn');
+    if (searchBtn) searchBtn.addEventListener('click', openSearchModal);
   }
 
   /* ---------------- STUDY view ---------------- */
@@ -757,6 +823,226 @@
     $('#dlgOk').focus();
   }
 
+  /* ---------------- stats modal ---------------- */
+  function openStatsModal() {
+    const scope = scopedCards();
+    const now = todayStr();
+    let totalReview = 0;
+    const boxDist = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    const catCounts = {};
+    CATS.forEach(c => catCounts[c.id] = 0);
+
+    DATA.cards.forEach(c => {
+      const p = progress[c.id];
+      if (p) {
+        totalReview += p.seen || 0;
+        boxDist[p.box || 0]++;
+        if (catCounts[c.cat] !== undefined) catCounts[c.cat]++;
+      }
+    });
+
+    const known = scope.filter(c => isKnown(c.id)).length;
+    const retention = Math.round(known / (scope.length || 1) * 100);
+
+    const maxBoxCount = Math.max(...Object.values(boxDist), 1);
+    const boxChart = Object.entries(boxDist).map(([b, count]) => {
+      const height = Math.round((count / maxBoxCount) * 80);
+      return `<div class="stats-bar-item">
+        <div class="stats-bar">
+          <div class="stats-bar-fill fill-${b}" style="height:${height}px"></div>
+        </div>
+        <span class="stats-bar-label">${b === '5' ? 'مُتقن' : b}</span>
+      </div>`;
+    }).join('');
+
+    const statsHtml = `
+      <div class="stats-backdrop">
+        <div class="stats-modal">
+          <div class="stats-header">
+            <h3>إحصائيات المراجعة</h3>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-num">${totalReview}</div>
+              <div class="stat-card-label">إجمالي المراجعات</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-num" style="color:var(--known)">${retention}%</div>
+              <div class="stat-card-label">نسبة الإتقان</div>
+            </div>
+          </div>
+          <div class="stats-chart">
+            <div class="stats-chart-title">توزيع الصناديق (Leitner)</div>
+            <div class="stats-bar-container">${boxChart}</div>
+          </div>
+          <div class="stats-cats">
+            <div class="stats-cats-title">الفئات:</div>
+            <div class="stats-cats-grid">
+              ${CATS.map(c => {
+                const count = catCounts[c.id];
+                return `<div class="stats-cat-item">
+                  <div class="stats-cat-name">${c.ar}</div>
+                  <div class="stats-cat-count">${count}</div>
+                </div>`;
+              }).join('')}
+            </div>
+          </div>
+          <div class="stats-actions">
+            <button class="btn-primary" type="button" id="statsClose">إغلاق</button>
+            <button class="btn-ghost" type="button" id="exportProgress">تصدير</button>
+            <button class="btn-ghost" type="button" id="importProgress">استيراد</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', statsHtml);
+
+    const modal = document.querySelector('.stats-backdrop');
+    const close = () => { if (modal.parentNode) modal.parentNode.removeChild(modal); };
+
+    document.getElementById('statsClose').addEventListener('click', close);
+    document.getElementById('exportProgress').addEventListener('click', () => exportProgress());
+    document.getElementById('importProgress').addEventListener('click', () => importProgress());
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', function esc3(e) {
+      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc3); }
+    });
+    document.getElementById('statsClose').focus();
+  }
+
+  /* ---------------- search modal ---------------- */
+  function openSearchModal() {
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="search-backdrop">
+        <div class="search-modal">
+          <div class="search-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="searchInput" placeholder="ابحث عن كلمة، بينيين، أو معنى..." autofocus>
+          </div>
+          <div class="search-results" id="searchResults"></div>
+          <div class="dlg-actions" style="margin-top:16px">
+            <button class="btn-ghost" type="button" id="searchClose">إغلاق</button>
+          </div>
+        </div>
+      </div>
+    `);
+
+    const modal = document.querySelector('.search-backdrop');
+    const close = () => { if (modal.parentNode) modal.parentNode.removeChild(modal); };
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim();
+      if (query.length < 2) {
+        searchResults.innerHTML = '<div style="text-align:center;color:var(--text-3);padding:40px 20px">اكتب 3 أحرف على الأقل للبحث...</div>';
+        return;
+      }
+
+      const lowerQuery = query.toLowerCase();
+      const results = DATA.cards.filter(c => {
+        return c.front.toLowerCase().includes(lowerQuery) ||
+               c.py.toLowerCase().includes(lowerQuery) ||
+               c.ar.toLowerCase().includes(lowerQuery);
+      }).slice(0, 50);
+
+      if (results.length === 0) {
+        searchResults.innerHTML = '<div style="text-align:center;color:var(--text-3);padding:40px 20px">لا توجد نتائج</div>';
+        return;
+      }
+
+      searchResults.innerHTML = results.map(c => {
+        const category = CAT_BY_ID[c.cat];
+        return `<div class="search-result-item" data-card="${esc(c.id)}">
+          <div class="search-result-zh">${esc(c.front)}</div>
+          <div class="search-result-py">${esc(c.py)}</div>
+          <div class="search-result-ar">${esc(c.ar)}</div>
+          <div class="search-result-cat">(${category ? category.ar : ''})</div>
+        </div>`;
+      }).join('');
+
+      searchResults.querySelectorAll('.search-result-item').forEach(el => {
+        el.addEventListener('click', () => {
+          const cardId = el.dataset.card;
+          close();
+          location.hash = '#/study/' + CAT_BY_ID[DATA.cards.find(c => c.id === cardId).cat];
+          setTimeout(() => {
+            const queue = session.queue || [];
+            const idx = queue.findIndex(c => c.id === cardId);
+            if (idx >= 0) {
+              session.idx = idx;
+              session.cur = queue[idx];
+              session.flipped = false;
+              renderCard();
+            }
+          }, 100);
+        });
+      });
+    });
+
+    searchInput.focus();
+    document.getElementById('searchClose').addEventListener('click', close);
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', function esc4(e) {
+      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc4); }
+    });
+  }
+
+  /* ---------------- import/export progress ---------------- */
+  function exportProgress() {
+    const data = {
+      progress: progress,
+      settings: {
+        cat: settings.cat,
+        mode: settings.mode,
+        level: settings.level,
+        tones: settings.tones
+      },
+      exportedAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `r3d-daily-backup-${todayStr()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function importProgress() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (data.progress && typeof data.progress === 'object') {
+            progress = data.progress;
+            saveProgress();
+            if (data.settings) {
+              settings = Object.assign({}, settings, data.settings);
+              saveSettings();
+            }
+            toast('تم استيراد التقدم بنجاح');
+            renderHome();
+          } else {
+            toast('ملف غير صالح');
+          }
+        } catch (err) {
+          toast('خطأ في قراءة الملف');
+        }
+      };
+      reader.readAsText(file);
+    });
+    input.click();
+  }
+
   /* ---------------- toast ---------------- */
   let toastTimer = null;
   function toast(msg) {
@@ -807,5 +1093,6 @@
   /* ---------------- boot ---------------- */
   loadSettings();
   loadProgress();
+  initTheme();
   route();
 })();
