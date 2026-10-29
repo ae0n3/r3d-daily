@@ -1,7 +1,6 @@
 /* ============================================================
    R3D Daily Review — application
-   Hash router (#/ and #/study/:categoryId) + Leitner progress
-   + filters + session timer + card flip + summary.
+   Hash router + Leitner progress + filters + search + stats.
 
    Progress lives in localStorage under "review-progress-v1":
      { [cardId]: { status, box, nextReview, seen, correct } }
@@ -19,87 +18,62 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  /* ---------------- categories ---------------- */
   const CATS = DATA.cats.map(c => ({
     id: c.id,
     ar: c.ar || CFG.CAT_AR[c.id] || c.id,
     desc: c.desc || ''
   }));
+
   if (!CATS.length) {
     Object.keys(CFG.CAT_AR).forEach(id => {
       if (id !== 'all') CATS.push({ id, ar: CFG.CAT_AR[id], desc: '' });
     });
   }
+
   const CAT_BY_ID = {};
   CATS.forEach(c => { CAT_BY_ID[c.id] = c; });
-  const catName = id => (CAT_BY_ID[id] && CAT_BY_ID[id].ar) || CFG.CAT_AR[id] || id;
-  const catColor = id => CFG.CAT_COLOR[id] || '#7ADAFB';
 
-  /* ---------------- state ---------------- */
+  const catName = id => (CAT_BY_ID[id] && CAT_BY_ID[id].ar) || CFG.CAT_AR[id] || id;
+  const catColor = id => CFG.CAT_COLOR[id] || '#38BDF8';
+
   const DEFAULT_SETTINGS = {
-    cat: 'all', mode: 'new', level: 'all', tones: [],
+    cat: 'all',
+    mode: 'new',
+    level: 'all',
+    tones: [],
     audioSpeed: CFG.DEFAULT_AUDIO_SPEED || 1,
-    theme: 'dark' // 'dark' or 'light'
+    theme: 'dark'
   };
 
-  /* Pronunciation speed presets live in config.js so the offered values and
-     the persisted setting can never drift apart. */
   const SPEED_OPTIONS = CFG.AUDIO_SPEEDS || [
     { value: 0.75, label: '0.75×' },
     { value: 1, label: '1×' },
     { value: 1.25, label: '1.25×' }
   ];
+
   let settings = Object.assign({}, DEFAULT_SETTINGS);
   let progress = {};
-
-  /* ---------------- theme handling ---------------- */
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    settings.theme = theme;
-    saveSettings();
-    updateThemeIcon();
-  }
-
-  function initTheme() {
-    const saved = settings.theme || 'dark';
-    applyTheme(saved);
-  }
-
-  function toggleTheme() {
-    const newTheme = settings.theme === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
-  }
-
-  function updateThemeIcon() {
-    const btn = $('#themeToggle');
-    if (btn) {
-      btn.innerHTML = settings.theme === 'dark'
-        ? '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
-        : '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-      btn.setAttribute('aria-label', settings.theme === 'dark' ? 'تبديل للوضع الفاتح' : 'تبديل للوضع الداكن');
-      btn.setAttribute('title', settings.theme === 'dark' ? 'تبديل للوضع الفاتح' : 'تبديل للوضع الداكن');
-    }
-  }
+  let forcedCardId = null;
 
   function loadSettings() {
     try {
-      const s = JSON.parse(localStorage.getItem(CFG.STORAGE.settings) || 'null');
-      if (s && typeof s === 'object') settings = Object.assign({}, DEFAULT_SETTINGS, s);
-    } catch (e) { /* corrupt settings — fall back to defaults */ }
+      const parsed = JSON.parse(localStorage.getItem(CFG.STORAGE.settings) || 'null');
+      if (parsed && typeof parsed === 'object') {
+        settings = Object.assign({}, DEFAULT_SETTINGS, parsed);
+      }
+    } catch (e) {}
     if (!Array.isArray(settings.tones)) settings.tones = [];
-    // audioSpeed must be one of the offered presets — anything else is stale
-    // or hand-edited, so fall back to normal speed.
     var sp = Number(settings.audioSpeed);
     if (!SPEED_OPTIONS.some(function (o) { return o.value === sp; })) {
       settings.audioSpeed = CFG.DEFAULT_AUDIO_SPEED || 1;
     }
   }
+
   function saveSettings() {
     try { localStorage.setItem(CFG.STORAGE.settings, JSON.stringify(settings)); } catch (e) {}
   }
 
   function loadProgress() {
-    // primary key per spec; fall back to the pre-1.0 key and migrate it once.
     let raw = null;
     try { raw = localStorage.getItem(CFG.STORAGE.progress); } catch (e) {}
     if (!raw) {
@@ -111,6 +85,7 @@
       progress = (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) ? parsed : {};
     } catch (e) { progress = {}; }
   }
+
   function saveProgress() {
     try { localStorage.setItem(CFG.STORAGE.progress, JSON.stringify(progress)); } catch (e) {}
   }
@@ -121,6 +96,7 @@
       String(d.getMonth() + 1).padStart(2, '0') + '-' +
       String(d.getDate()).padStart(2, '0');
   };
+
   const addDays = (iso, n) => {
     const d = new Date(iso + 'T12:00:00');
     d.setDate(d.getDate() + n);
@@ -128,6 +104,7 @@
       String(d.getMonth() + 1).padStart(2, '0') + '-' +
       String(d.getDate()).padStart(2, '0');
   };
+
   const progOf = id => progress[id] || null;
   const isKnown = id => { const p = progOf(id); return !!(p && p.status === 'known'); };
   const isDue = id => {
@@ -136,7 +113,6 @@
     return (p.nextReview || '9999-12-31') <= todayStr();
   };
 
-  /* ---------------- card filtering ---------------- */
   function eligible(c) {
     if (settings.cat !== 'all' && c.cat !== settings.cat) return false;
     if (settings.level !== 'all' && c.level !== settings.level) return false;
@@ -144,9 +120,10 @@
     if (settings.mode === 'new') return !progOf(c.id);
     return isDue(c.id);
   }
+
   function scopedCards() { return DATA.cards.filter(eligible); }
 
-  /* ---------------- icons (line SVG, stroke 2) ---------------- */
+  /* ---------------- Icons ---------------- */
   const ICON = {
     notebook: '<path d="M6 3h11a2 2 0 0 1 2 2v15H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h11"/><path d="M10 7h6M10 10h4"/>',
     star: '<path d="M12 3l2.2 5.3 5.8.5-4.4 3.8 1.4 5.6L12 15l-5 3.2 1.4-5.6L4 8.8l5.8-.5z"/>',
@@ -173,215 +150,294 @@
     grid2: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
     moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
-    sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'
+    sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>',
+    search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+    stats: '<path d="M18 20V10M12 20V4M6 20v-6"/>',
+    theme: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+    bubble: '<path d="M4 5h11v8H9l-3 3v-3H4z"/><path d="M17 9h3v8h-2v3l-3-3h-5v-2"/>'
   };
+
   function svgIcon(name, size, color, width) {
-    return '<svg aria-hidden="true" width="' + (size || 24) + '" height="' + (size || 24) +
+    return '<svg aria-hidden="true" width="' + (size || 20) + '" height="' + (size || 20) +
       '" viewBox="0 0 24 24" fill="none" stroke="' + (color || 'currentColor') +
       '" stroke-width="' + (width || 2) + '" stroke-linecap="round" stroke-linejoin="round">' +
       (ICON[name] || '') + '</svg>';
   }
+
   const CAT_ICON = {
     greetings: 'bubble', questions: 'question', numbers: 'clock', food: 'bowl',
     emergency: 'cross', phone: 'phone', shopping: 'bag', hotel: 'building',
     transport: 'taxi', polite: 'heart', advanced: 'rocket', general: 'shelf'
   };
-  /* two speech bubbles for greetings */
-  ICON.bubble = '<path d="M4 5h11v8H9l-3 3v-3H4z"/><path d="M17 9h3v8h-2v3l-3-3h-5v-2"/>';
-  /* ---------------- shared markup builders ---------------- */
-  function levelBars(level) {
-    const on = { easy: 1, medium: 2, hard: 3 }[level] || 0;
-    const col = { easy: '#38BDF8', medium: '#FFB020', hard: '#FF4D6D' }[level] || '#34417A';
-    const active = 'var(--ink)';
-    let s = '<svg aria-hidden="true" width="26" height="22" viewBox="0 0 26 22">';
-    const bars = [[2, 12], [10, 7], [18, 2]];
-    for (let i = 0; i < 3; i++) {
-      const isOn = i < on;
-      s += '<rect x="' + bars[i][0] + '" y="' + bars[i][1] + '" width="5" height="' + (20 - bars[i][1]) +
-        '" rx="1.5" fill="' + (isOn ? active : col) + '" opacity="' + (isOn ? 1 : 0.35) + '"/>';
-    }
-    return s + '</svg>';
+
+  /* ---------------- Theme Helpers ---------------- */
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    settings.theme = theme;
+    saveSettings();
+    updateThemeToggleLabel();
   }
-  function ringIcon(pct, color, pctOf) {
-    const r = 26, C = 2 * Math.PI * r;
-    const v = pctOf === undefined ? pct : pctOf;
-    return '<svg class="stat-ring" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">' +
-      '<circle cx="32" cy="32" r="' + r + '" fill="none" stroke="#2A3A78" stroke-width="6"/>' +
-      '<circle cx="32" cy="32" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="6" ' +
-      'stroke-linecap="round" stroke-dasharray="' + (C * v).toFixed(1) + ' ' + C.toFixed(1) + '" ' +
-      'transform="rotate(-90 32 32)"/></svg>';
+
+  function initTheme() {
+    const saved = settings.theme || 'dark';
+    applyTheme(saved);
+  }
+
+  function toggleTheme() {
+    const next = settings.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  }
+
+  function updateThemeToggleLabel() {
+    const btn = $('#themeToggle');
+    if (btn) {
+      const isDark = settings.theme === 'dark';
+      btn.innerHTML = (isDark ? svgIcon('sun', 16, 'currentColor') : svgIcon('moon', 16, 'currentColor')) +
+        '<span>' + (isDark ? 'الوضع الفاتح' : 'الوضع الداكن') + '</span>';
+      btn.setAttribute('aria-label', isDark ? 'التحول إلى الوضع الفاتح' : 'التحول إلى الوضع الداكن');
+    }
+  }
+
+  /* ---------------- Accessible Modal Helper ---------------- */
+  function openModal(htmlContent, onInit) {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'dialog-scrim';
+    backdrop.setAttribute('role', 'presentation');
+    backdrop.innerHTML = htmlContent;
+    document.body.appendChild(backdrop);
+    document.body.classList.add('modal-open');
+
+    const box = backdrop.querySelector('.dialog-box');
+    if (box) {
+      box.setAttribute('role', 'dialog');
+      box.setAttribute('aria-modal', 'true');
+    }
+
+    const previouslyFocused = document.activeElement;
+
+    const focusableEls = backdrop.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstEl = focusableEls[0];
+    const lastEl = focusableEls[focusableEls.length - 1];
+
+    if (firstEl) firstEl.focus();
+
+    const closeModal = () => {
+      if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
+      document.body.classList.remove('modal-open');
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+      document.removeEventListener('keydown', handleKeydown);
+    };
+
+    const handleKeydown = e => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeModal();
+      } else if (e.key === 'Tab' && focusableEls.length > 0) {
+        if (e.shiftKey && document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        } else if (!e.shiftKey && document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeydown);
+    backdrop.addEventListener('click', e => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    if (typeof onInit === 'function') {
+      onInit(backdrop, closeModal);
+    }
+
+    return closeModal;
   }
 
   /* ---------------- HOME view ---------------- */
   function renderHome() {
     document.body.classList.remove('study-active');
-    document.title = 'مراجعة اليوم';
+    document.title = 'مراجعة اليوم — R3D Daily Review';
+
     const scope = scopedCards();
     const total = DATA.cards.length;
     const known = scope.filter(c => isKnown(c.id)).length;
     const due = scope.filter(c => isDue(c.id)).length;
     const scopeDesc = scope.length === total ? '' : ' (بعد التصفية)';
 
+    const brandHeader = `
+      <header class="app-header">
+        <div class="brand-wrap">
+          <div class="brand-icon">${svgIcon('notebook', 24, 'currentColor', 2.2)}</div>
+          <div class="brand-titles">
+            <h1>مراجعة اليوم</h1>
+            <p>تعابير صينية يومية للحياة الواقعية</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="action-pill" type="button" id="statsBtn" aria-label="إحصائيات المراجعة">
+            ${svgIcon('stats', 16, 'currentColor')}
+            <span>الإحصائيات</span>
+          </button>
+          <button class="action-pill" type="button" id="searchBtn" aria-label="بحث في القاموس">
+            ${svgIcon('search', 16, 'currentColor')}
+            <span>بحث</span>
+          </button>
+          <button class="action-pill" type="button" id="themeToggle" aria-label="تبديل المظهر">
+            🌓 <span>المظهر</span>
+          </button>
+        </div>
+      </header>
+    `;
+
+    const metricsDeck = `
+      <section class="metrics-deck">
+        <div class="metrics-grid">
+          <div class="metric-card known">
+            <div class="metric-header">
+              <span>معروفة</span>
+              <span class="metric-dot known"></span>
+            </div>
+            <div class="metric-val">${known}</div>
+            <div class="metric-meta">متقنة بالكامل</div>
+          </div>
+          <div class="metric-card due">
+            <div class="metric-header">
+              <span>اليومية</span>
+              <span class="metric-dot due"></span>
+            </div>
+            <div class="metric-val">${due}</div>
+            <div class="metric-meta">مستحقة للمراجعة</div>
+          </div>
+          <div class="metric-card total">
+            <div class="metric-header">
+              <span>الإجمالي</span>
+              <span class="metric-dot total"></span>
+            </div>
+            <div class="metric-val">${total}</div>
+            <div class="metric-meta">مجموعة البطاقات</div>
+          </div>
+        </div>
+        <div class="deck-scope-note">النطاق الحالي: ${scope.length} بطاقة${scopeDesc}</div>
+      </section>
+    `;
+
+    const modeBtn = (val, label, icon) =>
+      '<button class="filter-btn" type="button" data-mode="' + val + '" aria-pressed="' +
+      (settings.mode === val) + '">' + svgIcon(icon, 16, 'currentColor') + '<span>' + label + '</span></button>';
+
+    const levelBtn = (val, label) =>
+      '<button class="filter-btn" type="button" data-level="' + val + '" aria-pressed="' +
+      (settings.level === val) + '"><span>' + label + '</span></button>';
+
+    const filterPanel = `
+      <section class="filter-panel">
+        <div class="filter-group">
+          <div class="filter-title">وضع الجولة</div>
+          <div class="filter-segments">
+            ${modeBtn('new', 'بطاقات جديدة', 'star')}
+            ${modeBtn('today', 'المراجعة اليومية', 'calendar')}
+          </div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-title">المستوى</div>
+          <div class="filter-segments">
+            ${levelBtn('all', 'جميع المستويات')}
+            ${levelBtn('easy', 'سهل (HSK 1-2)')}
+            ${levelBtn('medium', 'متوسط (HSK 3-4)')}
+            ${levelBtn('hard', 'متقدم (HSK 5-6)')}
+          </div>
+        </div>
+      </section>
+    `;
+
     const toneChip = (tone) => {
       const on = settings.tones.indexOf(tone) !== -1;
-      return '<button class="tone" type="button" data-tone="' + tone + '" aria-pressed="' + on + '" ' +
-        'aria-label="تصفية حسب ' + CFG.TONE_LABEL[tone] + '">' +
-        '<span class="tone-icon" style="color:#0A0F1F">' + svgIcon(
-          tone === 'street' ? 'bag' : tone === 'academic' ? 'building' : 'globe', 26, '#0A0F1F') + '</span>' +
-        '<span class="tone-text"><span class="tone-name">' + CFG.TONE_LABEL[tone] + '</span>' +
-        '<span class="tone-desc">' + CFG.TONE_DESC[tone] + '</span></span></button>';
+      return '<button class="register-card" type="button" data-tone="' + tone + '" aria-pressed="' + on + '">' +
+        '<span class="register-badge">' + svgIcon(tone === 'street' ? 'bag' : tone === 'academic' ? 'building' : 'globe', 18, 'currentColor') + '</span>' +
+        '<span class="register-texts"><span class="register-name">' + CFG.TONE_LABEL[tone] + '</span>' +
+        '<span class="register-desc">' + CFG.TONE_DESC[tone] + '</span></span></button>';
     };
 
-    const catDots = CATS.map(c =>
-      '<span class="cat-dot" style="background:' + catColor(c.id) + '"></span>').join('');
+    const registersSection = `
+      <section class="registers-section">
+        <div class="section-head">
+          <h2 class="section-title">المصدر والاستخدام</h2>
+          <span class="section-subtitle">اختر تصفية السجل</span>
+        </div>
+        <div class="registers-grid">
+          ${CFG.TONE_ORDER.map(toneChip).join('')}
+        </div>
+      </section>
+    `;
 
-    const catCard = (c) => {
+    const catChip = (c) => {
       const color = catColor(c.id);
-      // counts honour the active level/register filters, so the grid
-      // visibly reacts when a filter changes
       const inCat = DATA.cards.filter(x =>
         x.cat === c.id &&
         (settings.level === 'all' || x.level === settings.level) &&
         (!settings.tones.length || settings.tones.indexOf(x.label) !== -1));
       const n = inCat.length;
       const knownN = inCat.filter(x => isKnown(x.id)).length;
-      return '<button class="cat-card" type="button" data-cat="' + c.id + '" ' +
-        'style="background:linear-gradient(135deg,' + hexA(color, .25) + ' 0%,var(--panel) 100%);border-color:' + hexA(color, .4) + '" ' +
-        'aria-label="' + esc(c.ar) + ' — ' + n + ' بطاقة">' +
-        '<span class="cat-glow" style="background:' + hexA(color, .15) + '"></span>' +
-        '<span class="cat-icon" style="background:' + color + ';color:#0A0F1F">' +
-        svgIcon(CAT_ICON[c.id] || 'grid', 26, '#0A0F1F') + '</span>' +
-        '<span class="cat-name">' + esc(c.ar) + '</span>' +
-        '<span class="cat-count">' + knownN + ' / ' + n + ' معروفة</span>' +
-        '</button>';
+      return '<button class="cat-chip" type="button" data-cat="' + c.id + '" style="--cat:' + color + ';--cat-surface:' + hexA(color, 0.12) + '">' +
+        '<span class="cat-icon-badge">' + svgIcon(CAT_ICON[c.id] || 'grid', 20, 'currentColor') + '</span>' +
+        '<span class="cat-chip-info">' +
+          '<span class="cat-chip-name">' + esc(c.ar) + '</span>' +
+          '<span class="cat-chip-count">' + knownN + ' / ' + n + ' معروفة</span>' +
+        '</span></button>';
     };
 
-    const hero = `
-      <section class="hero">
-        <svg class="hero-skyline" viewBox="0 0 560 220" aria-hidden="true">
-          <rect x="10" y="120" width="46" height="100" rx="6" fill="#FFB02033"/>
-          <rect x="64" y="80" width="54" height="140" rx="6" fill="#FF4D6D33"/>
-          <rect x="126" y="130" width="40" height="90" rx="6" fill="#38D9A933"/>
-          <rect x="174" y="60" width="60" height="160" rx="6" fill="#4DABF744"/>
-          <rect x="242" y="110" width="48" height="110" rx="6" fill="#F783AC33"/>
-          <rect x="298" y="90" width="56" height="130" rx="6" fill="#B197FC44"/>
-          <rect x="362" y="140" width="42" height="80" rx="6" fill="#A9E34B33"/>
-          <rect x="412" y="70" width="58" height="150" rx="6" fill="#FFE06633"/>
-          <rect x="478" y="120" width="50" height="100" rx="6" fill="#FF7A5933"/>
-          <g fill="#EEF2FF" opacity="0.55">
-            <rect x="82" y="100" width="6" height="6" rx="1"/><rect x="98" y="100" width="6" height="6" rx="1"/>
-            <rect x="82" y="120" width="6" height="6" rx="1"/><rect x="192" y="80" width="6" height="6" rx="1"/>
-            <rect x="210" y="80" width="6" height="6" rx="1"/><rect x="192" y="100" width="6" height="6" rx="1"/>
-            <rect x="210" y="120" width="6" height="6" rx="1"/><rect x="316" y="110" width="6" height="6" rx="1"/>
-            <rect x="332" y="110" width="6" height="6" rx="1"/><rect x="316" y="130" width="6" height="6" rx="1"/>
-            <rect x="430" y="90" width="6" height="6" rx="1"/><rect x="446" y="90" width="6" height="6" rx="1"/>
-            <rect x="430" y="110" width="6" height="6" rx="1"/>
-          </g>
-        </svg>
-        <div class="hero-top">
-          <div class="hero-icon">${svgIcon('notebook', 40, '#06223A', 1.8)}</div>
-          <div class="hero-titles">
-            <h1>مراجعة اليوم</h1>
-            <div class="hero-sub">كلمات وجمل حياة — <b>لا أكاديمية</b>، وخطوات واضحة بين الشارعي والرسمي</div>
-          </div>
-          <div class="theme-toggle" style="align-self:flex-end;flex-shrink:0;">
-            <button class="tone" type="button" id="themeToggle" aria-pressed="${settings.theme === 'dark'}" aria-label="${settings.theme === 'dark' ? 'تبديل للوضع الفاتح' : 'تبديل للوضع الداكن'}" title="${settings.theme === 'dark' ? 'تبديل للوضع الفاتح' : 'تبديل للوضع الداكن'}" style="padding:4px 8px;font-size:14px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text);">
-              🌓
-            </button>
-          </div>
+    const categoriesSection = `
+      <section class="categories-section">
+        <div class="section-head">
+          <h2 class="section-title">الفئات والمواقف</h2>
+          <span class="section-subtitle">اختر فئة محددة أو ابدأ بالكل</span>
         </div>
-        <div class="stats">
-          <div class="stat stat-known">
-            ${ringIcon(known / (scope.length || 1), '#38D9A9')}
-            <div><div class="stat-num" data-stat="known">${known}</div><div class="stat-label">معروفة</div></div>
-          </div>
-          <div class="stat stat-due">
-            ${ringIcon(due / (scope.length || 1), '#FFB020')}
-            <div><div class="stat-num" data-stat="today">${due}</div><div class="stat-label">في اليومية</div></div>
-          </div>
-          <div class="stat stat-total">
-            ${ringIcon(1, '#38BDF8')}
-            <div><div class="stat-num" data-stat="total">${total}</div><div class="stat-label">إجمالي البطاقات</div></div>
-          </div>
-        </div>
-        <div class="hero-scope">${scope.length} بطاقة في النطاق الحالي${scopeDesc}</div>
-      </section>`;
-
-    const modeBtn = (val, label, icon) =>
-      '<button class="seg" type="button" data-mode="' + val + '" aria-pressed="' +
-      (settings.mode === val) + '">' + svgIcon(icon, 24, 'currentColor') + label + '</button>';
-
-    const levelBtn = (val, label) =>
-      '<button class="seg" type="button" data-level="' + val + '" aria-pressed="' +
-      (settings.level === val) + '">' +
-      (val === 'all' ? svgIcon('reset', 24, 'currentColor') : levelBars(val)) + label + '</button>';
-
-    const controls = `
-      <section class="panel">
-        <div class="ctl-row">
-          <div class="ctl-label">الوضع</div>
-          <div class="ctl-opts">
-            ${modeBtn('new', 'جديدة', 'star')}
-            ${modeBtn('today', 'اليومية', 'calendar')}
-          </div>
-        </div>
-        <div class="ctl-row">
-          <div class="ctl-label">المظهر</div>
-          <div class="ctl-opts">
-            ${modeBtn('dark', 'داكن', 'moon')}
-            ${modeBtn('light', 'فاتح', 'sun')}
-          </div>
-        </div>
-        <div class="ctl-row">
-          <div class="ctl-label">المستوى</div>
-          <div class="ctl-opts">
-            ${levelBtn('all', 'الكل')}
-            ${levelBtn('easy', 'سهل')}
-            ${levelBtn('medium', 'متوسط')}
-            ${levelBtn('hard', 'صعب')}
-          </div>
-        </div>
-      </section>`;
-
-    const tones = '<section class="tones">' +
-      CFG.TONE_ORDER.map(toneChip).join('') + '</section>';
-
-    const grid = `
-      <section style="display:flex;flex-direction:column;gap:16px">
-        <div class="sec-head">
-          <div class="sec-title">الفئات</div>
-          <div class="sec-sub">اختر حيًّا من المدينة</div>
-        </div>
-        <div class="cat-grid">
-          <button class="cat-all" type="button" data-cat="all" aria-label="كل الفئات">
-            <span class="cat-all-icon">${svgIcon('grid', 28, '#04263B')}</span>
-            <span class="cat-all-name">الكل</span>
-            <span class="cat-dots">${catDots}</span>
+        <div class="category-grid">
+          <button class="cat-chip cat-all-chip" type="button" data-cat="all">
+            <span class="cat-icon-badge" style="color:var(--accent)">${svgIcon('grid', 20, 'currentColor')}</span>
+            <span class="cat-chip-info">
+              <span class="cat-chip-name">عرض جميع الفئات</span>
+              <span class="cat-chip-count">${total} بطاقة إجمالية</span>
+            </span>
           </button>
-          ${CATS.map(catCard).join('')}
+          ${CATS.map(catChip).join('')}
         </div>
-      </section>`;
+      </section>
+    `;
 
-    const start = `<button class="start-btn" type="button" id="startBtn">
-      <svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="#04263B"><path d="M8 5v14l11-7z"/></svg>
-      ابدأ المراجعة</button>
-      <button class="ghost-btn" type="button" id="statsBtn" style="margin-top:12px">
-        ${svgIcon('grid2', 16, '#C8D3F2', 2.2)} إحصائيات
+    const startButton = `
+      <button class="primary-start-btn" type="button" id="startBtn">
+        <span>ابدأ المراجعة الآن</span>
+        ${svgIcon('next', 22, 'currentColor', 2.5)}
       </button>
-      <button class="ghost-btn" type="button" id="searchBtn" style="margin-top:12px">
-        ${svgIcon('globe', 16, '#C8D3F2', 2.2)} بحث
-      </button>`;
+    `;
 
     const footer = `
-      <footer class="foot">
-        <div class="foot-note">المصدر الوحيد: <b>library/content-data.json</b> (أعد التشغيل بـ <b>tools/build.py</b>)</div>
-        <button class="ghost-btn" type="button" id="resetBtn">
-          ${svgIcon('reset', 16, '#C8D3F2', 2.2)} بدء جديد — مواصفات اليومية والعلامات
+      <footer class="app-footer">
+        <p class="footer-copy">المصدر: <b>library/content-data.json</b> (يُبنى عبر <code>python tools/build.py</code>)</p>
+        <button class="btn-quiet" type="button" id="resetBtn">
+          ${svgIcon('reset', 14, 'currentColor')}
+          <span>إعادة ضبط التقدم</span>
         </button>
-      </footer>`;
+      </footer>
+    `;
 
     document.getElementById('app').innerHTML =
-      '<div class="shell">' + hero + controls + tones + grid + start + footer + '</div>';
+      '<div class="shell">' +
+        brandHeader +
+        metricsDeck +
+        filterPanel +
+        registersSection +
+        categoriesSection +
+        startButton +
+        footer +
+      '</div>';
 
     bindHome();
   }
@@ -394,58 +450,76 @@
 
   function bindHome() {
     $$('[data-mode]').forEach(b => b.addEventListener('click', () => {
-      if (b.dataset.mode === 'dark' || b.dataset.mode === 'light') {
-        applyTheme(b.dataset.mode);
-      } else {
-        settings.mode = b.dataset.mode; saveSettings(); renderHome();
-      }
+      settings.mode = b.dataset.mode;
+      saveSettings();
+      renderHome();
     }));
+
     $$('[data-level]').forEach(b => b.addEventListener('click', () => {
-      settings.level = b.dataset.level; saveSettings(); renderHome();
+      settings.level = b.dataset.level;
+      saveSettings();
+      renderHome();
     }));
-    $$('.tone').forEach(b => b.addEventListener('click', () => {
+
+    $$('.register-card').forEach(b => b.addEventListener('click', () => {
       const t = b.dataset.tone;
       const i = settings.tones.indexOf(t);
       if (i === -1) settings.tones.push(t); else settings.tones.splice(i, 1);
-      saveSettings(); renderHome();
+      saveSettings();
+      renderHome();
     }));
+
     const themeToggleBtn = document.getElementById('themeToggle');
     if (themeToggleBtn) {
-      themeToggleBtn.addEventListener('click', () => {
-        toggleTheme();
-      });
+      themeToggleBtn.addEventListener('click', toggleTheme);
+      updateThemeToggleLabel();
     }
-    $$('.cat-card, .cat-all').forEach(b => b.addEventListener('click', () => {
-      settings.cat = b.dataset.cat; saveSettings();
+
+    $$('[data-cat]').forEach(b => b.addEventListener('click', () => {
+      settings.cat = b.dataset.cat;
+      saveSettings();
       location.hash = '#/study/' + b.dataset.cat;
     }));
+
     const startBtn = $('#startBtn');
-    if (startBtn) startBtn.addEventListener('click', () => {
-      const n = scopedCards().length;
-      if (!n) {
-        toast('لا توجد بطاقات مطابقة لهذه الإعدادات — غيّر الوضع أو المستوى.');
-        return;
-      }
-      location.hash = '#/study/' + settings.cat;
-    });
-    const resetBtn = document.getElementById('resetBtn');
-    if (resetBtn) resetBtn.addEventListener('click', () => {
-      openDialog({
-        title: 'بدء جديد؟',
-        body: 'سيُمسح تقدّمك المحفوظ (العلامة والصندوق وموعد المراجعة لكل بطاقة) ' +
-              'وتُعاد إعدادات اليومية والعلامات إلى الافتراضي. لا يمكن التراجع.',
-        confirmLabel: 'امسح التقدّم',
-        danger: true,
-        onConfirm: () => {
-          progress = {};
-          saveProgress();
-          settings = Object.assign({}, DEFAULT_SETTINGS);
-          saveSettings();
-          renderHome();
-          toast('تم مسح التقدّم');
+    if (startBtn) {
+      startBtn.addEventListener('click', () => {
+        const n = scopedCards().length;
+        if (!n) {
+          toast('لا توجد بطاقات مطابقة لهذه الإعدادات — جرب تعديل الفلتر.');
+          return;
         }
+        location.hash = '#/study/' + settings.cat;
       });
-    });
+    }
+
+    const resetBtn = $('#resetBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        openModal(
+          '<div class="dialog-box">' +
+            '<div class="dialog-header"><h3>إعادة ضبط التقدم بالكامل؟</h3></div>' +
+            '<p class="dialog-lead">سيتم مسح سجل المراجعات وصناديق لايتنر والإحصائيات نهائياً. لا يمكن التراجع عن هذا الإجراء.</p>' +
+            '<div class="dialog-actions">' +
+              '<button class="btn-secondary" type="button" id="dlgCancel">إلغاء</button>' +
+              '<button class="btn-danger" type="button" id="dlgOk">مسح التقدم</button>' +
+            '</div>' +
+          '</div>',
+          (backdrop, close) => {
+            backdrop.querySelector('#dlgCancel').addEventListener('click', close);
+            backdrop.querySelector('#dlgOk').addEventListener('click', () => {
+              progress = {};
+              saveProgress();
+              settings = Object.assign({}, DEFAULT_SETTINGS);
+              saveSettings();
+              close();
+              renderHome();
+              toast('تمت إعادة ضبط التقدم بنجاح');
+            });
+          }
+        );
+      });
+    }
 
     const statsBtn = document.getElementById('statsBtn');
     if (statsBtn) statsBtn.addEventListener('click', openStatsModal);
@@ -464,44 +538,57 @@
   function renderStudy(catId) {
     const cat = (catId === 'all') ? 'all' : (CAT_BY_ID[catId] ? catId : 'all');
     const color = catColor(cat);
-    const title = cat === 'all' ? 'كل الفئات' : catName(cat);
+    const title = cat === 'all' ? 'كل الفئات والمواقف' : catName(cat);
 
     document.title = title + ' — مراجعة اليوم';
-    const root = document.getElementById('app');
-    root.innerHTML =
-      '<div class="study-page" style="--cat:' + color + ';--cat-soft:' + hexA(color, .22) + '">' +
-      '<div class="study-inner">' +
-        '<div class="study-top">' +
-          '<button class="icon-btn" type="button" id="backBtn" aria-label="رجوع إلى الفئات">' +
-            svgIcon('back', 22, 'currentColor') + '</button>' +
-          '<h1 class="study-title">' + esc(title) + '</h1>' +
-          '<div class="speed-ctrl" id="speedCtrl" role="group" aria-label="سرعة النطق">' +
-            SPEED_OPTIONS.map(s =>
-              '<button class="speed-seg" type="button" data-speed="' + s.value + '" aria-pressed="' +
-              (Number(settings.audioSpeed || 1) === s.value) + '">' + s.label + '</button>').join('') +
-          '</div>' +
-        '</div>' +
-        '<div class="study-progress">' +
-          '<div class="pbar"><div class="pbar-fill" id="pbarFill" style="width:0%"></div></div>' +
-          '<div class="pmeta"><span id="progressLabel">0 / 0</span><span id="progressLeft"></span></div>' +
-        '</div>' +
-        '<div class="scene-card" id="sceneCard" style="border-color:' + color + '"></div>' +
-        '<div class="study-main">' +
-          '<div id="studyBody"></div>' +
-          '<div class="keys">' +
-            '<span><kbd>مسافة</kbd> اقلب البطاقة</span>' +
-            '<span><kbd>1</kbd> لم أعرفها</span>' +
-            '<span><kbd>2</kbd> صعبة</span>' +
-            '<span><kbd>3</kbd> عرفتها</span>' +
-            '<span><kbd>←</kbd><kbd>→</kbd> تنقّل</span>' +
-          '</div>' +
-        '</div>' +
-      '</div></div>';
 
-    // scene
+    const root = document.getElementById('app');
+    root.innerHTML = `
+      <div class="study-shell" style="--cat: ${color}">
+        <nav class="study-navbar">
+          <button class="study-icon-btn" type="button" id="backBtn" aria-label="العودة للرئيسية">
+            ${svgIcon('back', 20, 'currentColor')}
+          </button>
+          <div class="study-title-wrap">
+            <h1 class="study-title">${esc(title)}</h1>
+          </div>
+          <div class="speed-segment-group" role="group" aria-label="سرعة النطق">
+            ${SPEED_OPTIONS.map(s =>
+              '<button class="speed-segment-btn" type="button" data-speed="' + s.value + '" aria-pressed="' +
+              (Number(settings.audioSpeed || 1) === s.value) + '">' + s.label + '</button>'
+            ).join('')}
+          </div>
+        </nav>
+
+        <div class="study-progress-card">
+          <div class="progress-track">
+            <div class="progress-fill" id="pbarFill" style="width: 0%"></div>
+          </div>
+          <div class="progress-meta">
+            <span class="progress-counter" id="progressLabel">0 / 0</span>
+            <span id="progressLeft">جاري التحميل...</span>
+          </div>
+        </div>
+
+        <div class="study-content-grid">
+          <div class="scene-frame" id="sceneCard" style="border-color: var(--border);"></div>
+          <div class="study-column">
+            <div id="studyBody"></div>
+            <div class="shortcuts-row">
+              <span>قلب البطاقة <kbd class="kbd-badge">Space</kbd></span>
+              <span>لم أعرفها <kbd class="kbd-badge">1</kbd></span>
+              <span>صعبة <kbd class="kbd-badge">2</kbd></span>
+              <span>عرفتها <kbd class="kbd-badge">3</kbd></span>
+              <span>تنقل <kbd class="kbd-badge">← / →</kbd></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
     const sceneFn = SCENES[cat] || SCENES.all;
     $('#sceneCard').innerHTML =
-      '<svg viewBox="0 0 350 236" role="img" aria-label="صورة توضيحية لـ ' + esc(title) + '">' +
+      '<svg viewBox="0 0 350 236" role="img" aria-label="مشهد توضيحي لـ ' + esc(title) + '">' +
       sceneFn(color) + '</svg>';
 
     $('#backBtn').addEventListener('click', () => {
@@ -513,12 +600,12 @@
       saveSettings();
       $$('[data-speed]').forEach(x =>
         x.setAttribute('aria-pressed', String(Number(x.dataset.speed) === settings.audioSpeed)));
-      // replay the current word so the new speed is audible straight away
       if (session.cur) speak(session.cur.front, session.cur.id);
     }));
 
     buildQueue(cat);
-    session.idx = 0; session.flipped = false;
+    session.idx = 0;
+    session.flipped = false;
     session.counts = { know: 0, hard: 0, miss: 0 };
     session.rated = [];
 
@@ -530,21 +617,30 @@
   }
 
   function buildQueue(cat) {
+    if (forcedCardId) {
+      const targetCard = DATA.cards.find(c => c.id === forcedCardId);
+      forcedCardId = null;
+      if (targetCard) {
+        session.queue = [targetCard];
+        return;
+      }
+    }
+
     const base = DATA.cards.filter(c => {
       if (cat !== 'all' && c.cat !== cat) return false;
       if (settings.level !== 'all' && c.level !== settings.level) return false;
       if (settings.tones.length && settings.tones.indexOf(c.label) === -1) return false;
       return true;
     });
+
     let q;
     if (settings.mode === 'new') {
       q = base.filter(c => !progOf(c.id));
     } else {
       q = base.filter(c => isDue(c.id));
     }
+
     if (!q.length) {
-      // "Today" mode with nothing due yet. Rather than leave the page dead,
-      // fall back to the unseen cards in scope, then to anything already seen.
       const unseen = base.filter(c => !progOf(c.id));
       q = unseen.length ? unseen : base;
     }
@@ -552,13 +648,13 @@
   }
 
   function renderEmpty() {
-    $('#studyBody').innerHTML =
-      '<div class="empty">' +
-        '<div class="empty-title">لا توجد بطاقات هنا الآن</div>' +
-        '<div class="empty-sub">كل بطاقات هذه الفئة مراجَعة، أو الإعدادات الحالية تُخرجها من النطاق. ' +
-        'جرّب «اليومية» أو غيّر المستوى.</div>' +
-        '<button class="btn-ghost" type="button" id="emptyBack" style="min-height:48px;border-radius:16px;padding:0 18px;font-weight:600;cursor:pointer">رجوع للفئات</button>' +
-      '</div>';
+    $('#studyBody').innerHTML = `
+      <div class="round-summary">
+        <h2>لا توجد بطاقات مطابقة</h2>
+        <p class="dialog-lead">كل بطاقات هذه الفئة مراجَعة أو استُبعدت بالفلاتر الحالية. جرب تغيير وضع الجولة أو المستوى.</p>
+        <button class="btn-primary" type="button" id="emptyBack" style="width: 100%;">العودة للرئيسية</button>
+      </div>
+    `;
     $('#emptyBack').addEventListener('click', () => { location.hash = '#/'; });
   }
 
@@ -569,67 +665,89 @@
     session.flipped = false;
 
     const tone = c.label;
-    const toneColor = CFG.TONE_COLOR[tone] || CFG.TONE_COLOR.neutral;
     const toneLabel = CFG.TONE_LABEL[tone] || 'محايد';
     const levelLabel = CFG.LEVEL_LABEL[c.level] || c.level;
-    const color = catColor(c.cat);
+    const toneClass = 'tone-' + (tone === 'street' ? 'street' : tone === 'academic' ? 'academic' : 'neutral');
 
-    const front =
-      '<div class="flip-face flip-front">' +
-        '<div class="card-zh">' + esc(c.front) + '</div>' +
-        (c.py ? '<div class="card-py">' + esc(c.py) + '</div>' : '') +
-        '<div class="card-hint">اضغط على البطاقة لكشف المعنى</div>' +
-      '</div>';
-    const back =
-      '<div class="flip-face flip-back">' +
-        '<div class="card-zh">' + esc(c.front) + '</div>' +
-        (c.py ? '<div class="card-py">' + esc(c.py) + '</div>' : '') +
-        '<div class="card-div"></div>' +
-        '<div class="card-ar">' + esc(c.ar) + '</div>' +
-        (c.note ? '<div class="card-note">' + esc(c.note) + '</div>' : '') +
-        '<button class="sound-btn" type="button" id="soundBtn" aria-label="استمع للنطق">' +
-          svgIcon('sound', 24, 'currentColor') + '</button>' +
-      '</div>';
+    const frontFace = `
+      <div class="card-side">
+        <div class="card-zh-head zh" dir="ltr">${esc(c.front)}</div>
+        ${c.py ? '<div class="card-pinyin ltr" dir="ltr">' + esc(c.py) + '</div>' : ''}
+        <div class="card-prompt-hint">اضغط على البطاقة أو انقر المسافة لكشف المعنى</div>
+      </div>
+    `;
 
-    const body =
-      '<div class="badges">' +
-        '<span class="badge" style="border-color:' + toneColor + ';color:' + toneColor + ';background:' + hexA(toneColor, .1) + '">' +
-          toneLabel + '</span>' +
-        '<span class="badge badge-level">' + levelLabel + '</span>' +
-      '</div>' +
-      '<div class="flip-wrap"><div class="flip-card" id="flipCard" role="button" tabindex="0" ' +
-        'aria-label="بطاقة المراجعة — اضغط للقلب">' + front + back + '</div></div>' +
-      '<div class="nav-row">' +
-        '<button class="nav-btn" type="button" data-nav="prev" aria-label="الكلمة السابقة">' +
-          svgIcon('back', 22, 'currentColor') + '<span>السابقة</span></button>' +
-        '<button class="nav-btn" type="button" data-nav="next" aria-label="الكلمة التالية">' +
-          '<span>التالية</span>' + svgIcon('next', 22, 'currentColor') + '</button>' +
-      '</div>' +
-      '<div class="rating-row">' +
-        '<button class="rate rate-miss" type="button" data-rate="miss">لم أعرفها</button>' +
-        '<button class="rate rate-hard" type="button" data-rate="hard">صعبة</button>' +
-        '<button class="rate rate-know" type="button" data-rate="know">عرفتها</button>' +
-      '</div>';
+    const backFace = `
+      <div class="card-side card-side-back">
+        <div class="card-zh-head zh" dir="ltr">${esc(c.front)}</div>
+        ${c.py ? '<div class="card-pinyin ltr" dir="ltr">' + esc(c.py) + '</div>' : ''}
+        <div class="card-rule"></div>
+        <div class="card-ar-body" dir="rtl">${esc(c.ar)}</div>
+        ${c.note ? '<div class="card-note-body" dir="rtl">' + esc(c.note) + '</div>' : ''}
+        <button class="voice-btn" type="button" id="soundBtn" aria-label="استمع للنطق الصيني">
+          ${svgIcon('sound', 22, 'currentColor')}
+        </button>
+      </div>
+    `;
 
-    $('#studyBody').innerHTML = body;
+    const bodyHtml = `
+      <div class="study-column">
+        <div class="badge-row">
+          <span class="meta-chip ${toneClass}">${toneLabel}</span>
+          <span class="meta-chip meta-level">${levelLabel}</span>
+        </div>
+
+        <div class="flip-stage">
+          <div class="card-canvas" id="flipCard" role="button" tabindex="0" aria-label="بطاقة تعليمية، اضغط للقلب">
+            ${frontFace}
+            ${backFace}
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button class="nav-action-btn" type="button" data-nav="prev" aria-label="البطاقة السابقة">
+            ${svgIcon('back', 16, 'currentColor')}
+            <span>السابقة</span>
+          </button>
+          <button class="nav-action-btn" type="button" data-nav="next" aria-label="البطاقة التالية">
+            <span>التالية</span>
+            ${svgIcon('next', 16, 'currentColor')}
+          </button>
+        </div>
+
+        <div class="rating-deck">
+          <button class="rate-btn miss" type="button" data-rate="miss">لم أعرفها</button>
+          <button class="rate-btn hard" type="button" data-rate="hard">صعبة</button>
+          <button class="rate-btn know" type="button" data-rate="know">عرفتها</button>
+        </div>
+      </div>
+    `;
+
+    $('#studyBody').innerHTML = bodyHtml;
 
     const card = $('#flipCard');
     const doFlip = () => {
       session.flipped = !session.flipped;
-      card.classList.toggle('flipped', session.flipped);
+      card.classList.toggle('is-flipped', session.flipped);
     };
+
     card.addEventListener('click', doFlip);
     card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doFlip(); }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        doFlip();
+      }
     });
 
-    $('#soundBtn').addEventListener('click', e => {
-      e.stopPropagation();
-      speak(c.front, c.id);
-    });
+    const soundBtn = $('#soundBtn');
+    if (soundBtn) {
+      soundBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        speak(c.front, c.id);
+      });
+    }
 
     $$('[data-rate]').forEach(b => b.addEventListener('click', () => rate(b.dataset.rate)));
-
     $$('[data-nav]').forEach(b => b.addEventListener('click', () => {
       gotoCard(session.idx + (b.dataset.nav === 'next' ? 1 : -1));
     }));
@@ -637,8 +755,6 @@
     updateProgressUI();
   }
 
-  /* Move to a card in the current queue without grading it. Clamps at both
-     ends so the buttons (and the arrow keys) can never run off the queue. */
   function gotoCard(target) {
     if (!session.queue.length) return;
     const idx = Math.max(0, Math.min(session.queue.length - 1, target));
@@ -650,33 +766,28 @@
 
   function updateProgressUI() {
     const total = session.queue.length;
-    const n = session.idx;
-    $('#progressLabel').textContent = n + ' / ' + total;
-    $('#pbarFill').style.width = (total ? (n / total * 100) : 0) + '%';
-    const left = Math.max(0, total - n);
-    $('#progressLeft').textContent =
-      (settings.mode === 'new' ? 'جديدة' : 'اليومية') + ': ' + left + ' متبقاة';
+    const currentPos = Math.min(session.idx + 1, total);
+    $('#progressLabel').textContent = currentPos + ' / ' + total;
+    $('#pbarFill').style.width = (total ? (session.idx / total * 100) : 0) + '%';
+    const left = Math.max(0, total - session.idx);
+    $('#progressLeft').textContent = 'المتبقي في الجولة: ' + left;
     updateNavUI();
   }
 
-  /* Grey out the nav buttons when there is nowhere to go. */
   function updateNavUI() {
     const prev = $('[data-nav="prev"]');
     const next = $('[data-nav="next"]');
     const total = session.queue.length;
     if (prev) {
       const off = session.idx <= 0;
-      prev.classList.toggle('at-edge', off);
       prev.disabled = off;
     }
     if (next) {
       const off = session.idx >= total - 1;
-      next.classList.toggle('at-edge', off);
       next.disabled = off;
     }
   }
 
-  /* ---------------- rating / Leitner ---------------- */
   function rate(kind) {
     const c = session.cur;
     if (!c) return;
@@ -687,10 +798,10 @@
       box = Math.min(5, box + 1);
       session.counts.know++;
     } else if (kind === 'hard') {
-      box = Math.max(1, box);          // stays in the same box
+      box = Math.max(1, box);
       session.counts.hard++;
     } else {
-      box = 1;                          // back to box 1
+      box = 1;
       session.counts.miss++;
     }
 
@@ -715,53 +826,57 @@
   function showSummary() {
     const total = session.rated.length || 1;
     const pct = Math.round(session.counts.know / total * 100);
-    const C = 2 * Math.PI * 44;
-    const body =
-      '<div class="summary">' +
-        '<h2>انتهت الجولة</h2>' +
-        '<div class="summary-ring">' +
-          '<svg width="108" height="108" viewBox="0 0 108 108" aria-hidden="true">' +
-            '<circle cx="54" cy="54" r="44" fill="none" stroke="#27325C" stroke-width="9"/>' +
-            '<circle cx="54" cy="54" r="44" fill="none" stroke="#38D9A9" stroke-width="9" ' +
-            'stroke-linecap="round" stroke-dasharray="' + (C * pct / 100).toFixed(1) + ' ' + C.toFixed(1) + '" ' +
-            'transform="rotate(-90 54 54)"/>' +
-          '</svg>' +
-          '<div class="summary-ring-txt"><div class="summary-pct">' + pct + '%</div>' +
-          '<div class="summary-lbl">إتقان</div></div>' +
-        '</div>' +
-        '<div class="summary-rows">' +
-          '<div class="summary-row"><span>عرفتها</span><b style="color:#38D9A9">' + session.counts.know + '</b></div>' +
-          '<div class="summary-row"><span>صعبة</span><b style="color:#A3B1D9">' + session.counts.hard + '</b></div>' +
-          '<div class="summary-row"><span>لم أعرفها</span><b style="color:#FF4D6D">' + session.counts.miss + '</b></div>' +
-        '</div>' +
-        '<div class="summary-actions">' +
-          '<button class="btn-ghost" type="button" id="againBtn">أعد الجولة</button>' +
-          '<button class="btn-primary" type="button" id="backCatsBtn">رجوع للفئات</button>' +
-        '</div>' +
-      '</div>';
-    $('#studyBody').innerHTML = body;
+
+    $('#studyBody').innerHTML = `
+      <div class="round-summary">
+        <h2>انتهت الجولة بنجاح</h2>
+        <div class="summary-score">
+          <span class="score-num">${pct}%</span>
+          <span class="score-label">نسبة الإتقان في هذه الجولة</span>
+        </div>
+        <div class="summary-list">
+          <div class="summary-item">
+            <span>عرفتها</span>
+            <span class="summary-item-val" style="color:var(--known)">${session.counts.know}</span>
+          </div>
+          <div class="summary-item">
+            <span>صعبة</span>
+            <span class="summary-item-val" style="color:var(--due)">${session.counts.hard}</span>
+          </div>
+          <div class="summary-item">
+            <span>لم أعرفها</span>
+            <span class="summary-item-val" style="color:var(--miss)">${session.counts.miss}</span>
+          </div>
+        </div>
+        <div class="summary-actions">
+          <button class="btn-secondary" type="button" id="againBtn">إعادة الجولة</button>
+          <button class="btn-primary" type="button" id="backCatsBtn">الرئيسية</button>
+        </div>
+      </div>
+    `;
+
     $('#againBtn').addEventListener('click', () => {
       const cat = location.hash.replace('#/study/', '') || 'all';
       renderStudy(cat);
     });
     $('#backCatsBtn').addEventListener('click', () => { location.hash = '#/'; });
-    updateProgressUI();
+    $('#pbarFill').style.width = '100%';
+    $('#progressLabel').textContent = session.queue.length + ' / ' + session.queue.length;
+    $('#progressLeft').textContent = 'اكتملت الجولة';
   }
 
-  /* ---------------- speech ---------------- */
+  /* ---------------- Speech / Audio ---------------- */
   let voicesReady = false;
   function speak(text, cardId) {
     const btn = $('#soundBtn');
-    // Recorded MP3 first when we have one for this card — it is the
-    // natural Chinese voice and needs no TTS support.
     if (cardId && playRecorded(cardId)) {
       if (btn) {
-        btn.classList.add('speaking');
-        setTimeout(() => btn.classList.remove('speaking'), 900);
+        btn.classList.add('is-active');
+        setTimeout(() => btn.classList.remove('is-active'), 1000);
       }
       return;
     }
-    if (!('speechSynthesis' in window)) { toast('متصفحك لا يدعم النطق'); return; }
+    if (!('speechSynthesis' in window)) { toast('متصفحك لا يدعم النطق الصوتي'); return; }
     try {
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
@@ -769,11 +884,12 @@
       u.rate = Number(settings.audioSpeed) || 1;
       const v = pickChineseVoice();
       if (v) u.voice = v;
-      if (btn) btn.classList.add('speaking');
-      u.onend = u.onerror = () => { if (btn) btn.classList.remove('speaking'); };
+      if (btn) btn.classList.add('is-active');
+      u.onend = u.onerror = () => { if (btn) btn.classList.remove('is-active'); };
       window.speechSynthesis.speak(u);
-    } catch (e) { /* speech unavailable — nothing else to try */ }
+    } catch (e) {}
   }
+
   function pickChineseVoice() {
     if (!voicesReady && window.speechSynthesis) {
       try { window.speechSynthesis.getVoices(); voicesReady = true; } catch (e) {}
@@ -783,11 +899,11 @@
     return list.find(v => /^zh[-_]CN/i.test(v.lang)) ||
            list.find(v => /^zh/i.test(v.lang)) || null;
   }
+
   if (window.speechSynthesis) {
     try { window.speechSynthesis.onvoiceschanged = () => { voicesReady = true; }; } catch (e) {}
   }
 
-  /* ---------------- audio (recorded mp3) ---------------- */
   function playRecorded(id) {
     if (!AUDIO[id]) return false;
     try {
@@ -798,268 +914,244 @@
     } catch (e) { return false; }
   }
 
-  /* ---------------- dialog ---------------- */
-  function openDialog(opts) {
-    const backdrop = document.createElement('div');
-    backdrop.className = 'dlg-backdrop';
-    backdrop.innerHTML =
-      '<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">' +
-        '<h3 id="dlgTitle">' + esc(opts.title) + '</h3>' +
-        '<p>' + esc(opts.body) + '</p>' +
-        '<div class="dlg-actions">' +
-          '<button class="btn-ghost" type="button" id="dlgCancel">إلغاء</button>' +
-          '<button class="' + (opts.danger ? 'btn-danger' : 'btn-primary') + '" type="button" id="dlgOk">' +
-            esc(opts.confirmLabel || 'تأكيد') + '</button>' +
-        '</div>' +
-      '</div>';
-    document.body.appendChild(backdrop);
-    const close = () => { if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop); };
-    $('#dlgCancel').addEventListener('click', close);
-    $('#dlgOk').addEventListener('click', () => { close(); if (opts.onConfirm) opts.onConfirm(); });
-    backdrop.addEventListener('click', e => { if (e.target === backdrop) close(); });
-    document.addEventListener('keydown', function esc2(e) {
-      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc2); }
-    });
-    $('#dlgOk').focus();
-  }
-
-  /* ---------------- stats modal ---------------- */
+  /* ---------------- Stats Modal ---------------- */
   function openStatsModal() {
-    const scope = scopedCards();
-    const now = todayStr();
-    let totalReview = 0;
+    let totalReviews = 0;
     const boxDist = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     const catCounts = {};
-    CATS.forEach(c => catCounts[c.id] = 0);
+    CATS.forEach(c => { if (c.id !== 'all') catCounts[c.id] = 0; });
+
+    let totalSeenSum = 0;
+    let totalCorrectSum = 0;
 
     DATA.cards.forEach(c => {
       const p = progress[c.id];
       if (p) {
-        totalReview += p.seen || 0;
-        boxDist[p.box || 0]++;
-        if (catCounts[c.cat] !== undefined) catCounts[c.cat]++;
+        totalReviews += p.seen || 0;
+        const b = Math.min(5, Math.max(0, p.box || 0));
+        boxDist[b]++;
+        if (catCounts[c.cat] !== undefined) {
+          if (p.status === 'known' || p.box >= 5) catCounts[c.cat]++;
+        }
+        totalSeenSum += p.seen || 0;
+        totalCorrectSum += p.correct || 0;
       }
     });
 
-    const known = scope.filter(c => isKnown(c.id)).length;
-    const retention = Math.round(known / (scope.length || 1) * 100);
-
+    const retention = totalSeenSum > 0 ? Math.round((totalCorrectSum / totalSeenSum) * 100) : 0;
     const maxBoxCount = Math.max(...Object.values(boxDist), 1);
-    const boxChart = Object.entries(boxDist).map(([b, count]) => {
-      const height = Math.round((count / maxBoxCount) * 80);
-      return `<div class="stats-bar-item">
-        <div class="stats-bar">
-          <div class="stats-bar-fill fill-${b}" style="height:${height}px"></div>
+
+    const boxColumns = Object.entries(boxDist).map(([boxNum, count]) => {
+      const pct = Math.round((count / maxBoxCount) * 100);
+      const boxName = boxNum === '5' ? 'مُتقن' : 'صندوق ' + boxNum;
+      return `
+        <div class="chart-bar-wrap">
+          <div class="chart-col-val">${count}</div>
+          <div class="chart-bar-pillar box-${boxNum}" style="height: ${Math.max(8, pct)}%;"></div>
+          <span class="chart-col-tag">${boxName}</span>
         </div>
-        <span class="stats-bar-label">${b === '5' ? 'مُتقن' : b}</span>
-      </div>`;
+      `;
     }).join('');
 
-    const statsHtml = `
-      <div class="stats-backdrop">
-        <div class="stats-modal">
-          <div class="stats-header">
-            <h3>إحصائيات المراجعة</h3>
+    const catsRows = CATS.filter(c => c.id !== 'all').map(c => {
+      const mastered = catCounts[c.id] || 0;
+      return `
+        <div class="stats-cat-row">
+          <span>${esc(c.ar)}</span>
+          <span class="count">${mastered} متقنة</span>
+        </div>
+      `;
+    }).join('');
+
+    const html = `
+      <div class="dialog-box" style="max-width: 580px;">
+        <div class="dialog-header">
+          <h3>إحصائيات المراجعة والإتقان</h3>
+        </div>
+        <div class="stats-overview-grid">
+          <div class="stat-metric-pill">
+            <span class="val">${totalReviews}</span>
+            <span class="lbl">إجمالي عمليات المراجعة</span>
           </div>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-card-num">${totalReview}</div>
-              <div class="stat-card-label">إجمالي المراجعات</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-card-num" style="color:var(--known)">${retention}%</div>
-              <div class="stat-card-label">نسبة الإتقان</div>
-            </div>
+          <div class="stat-metric-pill">
+            <span class="val" style="color:var(--known)">${retention}%</span>
+            <span class="lbl">دقة الإجابات</span>
           </div>
-          <div class="stats-chart">
-            <div class="stats-chart-title">توزيع الصناديق (Leitner)</div>
-            <div class="stats-bar-container">${boxChart}</div>
-          </div>
-          <div class="stats-cats">
-            <div class="stats-cats-title">الفئات:</div>
-            <div class="stats-cats-grid">
-              ${CATS.map(c => {
-                const count = catCounts[c.id];
-                return `<div class="stats-cat-item">
-                  <div class="stats-cat-name">${c.ar}</div>
-                  <div class="stats-cat-count">${count}</div>
-                </div>`;
-              }).join('')}
-            </div>
-          </div>
-          <div class="stats-actions">
-            <button class="btn-primary" type="button" id="statsClose">إغلاق</button>
-            <button class="btn-ghost" type="button" id="exportProgress">تصدير</button>
-            <button class="btn-ghost" type="button" id="importProgress">استيراد</button>
-          </div>
+        </div>
+
+        <div class="box-chart-deck">
+          <div class="chart-title">توزيع صناديق لايتنر (Leitner Boxes)</div>
+          <div class="chart-columns">${boxColumns}</div>
+        </div>
+
+        <div class="box-chart-deck">
+          <div class="chart-title">البطاقات المتقنة حسب الفئة</div>
+          <div class="stats-cats-collection">${catsRows}</div>
+        </div>
+
+        <div class="dialog-actions">
+          <button class="btn-primary" type="button" id="statsClose">إغلاق</button>
+          <button class="btn-secondary" type="button" id="exportProgress">تصدير التقدم</button>
+          <button class="btn-secondary" type="button" id="importProgress">استيراد التقدم</button>
         </div>
       </div>
     `;
-    document.body.insertAdjacentHTML('beforeend', statsHtml);
 
-    const modal = document.querySelector('.stats-backdrop');
-    const close = () => { if (modal.parentNode) modal.parentNode.removeChild(modal); };
-
-    document.getElementById('statsClose').addEventListener('click', close);
-    document.getElementById('exportProgress').addEventListener('click', () => exportProgress());
-    document.getElementById('importProgress').addEventListener('click', () => importProgress());
-    modal.addEventListener('click', e => { if (e.target === modal) close(); });
-    document.addEventListener('keydown', function esc3(e) {
-      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc3); }
+    openModal(html, (backdrop, close) => {
+      backdrop.querySelector('#statsClose').addEventListener('click', close);
+      backdrop.querySelector('#exportProgress').addEventListener('click', exportProgress);
+      backdrop.querySelector('#importProgress').addEventListener('click', importProgress);
     });
-    document.getElementById('statsClose').focus();
   }
 
-  /* ---------------- search modal ---------------- */
+  /* ---------------- Search Modal ---------------- */
   function openSearchModal() {
-    document.body.insertAdjacentHTML('beforeend', `
-      <div class="search-backdrop">
-        <div class="search-modal">
-          <div class="search-header">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="searchInput" placeholder="ابحث عن كلمة، بينيين، أو معنى..." autofocus>
-          </div>
-          <div class="search-results" id="searchResults"></div>
-          <div class="dlg-actions" style="margin-top:16px">
-            <button class="btn-ghost" type="button" id="searchClose">إغلاق</button>
-          </div>
+    const html = `
+      <div class="dialog-box" style="max-width: 540px;">
+        <div class="dialog-header">
+          <h3>البحث السريع في البطاقات</h3>
+        </div>
+        <input class="search-input-field" type="text" id="searchInput" placeholder="ابحث بالصينية، البينيين، أو المعنى العربي..." autocomplete="off">
+        <div class="search-results-list" id="searchResults">
+          <div style="text-align: center; color: var(--text-subtle); padding: 24px;">اكتب حرفين أو أكثر للبحث الفوري...</div>
+        </div>
+        <div class="dialog-actions">
+          <button class="btn-secondary" style="width: 100%;" type="button" id="searchClose">إغلاق</button>
         </div>
       </div>
-    `);
+    `;
 
-    const modal = document.querySelector('.search-backdrop');
-    const close = () => { if (modal.parentNode) modal.parentNode.removeChild(modal); };
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
+    openModal(html, (backdrop, close) => {
+      const input = backdrop.querySelector('#searchInput');
+      const resultsDiv = backdrop.querySelector('#searchResults');
 
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.trim();
-      if (query.length < 2) {
-        searchResults.innerHTML = '<div style="text-align:center;color:var(--text-3);padding:40px 20px">اكتب 3 أحرف على الأقل للبحث...</div>';
-        return;
-      }
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        if (q.length < 2) {
+          resultsDiv.innerHTML = '<div style="text-align: center; color: var(--text-subtle); padding: 24px;">اكتب حرفين أو أكثر للبحث الفوري...</div>';
+          return;
+        }
 
-      const lowerQuery = query.toLowerCase();
-      const results = DATA.cards.filter(c => {
-        return c.front.toLowerCase().includes(lowerQuery) ||
-               c.py.toLowerCase().includes(lowerQuery) ||
-               c.ar.toLowerCase().includes(lowerQuery);
-      }).slice(0, 50);
+        const hits = DATA.cards.filter(c =>
+          c.front.toLowerCase().includes(q) ||
+          c.py.toLowerCase().includes(q) ||
+          c.ar.toLowerCase().includes(q)
+        ).slice(0, 40);
 
-      if (results.length === 0) {
-        searchResults.innerHTML = '<div style="text-align:center;color:var(--text-3);padding:40px 20px">لا توجد نتائج</div>';
-        return;
-      }
+        if (!hits.length) {
+          resultsDiv.innerHTML = '<div style="text-align: center; color: var(--text-subtle); padding: 24px;">لا توجد نتائج مطابقة لبحثك</div>';
+          return;
+        }
 
-      searchResults.innerHTML = results.map(c => {
-        const category = CAT_BY_ID[c.cat];
-        return `<div class="search-result-item" data-card="${esc(c.id)}">
-          <div class="search-result-zh">${esc(c.front)}</div>
-          <div class="search-result-py">${esc(c.py)}</div>
-          <div class="search-result-ar">${esc(c.ar)}</div>
-          <div class="search-result-cat">(${category ? category.ar : ''})</div>
-        </div>`;
-      }).join('');
+        resultsDiv.innerHTML = hits.map(c => {
+          const catObj = CAT_BY_ID[c.cat];
+          return `
+            <button class="search-item" type="button" data-card-id="${esc(c.id)}" data-cat="${esc(c.cat)}">
+              <div class="search-item-zh">${esc(c.front)}</div>
+              <div class="search-item-py">${esc(c.py)}</div>
+              <div class="search-item-ar">${esc(c.ar)}</div>
+              <div class="search-item-tag">الفئة: ${catObj ? esc(catObj.ar) : esc(c.cat)}</div>
+            </button>
+          `;
+        }).join('');
 
-      searchResults.querySelectorAll('.search-result-item').forEach(el => {
-        el.addEventListener('click', () => {
-          const cardId = el.dataset.card;
-          close();
-          location.hash = '#/study/' + CAT_BY_ID[DATA.cards.find(c => c.id === cardId).cat];
-          setTimeout(() => {
-            const queue = session.queue || [];
-            const idx = queue.findIndex(c => c.id === cardId);
-            if (idx >= 0) {
-              session.idx = idx;
-              session.cur = queue[idx];
-              session.flipped = false;
-              renderCard();
-            }
-          }, 100);
+        resultsDiv.querySelectorAll('.search-item').forEach(el => {
+          el.addEventListener('click', () => {
+            const cardId = el.dataset.cardId;
+            const catId = el.dataset.cat;
+            close();
+            forcedCardId = cardId;
+            settings.cat = catId;
+            saveSettings();
+            location.hash = '#/study/' + catId;
+          });
         });
       });
-    });
 
-    searchInput.focus();
-    document.getElementById('searchClose').addEventListener('click', close);
-    modal.addEventListener('click', e => { if (e.target === modal) close(); });
-    document.addEventListener('keydown', function esc4(e) {
-      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc4); }
+      backdrop.querySelector('#searchClose').addEventListener('click', close);
+      setTimeout(() => input.focus(), 50);
     });
   }
 
-  /* ---------------- import/export progress ---------------- */
+  /* ---------------- Export / Import ---------------- */
   function exportProgress() {
-    const data = {
+    const payload = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
       progress: progress,
       settings: {
         cat: settings.cat,
         mode: settings.mode,
         level: settings.level,
         tones: settings.tones
-      },
-      exportedAt: new Date().toISOString()
+      }
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `r3d-daily-backup-${todayStr()}.json`;
+    a.download = 'r3d-daily-backup-' + todayStr() + '.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    toast('تم تصدير ملف التقدم بنجاح');
   }
 
   function importProgress() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
-    input.addEventListener('change', e => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json,application/json';
+    fileInput.addEventListener('change', e => {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = ev => {
         try {
-          const data = JSON.parse(ev.target.result);
-          if (data.progress && typeof data.progress === 'object') {
-            progress = data.progress;
+          const parsed = JSON.parse(ev.target.result);
+          if (parsed && typeof parsed.progress === 'object') {
+            progress = parsed.progress;
             saveProgress();
-            if (data.settings) {
-              settings = Object.assign({}, settings, data.settings);
+            if (parsed.settings) {
+              settings = Object.assign({}, settings, parsed.settings);
               saveSettings();
             }
-            toast('تم استيراد التقدم بنجاح');
+            toast('تم استيراد التقدم وتحديث البيانات بنجاح');
             renderHome();
           } else {
-            toast('ملف غير صالح');
+            toast('ملف النسخ الاحتياطي غير صالح');
           }
         } catch (err) {
-          toast('خطأ في قراءة الملف');
+          toast('تعذر قراءة ملف JSON');
         }
       };
       reader.readAsText(file);
     });
-    input.click();
+    fileInput.click();
   }
 
-  /* ---------------- toast ---------------- */
+  /* ---------------- Toast Notifications ---------------- */
   let toastTimer = null;
   function toast(msg) {
-    const old = $('.toast');
-    if (old) old.remove();
-    const el = document.createElement('div');
-    el.className = 'toast';
-    el.textContent = msg;
-    document.body.appendChild(el);
+    let outlet = $('.toast-outlet');
+    if (!outlet) {
+      outlet = document.createElement('div');
+      outlet.className = 'toast-outlet';
+      document.body.appendChild(outlet);
+    }
+    outlet.textContent = msg;
+    outlet.style.display = 'block';
     if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 3200);
+    toastTimer = setTimeout(() => {
+      if (outlet.parentNode) outlet.style.display = 'none';
+    }, 3200);
   }
 
-  /* ---------------- keyboard shortcuts (desktop) ---------------- */
+  /* ---------------- Keyboard Shortcuts ---------------- */
   document.addEventListener('keydown', e => {
     if (!document.body.classList.contains('study-active')) return;
     if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+
     if (e.key === ' ' || e.key === 'Spacebar') {
       const card = $('#flipCard');
       if (card) { e.preventDefault(); card.click(); }
@@ -1070,12 +1162,12 @@
     else if (e.key === '3') { e.preventDefault(); rate('know'); }
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.preventDefault();
-      const dir = e.key === 'ArrowLeft' ? 1 : -1;   // RTL: left arrow = next
+      const dir = e.key === 'ArrowLeft' ? 1 : -1;
       gotoCard(session.idx + dir);
     }
   });
 
-  /* ---------------- router ---------------- */
+  /* ---------------- Router ---------------- */
   function route() {
     const hash = location.hash || '#/';
     const m = hash.match(/^#\/study\/([A-Za-z0-9_-]+)/);
@@ -1088,9 +1180,10 @@
     }
     window.scrollTo(0, 0);
   }
+
   window.addEventListener('hashchange', route);
 
-  /* ---------------- boot ---------------- */
+  /* ---------------- Boot ---------------- */
   loadSettings();
   loadProgress();
   initTheme();
