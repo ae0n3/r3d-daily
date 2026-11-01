@@ -2320,7 +2320,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "好吧。",
    "py": "Hǎo ba。",
-   "ar": "حسناً. / موافق.",
+   "ar": "حسناً.",
    "label": "neutral",
    "sub": "لا تَقُلْ ‘إِذَا كَانَ’ أَبَدًا."
   },
@@ -2353,7 +2353,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "谢谢你，没关系。",
    "py": "Xièxie nǐ, méi guānxi。",
-   "ar": "شكراً لك، لا عليك / لا مشكلة.",
+   "ar": "شكراً لك، لا عليك.",
    "label": "neutral",
    "sub": "اقْرَأْ أَحَدَ الْمَصَائِبِ مُنْطَقًا."
   },
@@ -2375,7 +2375,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "这个位什么用？",
    "py": "Zhège wèi shénme yòng?",
-   "ar": "ما فائدة هذا؟ / ما استخدام هذا؟",
+   "ar": "ما فائدة هذا؟",
    "label": "neutral",
    "sub": "السَّمْعِ بِالنَّطْقِ الصَحِيحِ، وَلَا تَصِيرَ لِسَانًا وَاحِدًا."
   },
@@ -2395,9 +2395,9 @@ window.R3D_DAILY = {
    "cat": "transport",
    "type": "sentence",
    "level": "medium",
-   "front": "发生钱回大习夜了。",
-   "py": "Fāshēng qián huí dà xíyè le。",
-   "ar": "حدث شيء ما.",
+   "front": "发生什么事了？",
+   "py": "Fāshēng shénme shì le?",
+   "ar": "ماذا حدث؟",
    "label": "street",
    "sub": "مفيش تكرار؛ كفّ عن كلام الغرف."
   },
@@ -2419,7 +2419,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "快点到，好吗？",
    "py": "Kuàidiǎn dào, hǎo ma?",
-   "ar": "أسرع، هل يمكنك ذلك؟ / ممكن تسرع شوي؟",
+   "ar": "أسرع، هل يمكنك ذلك؟",
    "label": "neutral",
    "sub": "هل وصلنا؟"
   },
@@ -2441,7 +2441,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "你能说慢一点吗？",
    "py": "Nǐ néng shuō màn yī diǎn ma?",
-   "ar": "هل يمكنك التحدث ببطء؟ / ممكن تتكلم ببطء؟",
+   "ar": "هل يمكنك التحدث ببطء؟",
    "label": "street",
    "sub": "أَعْطِ السَّمْعَ نَفْسَ المَيْسِرِ."
   },
@@ -2474,7 +2474,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "哪里有问题？",
    "py": "Nǎlǐ yǒu wèntí?",
-   "ar": "أين المشكلة؟ / هل هناك مشكلة؟",
+   "ar": "أين المشكلة؟",
    "label": "neutral",
    "sub": "اللّهُ لا يُسْلِطُ لِسَانًا وَاحِدًا، وَلا يُسْهِلُ سَابِقًا."
   },
@@ -2485,7 +2485,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "没问题。",
    "py": " Méi wèntí。",
-   "ar": "لا مشكلة. / تمام.",
+   "ar": "لا مشكلة.",
    "label": "neutral",
    "sub": "لا تَقُلْ ‘إِذَا كَانَ’ أَبَدًا."
   },
