@@ -900,7 +900,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "请再给我一双筷子。",
    "py": "Qǐng zài gěi wǒ yí shuāng kuàizi",
-   "ar": "من فضلك عطني ملاعق (عودين) إضافية",
+   "ar": "من فضلك عطني عيدان أكل إضافية",
    "label": "neutral",
    "sub": "طلب"
   },
@@ -956,7 +956,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "筷子",
    "py": "kuàizi",
-   "ar": "ملاعق (عودا الأكل)",
+   "ar": "عيدان الأكل",
    "label": "neutral",
    "sub": "أدوات"
   },
@@ -1168,7 +1168,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "请让一下。",
    "py": "Qǐng ràng yíxià",
-   "ar": "من فضلك أعرض (اسمح لي أمر)",
+   "ar": "من فضلك افسح لي (اسمح لي أن أمر)",
    "label": "street",
    "sub": "مترو",
    "note": "تُقال في المترو والبرتشمات المزدحمة"
@@ -1180,7 +1180,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "不好意思，我要下车。",
    "py": "Bù hǎoyìsi, wǒ yào xià chē",
-   "ar": "عذراً، بقزل",
+   "ar": "عذراً، أريد أن أنزل",
    "label": "neutral",
    "sub": "تاكسي"
   },
@@ -1518,7 +1518,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "我手机没电了。",
    "py": "Wǒ shǒujī méi diàn le",
-   "ar": "جوالي طار شحنته",
+   "ar": "شحنة جوالي فرغت",
    "label": "street",
    "sub": "جوال"
   },
@@ -1641,7 +1641,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "我现在不太方便。",
    "py": "Wǒ xiànzài bú tài fāngbiàn",
-   "ar": "ما فيه وقت مناسب الحين",
+   "ar": "ما هو مناسب الحين",
    "label": "neutral",
    "sub": "مكالمة"
   },
@@ -1898,7 +1898,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "不好意思。",
    "py": "Bù hǎoyìsi",
-   "ar": "عذراً / ما فيه وجه",
+   "ar": "عذراً / ما فيه خاطر",
    "label": "street",
    "sub": "اعتذار",
    "note": "أخف من آسف؛ للتصادم الخفيف والاستئذان"
@@ -2320,7 +2320,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "好吧。",
    "py": "Hǎo ba。",
-   "ar": "هَذَا مُوافقٌ، اَوْ كَدَّتْ، فَإِنْ قُمْ بِعَمْلِ الصُّوْتِ.",
+   "ar": "حسناً.",
    "label": "neutral",
    "sub": "لا تَقُلْ ‘إِذَا كَانَ’ أَبَدًا."
   },
@@ -2331,7 +2331,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "那意味着我们不喝啤酒了。",
    "py": "Nà yì wèي wǒmen bù hē píjiǔ le。",
-   "ar": "هَذَا يَعْنِي أَنَّنَا لَمْ يَكُونُ نَشْرُبَ الْبِيرَ.",
+   "ar": "هذا يعني أننا لن نشرب البيرة.",
    "label": "neutral",
    "sub": "إخبار عَمَّا لَا تَفْهَمُهُ خَالِصًا، وَلَا تَكْتُبْهُ لِصِدِيقِكَ."
   },
@@ -2342,7 +2342,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "你好，我们见了。",
    "py": "Nǐ hǎo, wǒmen jiàn le。",
-   "ar": "أَهْلَاً، شَكِّي بِسَّ بِالْمِكْتَبَةِ، وَالسَّيَّارَةِ لَدَيْنَا؟",
+   "ar": "مرحباً، التقينا.",
    "label": "neutral",
    "sub": "أَحْضَرْهَا إِلَى الْمَكْتَبَةِ، وَلَا تَتَّخِذْهَا لِلْمَكْتَبَةِ."
   },
@@ -2353,7 +2353,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "谢谢你，没关系。",
    "py": "Xièxie nǐ, méi guānxi。",
-   "ar": "أَهْلَاً بِي، وَلَيْكِنِ الجَوّ قَرْشًا أَوْ عَطْشًا.",
+   "ar": "شكراً، لا مشكلة.",
    "label": "neutral",
    "sub": "اقْرَأْ أَحَدَ الْمَصَائِبِ مُنْطَقًا."
   },
@@ -2364,7 +2364,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "我可以看一下这个中文吗？",
    "py": "Wǒ kěyǐ kàn yī xià zhège zhōngwén ma?",
-   "ar": "كَيْفَ أَرَا هَذَا الْإِسْمَ الْمُعْرِفَةَ؟",
+   "ar": "هل يمكنني رؤية هذا الصيني؟",
    "label": "neutral",
    "sub": "قُلْ: إِمَّا فِي الْحِينِ وَتَصِيرَ كَذَلِكَ."
   },
@@ -2375,7 +2375,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "这个位什么用？",
    "py": "Zhège wèi shénme yòng?",
-   "ar": "مَا هَذَا الْوِسِيلَةُ بِالْنَّحْلِ؟",
+   "ar": "لماذا يُستخدم هذا؟",
    "label": "neutral",
    "sub": "السَّمْعِ بِالنَّطْقِ الصَحِيحِ، وَلَا تَصِيرَ لِسَانًا وَاحِدًا."
   },
@@ -2386,7 +2386,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "他们在写了。",
    "py": "Tāmen zài xiě le。",
-   "ar": "هَذَا كَلَامٌ مُخْبِرٌ عَنَالمَرْبْعَعِ؟",
+   "ar": "هم يكتبون.",
    "label": "neutral",
    "sub": "اللّهُ لا يُسْلِطُ لِسَانًا وَاحِدًا، وَلا يُسْهِلُ سَابِقًا."
   },
@@ -2397,7 +2397,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "发生钱回大习夜了。",
    "py": "Fāshēng qián huí dà xíyè le。",
-   "ar": "أَبْقِ السَّائِقَ إِلَى نِقْطَةٍ وَلِتَمْرُّ بِيَدِهِ، وَإِنِي إِلَى الْمَحْلِ.",
+   "ar": "حدث شيء ما.",
    "label": "street",
    "sub": "مفيش تكرار؛ كفّ عن كلام الغرف."
   },
@@ -2408,7 +2408,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "请问这个多少钱？",
    "py": "Qǐng wèn zhège duōshǎo qián?",
-   "ar": "هَذِهِ الشيءِ قِيمَتُهُ كَم؟",
+   "ar": "من فضلك، بكم هذا؟",
    "label": "street",
    "sub": "مثل شوارع تشانغتشو: قل ‘دَهْ’ مع تهدئة الرأس."
   },
@@ -2419,7 +2419,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "快点到，好吗？",
    "py": "Kuàidiǎn dào, hǎo ma?",
-   "ar": "لَقَدَّمْ وَزْلَةُ بَطَةٍ دِقِّقَ(resolve) وَالْخَصْمِ مِنَ الْهِمَازِ.",
+   "ar": "تعال بسرعة، حسناً؟",
    "label": "neutral",
    "sub": "هل وصلنا؟"
   },
@@ -2430,7 +2430,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "这个可以吗？",
    "py": "Zhège kěyǐ ma?",
-   "ar": "هَذَا مُمْكِنٌ أَمْ لَا؟",
+   "ar": "هل هذا مناسب؟",
    "label": "neutral",
    "sub": "سؤال اختياري بسيط."
   },
@@ -2441,7 +2441,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "你能说慢一点吗？",
    "py": "Nǐ néng shuō màn yī diǎn ma?",
-   "ar": "أَرْغَمُكَ عَلَى تَكْرَارِ هَذَا الْجَمْلَةِ بِابْطَاءِ",
+   "ar": "هل يمكنك التحدث ببطء؟",
    "label": "street",
    "sub": "أَعْطِ السَّمْعَ نَفْسَ المَيْسِرِ."
   },
@@ -2452,7 +2452,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "帮帮我！",
    "py": "Bāngbang wǒ！",
-   "ar": "حَضْوَةٌ مِنْ الشَّارِعِ، اوْ تَقَى الْعَرَبِيَّةِ",
+   "ar": "ساعدوني!",
    "label": "street",
    "sub": "استخدم ‘أهلاً’ وليس ‘حمود’ لاستقبال."
   },
@@ -2463,7 +2463,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "你说什么？",
    "py": "Nǐ shuō shénme?",
-   "ar": "سَمِّي هَذَا الصَّوْتَ، وَقُلِّي مَا يَعْنِيهُ لِلْجَمِيعِ، وَلَيْسَ لِلْفِردِ.",
+   "ar": "ماذا قلت؟",
    "label": "neutral",
    "sub": "أُؤَكِّدُ الْحَقِيقَةَ، وَلَا أَتَكَلَّمُ عَنِ الشَّرْقِ."
   },
@@ -2474,7 +2474,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "哪里有问题？",
    "py": "Nǎlǐ yǒu wèntí?",
-   "ar": "هَذَا كَلَامٌ مُخْبِرٌ عَنَالمَرْبْعَعِ؟",
+   "ar": "أين المشكلة؟",
    "label": "neutral",
    "sub": "اللّهُ لا يُسْلِطُ لِسَانًا وَاحِدًا، وَلا يُسْهِلُ سَابِقًا."
   },
@@ -2485,7 +2485,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "没问题。",
    "py": " Méi wèntí。",
-   "ar": "هَذَا مُوافقٌ، اَوْ كَدَّتْ، فَإِنْ قُمْ بِعَمْلِ الصُّوْتِ.",
+   "ar": "لا مشكلة.",
    "label": "neutral",
    "sub": "لا تَقُلْ ‘إِذَا كَانَ’ أَبَدًا."
   },
@@ -2661,7 +2661,7 @@ window.R3D_DAILY = {
    "level": "hard",
    "front": "惨淡经营",
    "py": "Cǎndàn jīngyíng",
-   "ar": "عَمَلٌ بِجُهْدٍ شَاقّ",
+   "ar": "عَمَلٌ شَاقٌّ بِنَتَائِجَ مُتَوَاضِعَة",
    "label": "street",
    "note": "成语: عمل شاق ومتواضع النتائج. يصف المشاريع الصعبة."
   },
@@ -2881,7 +2881,7 @@ window.R3D_DAILY = {
    "level": "hard",
    "front": "YYDS（永远的神）",
    "py": "Yǒngyuǎn de shén",
-   "ar": "أُسْطُورِي / مُسْتَحِيل",
+   "ar": "أُسْطُورِي / لَا يُضَاهَى",
    "label": "street",
    "note": "اختصار إنجليزي صيني: 永远的神 = إله دائماً = أسطوري/لا يُضاهى."
   },
@@ -2936,7 +2936,7 @@ window.R3D_DAILY = {
    "level": "hard",
    "front": "炸酱面",
    "py": "Zhájiàngmiàn",
-   "ar": "مَعْكَرُونَةٌ بِصُلْصَةِ اللَّحْم",
+   "ar": "نُودلْز بِصُلْصَةِ اللَّحْمِ المَفْرُوم",
    "label": "neutral",
    "note": "طبق شارعي شهير: نودلز بصلصة اللحم المفروم."
   },
@@ -2958,7 +2958,7 @@ window.R3D_DAILY = {
    "level": "hard",
    "front": "冷冻食品",
    "py": "Lěngdòng shípǐn",
-   "ar": "أَطْعِمَةٌ مُبَرَّدَة",
+   "ar": "أَطْعِمَةٌ مُجَمَّدَة",
    "label": "neutral",
    "note": "مصطلح رسمي/شارعي: أطعمة مبردة/مجمدة."
   },
@@ -3070,7 +3070,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "早餐几点开始？",
    "py": "Zǎocān jǐ diǎn kāishǐ",
-   "ar": "الفطور من كم ساعة؟",
+   "ar": "الفطور متى يبدأ؟",
    "label": "street",
    "sub": "خدمة"
   },
@@ -3236,7 +3236,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "主要",
    "py": "zhǔyào",
-   "ar": "رئيسي / بصفة خاصة",
+   "ar": "رئيسي / أساسي",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3258,7 +3258,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "住院",
    "py": "zhùyuàn",
-   "ar": "يمشي في المستشفى / يُدخل المستشفى",
+   "ar": "يمكث في المستشفى / يُدخل المستشفى",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3280,7 +3280,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "字典",
    "py": "zìdiǎn",
-   "ar": "قاموس للصينيات / قاموس صيني",
+   "ar": "قاموس صيني",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3291,7 +3291,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "自行车",
    "py": "zìxíngchē",
-   "ar": "دراجة هوائية / دراجة نارية",
+   "ar": "دراجة هوائية",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3346,7 +3346,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "最后",
    "py": "zuìhòu",
-   "ar": "أخيراً / في النهاية / الصادر الأخير",
+   "ar": "أخيراً / في النهاية",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3401,7 +3401,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "爱心",
    "py": "àixīn",
-   "ar": "تكرم / تعاطف مع الآخرين",
+   "ar": "تعاطف / حبّ للآخرين / بِرّ",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3467,7 +3467,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "白酒",
    "py": "báijiǔ",
-   "ar": "باي جيو / مشروب كحولي فاتح قوي",
+   "ar": "باي جيو / مشروب كحولي قوي",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3478,7 +3478,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "棒",
    "py": "bàng",
-   "ar": "طوبة / عصا / ممتاز / طيّب",
+   "ar": "عصا / ممتاز",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3500,7 +3500,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "办理",
    "py": "bànlǐ",
-   "ar": "يعالج / ينجز في شأن / يُلوّح",
+   "ar": "يعالج / يُنجز / يُتابع ( paperwork)",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3511,7 +3511,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "办事",
    "py": "bànshì",
-   "ar": "يتعامل مع شئون / يقوم بمهام",
+   "ar": "يتعامل مع شؤون / يقوم بمهام",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3522,7 +3522,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "抱",
    "py": "bào",
-   "ar": "يحتضن / يحمل في أحضان / يوجد على ظهره",
+   "ar": "يحتضن / يحمل في أحضان",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3566,7 +3566,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "抱歉",
    "py": "bàoqiàn",
-   "ar": "أعتذر / آسف جداً / شكّرت بذلك",
+   "ar": "أعتذر / آسف جداً",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3599,7 +3599,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "背",
    "py": "bēi",
-   "ar": "يحمل على ظهره / يملك سراً / يغٔى",
+   "ar": "يحمل على ظهره",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3643,7 +3643,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "本科",
    "py": "běnkē",
-   "ar": "دراسة جامعية / درجة برها / دبلوم",
+   "ar": "دراسة جامعية / درجة بكالوريوس",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3687,7 +3687,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "表",
    "py": "biǎo",
-   "ar": "سطح / بطاقة / قالب / نموذج",
+   "ar": "جدول / نموذج / ساعة (يد)",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3731,7 +3731,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "表扬",
    "py": "biǎoyáng",
-   "ar": "يثني / يمدح / يذكر بشكر",
+   "ar": "يثني / يمدح",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3742,7 +3742,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "标准",
    "py": "biāozhǔn",
-   "ar": "أمر رسمي / معيار / درجة تقييم",
+   "ar": "معيار / مقياس",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3764,7 +3764,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "饼干",
    "py": "bǐnggān",
-   "ar": "كوكيز / معجنات محفوظة / قطع خشب",
+   "ar": "كوكيز / بسكويت",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3786,7 +3786,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "笔试",
    "py": "bǐshì",
-   "ar": "امتحان كتابي / ورقي / ورق كرتوني",
+   "ar": "امتحان كتابي / ورقي",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3797,7 +3797,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "毕业生",
    "py": "bìyèshēng",
-   "ar": "خريج / خريجة دراسي / خريجة دراسية",
+   "ar": "خريج / خريجة",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3819,7 +3819,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "播放",
    "py": "bōfàng",
-   "ar": "يعمّل / يُذيع صوتاً أو صورة / يُوقّر",
+   "ar": "يشغّل (صوتاً أو صورة)",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3841,7 +3841,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "步",
    "py": "bù",
-   "ar": "خطوة / خطوة واحدة في الركض",
+   "ar": "خطوة",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3852,7 +3852,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "部",
    "py": "bù",
-   "ar": "وزارة / قسم / جهة حكومية / حكومة",
+   "ar": "قسم / جزء / (أداة عدّ للأفلام)",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3874,7 +3874,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "不必",
    "py": "búbì",
-   "ar": "لا حاجة / لا داعي / ما دام",
+   "ar": "لا حاجة / لا داعي",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3907,7 +3907,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "部分",
    "py": "bùfen",
-   "ar": "جزء / شُبْه جزئي / بلد جزئياً",
+   "ar": "جزء / قسم",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3940,7 +3940,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "不光",
    "py": "bùguāng",
-   "ar": "ليس فقط / لا يساوي / كذلك",
+   "ar": "ليس فقط / علاوة على ذلك",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3951,7 +3951,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "不过",
    "py": "búguò",
-   "ar": "لكن / ومع ذلك / ولكن / بحلول",
+   "ar": "لكن / ومع ذلك",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3962,7 +3962,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "不仅",
    "py": "bùjǐn",
-   "ar": "ليس فقط / مزاعم / كذلك",
+   "ar": "ليس فقط / علاوة على ذلك",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -3984,7 +3984,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "不满",
    "py": "bùmǎn",
-   "ar": "غير راضٍ / ليس راضياً / بهام",
+   "ar": "غير راضٍ / مستاء",
    "label": "street",
    "note": "HSK3 — word bank extra"
   },
@@ -3995,7 +3995,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "部门",
    "py": "bùmén",
-   "ar": "قسم / إدارة / غرفة مشروع / مساحة",
+   "ar": "قسم / إدارة",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -4017,7 +4017,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "擦",
    "py": "cā",
-   "ar": "يدعّك / يتّسّك / يمسح سريعاً",
+   "ar": "يمسح / يدعك",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -4039,7 +4039,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "材料",
    "py": "cáiliào",
-   "ar": "مواد خام / مواد لصنع / قمامة",
+   "ar": "مواد / مواد خام",
    "label": "neutral",
    "note": "HSK3 — word bank extra"
   },
@@ -4732,7 +4732,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "还",
    "py": "hái",
-   "ar": "يردّ / يعيد",
+   "ar": "أيضاً / لا يزال / ещё",
    "label": "neutral",
    "note": "HSK 1 — still; yet; in addition"
   },
@@ -4897,7 +4897,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "会",
    "py": "huì",
-   "ar": "اجتماع / لقاء / مؤتمر",
+   "ar": "يستطيع / يمكن / سـ (مستقبل)",
    "label": "neutral",
    "note": "HSK 1 — can; to be able to; will"
   },
@@ -5084,7 +5084,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "看病",
    "py": "kànbìng",
-   "ar": "يراجع الطبيب / يمرّض",
+   "ar": "يراجع الطبيب / يعاين مريضاً",
    "label": "neutral",
    "note": "HSK 1 — to visit a doctor; to see a patient"
   },
@@ -5480,7 +5480,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "男朋友",
    "py": "nánpéngyou",
-   "ar": "صديق / حبيب",
+   "ar": "حبيب",
    "label": "street",
    "note": "HSK 1 — boyfriend"
   },
@@ -6525,7 +6525,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "休息",
    "py": "xiūxi",
-   "ar": "يستريح / إجازة",
+   "ar": "يستريح / يأخذ استراحة",
    "label": "neutral",
    "note": "HSK 1 — to rest; take a break"
   },
@@ -6943,7 +6943,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "这些",
    "py": "zhèxiē",
-   "ar": "هذه",
+   "ar": "هؤلاء / هذه",
    "label": "neutral",
    "note": "HSK 1 — these"
   },
@@ -7163,7 +7163,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "帮忙",
    "py": "bāngmáng",
-   "ar": "يساعد / خدم",
+   "ar": "يساعد",
    "label": "street",
    "note": "HSK 2 — to help"
   },
@@ -7174,7 +7174,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "包",
    "py": "bāo",
-   "ar": "يغلف / يحتوي / حزمة",
+   "ar": "يغلف / يغلّف / يضم",
    "label": "neutral",
    "note": "HSK 2 — to cover; to wrap; to hold"
   },
@@ -7361,7 +7361,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "从",
    "py": "cóng",
-   "ar": "من / من",
+   "ar": "من / يتّبع / يطيع",
    "label": "neutral",
    "note": "HSK 2 — from; obey; observe"
   },
@@ -7449,7 +7449,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "得",
    "py": "de",
-   "ar": "يجب / لابدّ",
+   "ar": "أداة ربط (طريقة/نتيجة)",
    "label": "neutral",
    "note": "HSK 2 — used to link a verb and the manner clause that follows it"
   },
@@ -7460,7 +7460,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "地",
    "py": "de",
-   "ar": "أرض",
+   "ar": "أداة ربط (للحال)",
    "label": "neutral",
    "note": "HSK 2 — -ly; structural particle: used before a verb or adjective, linking it to precedi"
   },
@@ -7592,7 +7592,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "过",
    "py": "guò",
-   "ar": "يمرّ / يتجاوز",
+   "ar": "ـ过ـ (تجربة سابقة)",
    "label": "neutral",
    "note": "HSK 2 — indicates a past experience"
   },
@@ -7603,7 +7603,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "过来",
    "py": "guòlái",
-   "ar": "تعال هنا / ينجح",
+   "ar": "تعال إلى هنا / يتولّى",
    "label": "street",
    "note": "HSK 2 — to come over; to manage; to handle"
   },
@@ -7702,7 +7702,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "花",
    "py": "huā",
-   "ar": "نمط / مزخرف",
+   "ar": "زهرة / ينفق (مالاً)",
    "label": "neutral",
    "note": "HSK 2 — flower; blossom; spend money"
   },
@@ -7966,7 +7966,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "快",
    "py": "kuài",
-   "ar": "سريع / قريباً",
+   "ar": "سريع",
    "label": "neutral",
    "note": "HSK 2 — fast; quick; swift"
   },
@@ -8164,7 +8164,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "门口",
    "py": "ménkǒu",
-   "ar": "عند الباب",
+   "ar": "مدخل / باب",
    "label": "neutral",
    "note": "HSK 2 — doorway; gate"
   },
@@ -8340,7 +8340,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "起来",
    "py": "qǐlai",
-   "ar": "ينهض / يصعد / يبدأ",
+   "ar": "ينهض / يبدأ",
    "label": "neutral",
    "note": "HSK 2 — to get up, to rise, to arise, to start"
   },
@@ -8703,7 +8703,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "往",
    "py": "wǎng",
-   "ar": "يتجه / يأتي من اتجاه",
+   "ar": "يتجه إلى / نحو",
    "label": "street",
    "note": "HSK 2 — to go (in a direction); towards; in the past"
   },
@@ -8835,7 +8835,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "洗手间",
    "py": "xǐshǒujiān",
-   "ar": "حمّام / ممرّ",
+   "ar": "حمّام / دورة مياه",
    "label": "neutral",
    "note": "HSK 2 — toilet; lavatory; washroom"
   },
@@ -8934,7 +8934,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "阴",
    "py": "yīn",
-   "ar": "مغطى / خافت",
+   "ar": "غائم / يين",
    "label": "neutral",
    "note": "HSK 2 — cloudy (weather); yin (the negative principle of Yin and Yang); secret"
   },
@@ -9011,7 +9011,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "有时",
    "py": "yǒushí",
-   "ar": "أحياناً / أحياناً",
+   "ar": "أحياناً",
    "label": "neutral",
    "note": "HSK 2 — sometimes; now and then"
   },
@@ -9099,7 +9099,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "着",
    "py": "zhe",
-   "ar": "(وصف فعل مازلت)",
+   "ar": "(صيغة استمرارية)",
    "label": "neutral",
    "note": "HSK 2 — ing (indicating action in progress)"
   },
@@ -9143,7 +9143,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "周",
    "py": "zhōu",
-   "ar": "أسبوع",
+   "ar": "سلالة 周 / دورة",
    "label": "neutral",
    "note": "HSK 2 — Zhou Dynasty (1046-256 BC); to make a circuit; to circle"
   },
@@ -9187,7 +9187,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "走路",
    "py": "zǒulù",
-   "ar": "يمشي (راجعاً)",
+   "ar": "يمشي",
    "label": "neutral",
    "note": "HSK 2 — to walk; to go on foot; to leave"
   },
@@ -9198,7 +9198,7 @@ window.R3D_DAILY = {
    "level": "easy",
    "front": "最",
    "py": "zuì",
-   "ar": "أكثر",
+   "ar": "الأكثر",
    "label": "neutral",
    "note": "HSK 2 — the most; -est; (indicator for superlative)"
   },
@@ -9550,7 +9550,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "笔记本",
    "py": "bǐjìběn",
-   "ar": "دفتر ملاحظات / لابتوب",
+   "ar": "دفتر ملاحظات",
    "label": "neutral",
    "note": "HSK 3 — notebook"
   },
@@ -9748,7 +9748,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "草",
    "py": "cǎo",
-   "ar": "عشب / قشّ",
+   "ar": "عشب / قشّ / مسودّة",
    "label": "neutral",
    "note": "HSK 3 — grass; straw; draft (of a document)"
   },
@@ -10518,7 +10518,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "放假",
    "py": "fàngjià",
-   "ar": "إجازة / عطلة",
+   "ar": "يأخذ إجازة / عطلة",
    "label": "neutral",
    "note": "HSK 3 — to have a holiday or vacation"
   },
@@ -10793,7 +10793,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "更",
    "py": "gèng",
-   "ar": "أكثر / أقلّ",
+   "ar": "أكثر / أشدّ",
    "label": "neutral",
    "note": "HSK 3 — more; even more"
   },
@@ -11189,7 +11189,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "或",
    "py": "huò",
-   "ar": "أو",
+   "ar": "أو / ربّما",
    "label": "neutral",
    "note": "HSK 3 — maybe; perhaps; might"
   },
@@ -11376,7 +11376,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "角",
    "py": "jiǎo",
-   "ar": "قرن / زاوية / جيانغ (عملة)",
+   "ar": "قرن / زاوية / جياو (عملة)",
    "label": "neutral",
    "note": "HSK 3 — horn; angle; unit of money (1/10 yuan)"
   },
@@ -11409,7 +11409,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "借",
    "py": "jiè",
-   "ar": "يستعير / يقترض",
+   "ar": "يعير / يستعير / يقترض",
    "label": "neutral",
    "note": "HSK 3 — lend; borrow; excuse"
   },
@@ -11508,7 +11508,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "几乎",
    "py": "jīhū",
-   "ar": "تقريباً / بالكاد",
+   "ar": "تقريباً / على وشك",
    "label": "neutral",
    "note": "HSK 3 — almost"
   },
@@ -12234,7 +12234,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "男生",
    "py": "nánshēng",
-   "ar": "طالب / ذكر",
+   "ar": "طالب ذكر / صبي",
    "label": "neutral",
    "note": "HSK 3 — schoolboy; male student; boy"
   },
@@ -12586,7 +12586,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "裙子",
    "py": "qúnzi",
-   "ar": "تنّورة / فستان",
+   "ar": "تنّورة",
    "label": "neutral",
    "note": "HSK 3 — skirt; petticoat"
   },
@@ -12949,7 +12949,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "叔叔",
    "py": "shūshu",
-   "ar": "عمّ / خال (باحترام)",
+   "ar": "عمّ (أبو father's younger brother)",
    "label": "neutral",
    "note": "HSK 3 — (informal) father's younger brother; uncle"
   },
@@ -13037,7 +13037,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "跳",
    "py": "tiào",
-   "ar": "يقفز / يرقص",
+   "ar": "يقفز / يثب",
    "label": "neutral",
    "note": "HSK 3 — to jump; to hop; to skip over"
   },
@@ -13136,7 +13136,7 @@ window.R3D_DAILY = {
    "level": "medium",
    "front": "腿",
    "py": "tuǐ",
-   "ar": "ساق",
+   "ar": "رجل / ساق",
    "label": "neutral",
    "note": "HSK 3 — leg"
   },
